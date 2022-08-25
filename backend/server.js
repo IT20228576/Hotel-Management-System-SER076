@@ -54,3 +54,5 @@ mongoose.connect(
 // ─── SET UP ROUTES ──────────────────────────────────────────────────────────────
 //
 
+//User management routes
+app.use("/user", require("./routes/userManagement/user.router"));
