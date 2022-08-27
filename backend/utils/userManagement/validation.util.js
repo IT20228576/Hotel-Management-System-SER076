@@ -6,9 +6,8 @@ const userRegisterSchema = Joi.object({
   firstName: Joi.string().min(2).max(30).required().label("First Name"),
   lastName: Joi.string().min(2).max(30).required().label("Last Name"),
   mobile: Joi.string().length(10).required().label("Mobile"),
-  dob: Joi.string().required().label("Date of Birth"),
+  dob: Joi.date().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
-  userType: Joi.string().valid("customer", "admin").required().label("User Type"),
   email: Joi.string()
     .min(5)
     .max(255)
@@ -28,16 +27,15 @@ const userUpdateSchema = Joi.object({
   firstName: Joi.string().min(2).max(30).required().label("First Name"),
   lastName: Joi.string().min(2).max(30).required().label("Last Name"),
   mobile: Joi.string().length(10).required().label("Mobile"),
-  dob: Joi.string().required().label("Date of Birth"),
+  dob: Joi.date().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
-  userType: Joi.string().valid("customer", "admin").required().label("User Type"),
   email: Joi.string()
     .min(5)
     .max(255)
     .required()
     .email()
     .rule({ message: "Invalid E-mail address" })
-    .label("E-mail")
+    .label("E-mail"),
 }).unknown(true);
 
 /* This is a schema for validating the login form. */

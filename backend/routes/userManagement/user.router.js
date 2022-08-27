@@ -2,6 +2,8 @@ const router = require("express").Router();
 const User = require("../../models/userManagement/user.model");
 const bcrypt = require("bcryptjs");
 const validation = require("../../utils/userManagement/validation.util");
+const service = require("../../utils/userManagement/service.util");
+const email = require("../../utils/userManagement/email.util");
 
 /* The above code is a route handler for the /register route. It is used to register a new user. */
 router.post("/register", async (req, res) => {
@@ -12,7 +14,7 @@ router.post("/register", async (req, res) => {
     );
 
     /* Checking if the email is already in the database. */
-    const user = await User.findUser({ email: validated.email });
+    const user = await User.findOne({ email: validated.email });
 
     /* Checking if the email is already in the database. */
     if (user)
@@ -39,6 +41,20 @@ router.post("/register", async (req, res) => {
     /* Saving the new User to the database. */
     const savedUser = await newUser.save();
 
+    //email verification
+    const token = await service.getVerifyToken(savedUser._id);
+
+    /* Sending an verification email to the user. */
+    await email.sendVeri(
+      savedUser.email,
+      savedUser.firstName,
+      savedUser._id,
+      token.token
+    );
+
+    /* Sending a response to the client. */
+    res.status(201).send({ Message: "Verification Email sent to your email." });
+
   } catch (err) {
     if (err.isJoi === true) {
       console.error(err);
@@ -47,6 +63,35 @@ router.post("/register", async (req, res) => {
       console.error(err);
       res.status(500).send(err);
     }
+  }
+});
+
+/* This is a route handler for the /info route. It is used to get the user information. */
+router.get("/info", async (req, res) => {
+  try {
+    /* Destructuring the id from the request body. */
+    const { id } = req.body;
+
+    /* Finding the User by the id. */
+    const user = await User.findById(id);
+    /* Sending the User object to the client. */
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
+/* This is a route handler for the / route. It is used to get all the users. */
+router.get("/", async (req, res) => {
+  try {
+    /* Finding all the admins in the database. */
+    const user = await User.find();
+    /* Sending the user object to the client. */
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
   }
 });
 

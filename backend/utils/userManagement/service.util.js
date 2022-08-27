@@ -1,6 +1,5 @@
-const Token = require("../models/userManagement/token.model");
+const Token = require("../../models/userManagement/token.model");
 const crypto = require("crypto");
-
 
 /**
  * It finds a token in the database with the userID of the user that is trying to verify their email,
