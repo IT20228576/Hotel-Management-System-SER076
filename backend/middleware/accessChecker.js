@@ -69,7 +69,7 @@ information. */
     const result = await checkToken(req);
 
     /* Checking if the user is an admin. */
-    if (!result || result.status === false || result.userType !== "admin") {
+    if (!result || result.userType !== "admin") {
       return res.status(401).json({ errorMessage: "Unauthorized" });
     }
 
@@ -97,11 +97,7 @@ information. */
     const result = await checkToken(req);
 
     /* Checking if the user is a Customer. */
-    if (
-      !result ||
-      result.status === false ||
-      result.userType !== "customer"
-    ) {
+    if (!result || result.userType !== "customer") {
       return res.status(401).json({ errorMessage: "Unauthorized" });
     }
 
@@ -114,5 +110,32 @@ information. */
   }
 }
 
+/**
+ * It checks if the token is valid and if it is a user, it adds the user to the request body and calls the
+ * next function
+ * @param req - The request object
+ * @param res - The response object
+ * @param next - The next middleware function in the stack.
+ * @returns The result of the checkToken function.
+ */
+async function userAccess(req, res, next) {
+  try {
+    /* Checking if the user has a token, if they do, it verifies the token and returns the user's
+information. */
+    const result = await checkToken(req);
 
-module.exports = { adminAccess, customerAccess };
+    /* Checking if the user is a Customer. */
+    if (!result) {
+      return res.status(401).json({ errorMessage: "Unauthorized" });
+    }
+
+    req.body.user = result;
+
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ errorMessage: "Unauthorized" });
+  }
+}
+
+module.exports = { adminAccess, customerAccess, userAccess };

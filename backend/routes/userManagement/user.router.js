@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const validation = require("../../utils/userManagement/validation.util");
 const service = require("../../utils/userManagement/service.util");
 const email = require("../../utils/userManagement/email.util");
+const { userAccess } = require("../../middleware/accessChecker");
 
 /* The above code is a route handler for the /register route. It is used to register a new user. */
 router.post("/register", async (req, res) => {
@@ -54,7 +55,6 @@ router.post("/register", async (req, res) => {
 
     /* Sending a response to the client. */
     res.status(201).send({ Message: "Verification Email sent to your email." });
-
   } catch (err) {
     if (err.isJoi === true) {
       console.error(err);
@@ -66,16 +66,10 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/* This is a route handler for the /info route. It is used to get the user information. */
-router.get("/info", async (req, res) => {
+/* This is a route handler for the /profile route. It is used to get the user information. */
+router.get("/profile", userAccess, async (req, res) => {
   try {
-    /* Destructuring the id from the request body. */
-    const { id } = req.body;
-
-    /* Finding the User by the id. */
-    const user = await User.findById(id);
-    /* Sending the User object to the client. */
-    res.json(user);
+    res.json(req.body.user);
   } catch (err) {
     console.error(err);
     res.status(500).send();
