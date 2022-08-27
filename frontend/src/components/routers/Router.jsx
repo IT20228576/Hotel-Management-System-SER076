@@ -7,6 +7,7 @@ import Login from "../userManagement/authentication/Login";
 import Register from "../userManagement/authentication/Register";
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
+import Profile from "../userManagement/user/Profile";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -29,13 +30,13 @@ function Router() {
           {userType === "admin" && (
             <>
               <Sidebar />
-              <Route path="/profile" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
             </>
           )}
 
           {userType === "customer" && (
             <>
-              <Route path="/profile" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
             </>
           )}
           <Route exact path="*" element={<Home />} />
