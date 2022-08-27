@@ -96,8 +96,6 @@ is present in the database, it is updating the verified field of the user to tru
 removing the token from the database. It is also sending a success email to the user. */
 router.get("/verify/:id/:token", async (req, res) => {
   try {
-    /* Removing the cookie from the browser. */
-    await service.removeCookie(res);
     /* Finding the user by id. */
     const user = await User.findById(req.params.id);
 
@@ -124,7 +122,8 @@ database, it is sending an error message to the user. */
       }).exec();
 
     /* Removing the token from the database. */
-    await token.remove();
+      await token.remove();
+      return res.status(200).json({ errorMessage: "Successfully Verified!" });
   } catch (err) {
     console.error(err);
     res.status(500).send();

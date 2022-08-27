@@ -1,4 +1,4 @@
-import LogOut from "../userManagement/authentication/logout";
+import LogOut from "../userManagement/authentication/Logout";
 
 function Home() {
   return (

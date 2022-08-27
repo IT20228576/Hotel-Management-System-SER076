@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import Login from "../userManagement/authentication/login";
-import Register from "../userManagement/authentication/register";
-import AuthContext from "../userManagement/context/userContext";
+import Login from "../userManagement/authentication/Login";
+import Register from "../userManagement/authentication/Register";
+import Verify from "../userManagement/authentication/Verify";
+import AuthContext from "../userManagement/context/UserContext";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -17,6 +18,7 @@ function Router() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/verify/:id/:token" element={<Verify />} />
           {userType === null && (
             <>
               <Route path="/login" element={<Login />} />
@@ -36,6 +38,7 @@ function Router() {
               <Route path="/profile" element={<Home />} />
             </>
           )}
+          <Route exact path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -10,7 +10,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
   const [mobile, setMobile] = useState("");
-  const [country, setCountry] = useState("lk");
+  const [tempCountry, setTempCountry] = useState("");
+  const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
 
@@ -37,7 +38,7 @@ const Register = () => {
         passwordVerify,
       };
 
-      /* Sending a PUT request to the server with the user's details. */
+      /* Sending a post request to the server with the user's details. */
       const result = await axios.post(
         "http://localhost:8000/user/register",
         RegisterData
@@ -47,7 +48,7 @@ const Register = () => {
       then it will alert the user that the registration was successful and then it will remove the
       type and status from local storage. It will then navigate to the login page and reload the
       page. */
-      if (result?.status === 200) {
+      if (result?.status === 201) {
         alert("Verification Email Sent successfully");
         /* Removing the type and status from local storage. */
         localStorage.removeItem("type");
@@ -61,8 +62,9 @@ const Register = () => {
     }
   };
 
-    const countryHandler = (e) => {
+  const countryHandler = (e) => {
     setCountry(e.value);
+    setTempCountry(e);
   };
 
   return (
@@ -118,7 +120,11 @@ const Register = () => {
           </div>
           <div>
             <label>Country</label>
-            <Select options={options} value={country} onChange={countryHandler} />
+            <Select
+              options={options}
+              value={tempCountry}
+              onChange={countryHandler}
+            />
           </div>
           <div>
             <label>Date Of Birth</label>
