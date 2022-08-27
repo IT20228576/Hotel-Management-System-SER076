@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     dob: { type: Date, required: true },
     country: { type: String, required: true },
     passwordHash: { type: String, required: true },
-    userType: { type: String, default: "customer" },
+    userType: { type: String, default: "Customer" },
     verified: { type: Boolean, default: false },
     adminCreated: { type: Boolean, default: false },
   },

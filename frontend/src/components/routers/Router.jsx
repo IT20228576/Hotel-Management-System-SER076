@@ -27,14 +27,13 @@ function Router() {
             </>
           )}
 
-          {userType === "admin" && (
+          {userType === "Admin" && (
             <>
-              <Sidebar />
               <Route path="/profile" element={<Profile />} />
             </>
           )}
 
-          {userType === "customer" && (
+          {userType === "Customer" && (
             <>
               <Route path="/profile" element={<Profile />} />
             </>
