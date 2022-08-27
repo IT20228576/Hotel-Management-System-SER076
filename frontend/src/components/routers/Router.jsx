@@ -1,17 +1,42 @@
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import Login from "../userManagement/authentication/login";
+import AuthContext from "../userManagement/context/userContext";
 
 function Router() {
+  /* Getting the userType from the AuthContext. */
+  const { userType } = useContext(AuthContext);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        <Sidebar />
+          <Navbar />
         <Routes>
-          <Route path="/" element={<Login />} />
+
+          {userType === null && (
+            <>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Login />} />
+            </>
+          )}
+
+          {userType === "admin" && (
+            <>
+              <Sidebar />
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Home />} />
+            </>
+          )}
+
+          {userType === "customer" && (
+            <>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Home />} />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
     </div>
