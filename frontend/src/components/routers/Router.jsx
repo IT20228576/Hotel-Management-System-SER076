@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import Login from "../userManagement/authentication/login";
 
 function Router() {
   return (
@@ -10,7 +11,7 @@ function Router() {
         <Navbar />
         <Sidebar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
