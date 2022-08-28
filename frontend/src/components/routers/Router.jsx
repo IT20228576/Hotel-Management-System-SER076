@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
+import HomeBody from "../layout/HomeBody";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 
@@ -11,6 +12,7 @@ function Router() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/a" element={<HomeBody />} />
         </Routes>
       </BrowserRouter>
     </div>
