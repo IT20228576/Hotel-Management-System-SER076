@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
+import HomeBody from "../layout/HomeBody";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import Login from "../userManagement/authentication/Login";
@@ -8,6 +9,7 @@ import Register from "../userManagement/authentication/Register";
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
+import ViewListTemplate from "../layout/ViewListTemplate";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -39,6 +41,8 @@ function Router() {
             </>
           )}
           <Route exact path="*" element={<Home />} />
+          <Route path="/homebody" element={<HomeBody />} />
+          <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
         </Routes>
       </BrowserRouter>
     </div>
