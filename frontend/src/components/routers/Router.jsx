@@ -3,6 +3,7 @@ import Home from "../layout/Home";
 import HomeBody from "../layout/HomeBody";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import ViewListTemplate from "../layout/ViewListTemplate";
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/homebody" element={<HomeBody />} />
+          <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
         </Routes>
       </BrowserRouter>
     </div>
