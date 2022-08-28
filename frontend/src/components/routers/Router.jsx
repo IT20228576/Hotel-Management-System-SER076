@@ -12,7 +12,7 @@ function Router() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/a" element={<HomeBody />} />
+          <Route path="/homebody" element={<HomeBody />} />
         </Routes>
       </BrowserRouter>
     </div>
