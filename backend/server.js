@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 
 /* Loading the environment variables from the .env file. */
 dotenv.config();
@@ -29,10 +30,14 @@ app.use(cookieParser());
 /* Allowing the server to accept requests from the client. */
 app.use(
   cors({
-    origin: ["http://localhost:1234"],
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
+app.use(bodyParser.json());
+
+app.use(eventRoutes);
+app.use(roomRoutes);
 
 //
 // ─── CONNECT TO MONGODB ─────────────────────────────────────────────────────────
@@ -53,4 +58,3 @@ mongoose.connect(
 //
 // ─── SET UP ROUTES ──────────────────────────────────────────────────────────────
 //
-
