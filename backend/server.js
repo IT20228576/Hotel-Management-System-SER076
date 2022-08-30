@@ -29,7 +29,7 @@ app.use(cookieParser());
 /* Allowing the server to accept requests from the client. */
 app.use(
   cors({
-    origin: ["http://localhost:1234"],
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
@@ -54,3 +54,6 @@ mongoose.connect(
 // ─── SET UP ROUTES ──────────────────────────────────────────────────────────────
 //
 
+//User management routes
+app.use("/user", require("./routes/userManagement/user.router"));
+app.use("/", require("./routes/userManagement/authentication.router"));
