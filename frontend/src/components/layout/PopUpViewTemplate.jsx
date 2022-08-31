@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import "../layout/Styles/PopUpStyles.css";
 import { Modal, Button, Table } from "react-bootstrap";
 
 function PopUpViewTemplate(props) {
   const { handleModalClose } = props;
-  const [show, setShow] = useState(true);
   const sampleData = [
     { title: "sample1", data: "AB" },
     { title: "sample2", data: "CD" },
@@ -24,7 +23,12 @@ function PopUpViewTemplate(props) {
 
   return (
     <>
-      <Modal dialogClassName="my-modal" show={show} onHide={handleModalClose}>
+      <Modal
+        dialogClassName="my-modal"
+        show={true}
+        onHide={handleModalClose}
+        backdrop="static"
+      >
         <Modal.Header closeButton>
           <Modal.Title>View Template</Modal.Title>
         </Modal.Header>
