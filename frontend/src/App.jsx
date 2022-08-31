@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "./components/routers/Router";
-import { AuthContextProvider } from "./components/userManagement/context/UserContext";
+import { AuthContextProvider } from "./components/userManagement/context/userContext";
 
 axios.defaults.withCredentials = true;
 

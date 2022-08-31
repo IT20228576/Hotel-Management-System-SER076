@@ -4,7 +4,13 @@ import CreateIcon from '@mui/icons-material/Create';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { NavLink } from 'react-router-dom';
 import { adddata, deldata } from './context/ContextProvider';
-import { updatedata } from './context/ContextProvider'
+import { updatedata } from './context/ContextProvider';
+
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 
 
@@ -103,19 +109,41 @@ const ViewListEvents = () => {
 
 
             <div className="mt-5">
-                <div className="container">
-                    <div className="add_btn mt-2 mb-2">
-                        <NavLink to="/event/new" className="btn btn-primary">Add Event</NavLink>
-                    </div>
 
-                    <table>
+            <div>
+
+<div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+  <h1 class="navbar-brand" style={{marginRight:"100px", marginLeft:"100px"}}>Events</h1>
+  <a href="/event/new" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" type="submit"><AddCircleIcon/> Add</button></a>
+  <a href="/#" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
+
+  <div style={{marginLeft:"500px"}}>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2"
+      placeholder="Search" 
+      type="search"
+    name="searchQuery"></input>
+    </form>
+  </div>
+</nav>
+
+    </div>
+
+ </div>
+
+                <div className="container">
+
+                    <table  class="table table-hover" style={{textAlign:"center"}}>
                         <thead>
                             <tr>
-                                <th>Event ID</th>
-                                <th>Event Name</th>
-                                <th>Event Type</th>
-                                <th>Event Start Date</th>
-                                <th>Client Name</th>
+                                <th scope="col">Event ID</th>
+                                <th scope="col">Event Name</th>
+                                <th scope="col">Event Type</th>
+                                <th scope="col">Event Start Date</th>
+                                <th scope="col">Client Name</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -126,16 +154,20 @@ const ViewListEvents = () => {
                                     return (
                                         <>
                                             <tr>
-                                                <th>{id + 1}</th>
-                                                <td>{element.EventName}</td>
-                                                <td>{element.EventType}</td>
-                                                <td>{element.EventStartDate}</td>
-                                                <td>{element.ClientName}</td>
-                                                <td className="d-flex justify-content-between">
-                                                    <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
-                                                    <NavLink to={`edit/${element._id}`}>  <button className="btn btn-primary"><CreateIcon /></button></NavLink>
-                                                    <button className="btn btn-danger" onClick={() => deleteevent(element._id)}><DeleteOutlineIcon /></button>
-                                                </td>
+                                                <th scope="row">{id + 1}</th>
+                                                <td scope="row">{element.EventName}</td>
+                                                <td scope="row">{element.EventType}</td>
+                                                <td scope="row">{element.EventStartDate}</td>
+                                                <td scope="row">{element.ClientName}</td>
+                                                <td>
+
+                                               
+                                                <NavLink to={`view/${element._id}`}>  <i class="btn btn-outline-secondary"><RemoveRedEyeIcon/></i></NavLink>&nbsp;
+                                                &nbsp;
+                                                <NavLink to={`edit/${element._id}`}><i class="btn btn-outline-warning"><EditIcon/></i></NavLink>&nbsp;
+                                                &nbsp;
+                                                <i class="btn btn-outline-danger" onClick={() => deleteevent(element._id)}><DeleteIcon/></i>&nbsp;
+                                               </td>
                                             </tr>
                                         </>
                                     )
