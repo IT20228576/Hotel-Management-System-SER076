@@ -6,18 +6,27 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "seed": "node seeds.js"
   },
   "keywords": [],
   "author": "SER076",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^0.27.2",
+=======
+    "bcryptjs": "^2.4.3",
+>>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.5.3"
+    "joi": "^17.6.0",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "nodemailer": "^6.7.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

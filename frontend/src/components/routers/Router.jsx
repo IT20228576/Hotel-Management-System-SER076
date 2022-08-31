@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+=======
+import { useContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+>>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import Login from "../userManagement/authentication/Login";
+import Register from "../userManagement/authentication/Register";
+import Verify from "../userManagement/authentication/Verify";
+import AuthContext from "../userManagement/context/UserContext";
+import Profile from "../userManagement/user/Profile";
 import ViewListTemplate from "../layout/ViewListTemplate";
 
 import AddEvent from "../layout/eventManagement/AddEvent";
@@ -13,14 +23,40 @@ import ContextProvider from '../layout/eventManagement/context/ContextProvider';
 
 
 function Router() {
+  /* Getting the userType from the AuthContext. */
+  const { userType } = useContext(AuthContext);
+
   return (
     <div className="App">
       <ContextProvider>
       <BrowserRouter>
         <Navbar />
-        <Sidebar />
         <Routes>
+<<<<<<< HEAD
           <Route path="/a" element={<Home />} />
+=======
+          <Route path="/" element={<Home />} />
+          <Route path="/verify/:id/:token" element={<Verify />} />
+          {userType === null && (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </>
+          )}
+
+          {userType === "Admin" && (
+            <>
+              <Route path="/profile" element={<Profile />} />
+            </>
+          )}
+
+          {userType === "Customer" && (
+            <>
+              <Route path="/profile" element={<Profile />} />
+            </>
+          )}
+          <Route exact path="*" element={<Home />} />
+>>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
           <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
           <Route exact path="/" element={<ViewListEvents/>} />
       <Route exact path="/event/new" element={<AddEvent/>} />
