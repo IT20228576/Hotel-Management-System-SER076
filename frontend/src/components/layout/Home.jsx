@@ -1,5 +1,4 @@
 import React from "react";
-import { Component } from "react";
 import Carousel from 'react-bootstrap/Carousel';
 import img1 from '../Images/image1.png'
 import img2 from '../Images/image2.jpg'
@@ -20,10 +19,9 @@ import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import BusinessIcon from '@mui/icons-material/Business';
 import MailIcon from '@mui/icons-material/Mail';
 
-export default class Home extends Component {
+function Home() {
 
 
-render() {
   return (
     <div>
         <div style={{textAlign:"center", marginTop:"10px"}}>
@@ -210,5 +208,6 @@ First, it's always best to shop around for several locations to see what's on of
   <GroupsIcon/>
     </div>
   );
-}
-}
+  }
+
+export default Home;

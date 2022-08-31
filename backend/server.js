@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-
+const bodyParser = require('body-parser');
+const router = require("./routes/eventManagement/event.route");
 /* Loading the environment variables from the .env file. */
 dotenv.config();
 
@@ -33,6 +34,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(bodyParser.json());
+
+app.use(router);
 
 //
 // ─── CONNECT TO MONGODB ─────────────────────────────────────────────────────────

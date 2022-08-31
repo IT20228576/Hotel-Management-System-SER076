@@ -1,5 +1,7 @@
-import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { useContext } from "react";
+
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
@@ -14,6 +16,7 @@ import AddEvent from "../layout/eventManagement/AddEvent";
 import ViewEvent from "../layout/eventManagement/ViewEvent";
 import ViewListEvents from "../layout/eventManagement/ViewListEvents";
 import UpdateEvent from "../layout/eventManagement/UpdateEvent";
+import ContextProvider from "../layout/eventManagement/context/ContextProvider";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -21,37 +24,42 @@ function Router() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/verify/:id/:token" element={<Verify />} />
-          {userType === null && (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </>
-          )}
+      <ContextProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/a" element={<Home />} />
 
-          {userType === "Admin" && (
-            <>
-              <Route path="/profile" element={<Profile />} />
-            </>
-          )}
+            <Route path="/" element={<Home />} />
+            <Route path="/verify/:id/:token" element={<Verify />} />
+            {userType === null && (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </>
+            )}
 
-          {userType === "Customer" && (
-            <>
-              <Route path="/profile" element={<Profile />} />
-            </>
-          )}
-          <Route exact path="*" element={<Home />} />
-          <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
-          <Route path="/add" element={<AddEvent />} />
-          <Route path="/event/:id" exact element={<ViewEvent />} />
-          <Route path="/" element={<ViewListEvents />} />
-          <Route path="/updateevent/:id" element={<UpdateEvent />} />      
-        </Routes>
-      </BrowserRouter>
+            {userType === "Admin" && (
+              <>
+                <Route path="/profile" element={<Profile />} />
+              </>
+            )}
+
+            {userType === "Customer" && (
+              <>
+                <Route path="/profile" element={<Profile />} />
+              </>
+            )}
+            <Route exact path="*" element={<Home />} />
+
+            <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
+            <Route exact path="/" element={<ViewListEvents />} />
+            <Route exact path="/event/new" element={<AddEvent />} />
+            <Route exact path="/edit/:id" element={<UpdateEvent />} />
+            <Route exact path="/view/:id" element={<ViewEvent />} />
+          </Routes>
+        </BrowserRouter>
+      </ContextProvider>
     </div>
   );
 }
