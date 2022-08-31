@@ -20,13 +20,10 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
-<<<<<<< HEAD
-    "react-scripts": "5.0.0"
-=======
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
     "react-select-country-list": "^2.2.3"
->>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
+
   },
   "scripts": {
     "start": "react-scripts start",

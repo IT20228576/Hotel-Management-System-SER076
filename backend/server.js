@@ -57,10 +57,7 @@ mongoose.connect(
 //
 // ─── SET UP ROUTES ──────────────────────────────────────────────────────────────
 //
-<<<<<<< HEAD
-=======
 
 //User management routes
 app.use("/user", require("./routes/userManagement/user.router"));
 app.use("/", require("./routes/userManagement/authentication.router"));
->>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0

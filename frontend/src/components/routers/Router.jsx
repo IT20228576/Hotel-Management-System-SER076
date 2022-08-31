@@ -1,10 +1,8 @@
-<<<<<<< HEAD
 // import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-=======
+
 import { useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
->>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
+
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
@@ -32,9 +30,9 @@ function Router() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-<<<<<<< HEAD
+
           <Route path="/a" element={<Home />} />
-=======
+
           <Route path="/" element={<Home />} />
           <Route path="/verify/:id/:token" element={<Verify />} />
           {userType === null && (
@@ -56,7 +54,7 @@ function Router() {
             </>
           )}
           <Route exact path="*" element={<Home />} />
->>>>>>> 31726b180ecbd5888e1f4c87548d28e17e67a2f0
+
           <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
           <Route exact path="/" element={<ViewListEvents/>} />
       <Route exact path="/event/new" element={<AddEvent/>} />
