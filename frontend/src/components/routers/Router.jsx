@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import Login from "../userManagement/authentication/Login";
-import Register from "../userManagement/authentication/Register";
+import Login from "../userManagement/authentication/login";
+import Register from "../userManagement/authentication/register";
 import Verify from "../userManagement/authentication/Verify";
-import AuthContext from "../userManagement/context/UserContext";
+import AuthContext from "../userManagement/context/userContext";
 import Profile from "../userManagement/user/Profile";
 import ViewListTemplate from "../layout/ViewListTemplate";
 
@@ -49,7 +49,7 @@ function Router() {
           <Route path="/add" element={<AddEvent />} />
           <Route path="/event/:id" exact element={<ViewEvent />} />
           <Route path="/" element={<ViewListEvents />} />
-          <Route path="/updateevent/:id" element={<UpdateEvent />} />
+          <Route path="/updateevent/:id" element={<UpdateEvent />} />      
         </Routes>
       </BrowserRouter>
     </div>
