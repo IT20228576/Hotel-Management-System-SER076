@@ -1,117 +1,98 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import WorkIcon from '@mui/icons-material/Work';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
 
-export default class ViewEvent extends Component {
-    constructor(props){
-        super(props);
-        
-        this.state={
-        post:{}
-        };
+
+const ViewEvent = () => {
+
+    const [geteventdata, setEventdata] = useState([]);
+    console.log(geteventdata);
+
+    const { id } = useParams("");
+    console.log(id);
+
+    const history = useNavigate();
+
+
+    const getdata = async () => {
+
+        const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+
+        } else {
+            setEventdata(data)
+            console.log("get data");
+        }
+    }
+
+    useEffect(() => {
+        getdata();
+    }, [])
+
+    const deleteevent = async (id) => {
+
+        const res2 = await fetch(`http://localhost:8000/event/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const deletedata = await res2.json();
+        console.log(deletedata);
+
+        if (res2.status === 422 || !deletedata) {
+            console.log("error");
+        } else {
+            console.log("event deleted");
+            history.push("/");
         }
 
-componentDidMount(){
+    }
 
-    const id = this.props.match.params.id;
+    return (
+        <div className="container mt-3">
+            <h1 style={{ fontWeight: 400 }}>View Event</h1>
 
-    axios.get(`http://localhost:8000/event/${id}`).then((res) =>{
-if(res.data.success){
-this.setState({
-post:res.data.post
-});
-console.log(this.state.post);
+            <Card sx={{ maxWidth: 600 }}>
+                <CardContent>
+                    <div>
+                        <div>
+                            
+                            <p>Event Name: <span >{geteventdata.EventName}</span></p>
+                            <p>Event Date: <span >{geteventdata.EventDate}</span></p>
+                            <p>Event Type: <span>{geteventdata.EventType}</span></p>
+                            <p>Event Start Date: <span>{geteventdata.EventStartDate}</span></p>
+                        </div>
+                        <div>
 
+                            <p>Client Name: <span>{geteventdata.ClientName}</span></p>
+                            <p>Event End Date: <span>{geteventdata.EventEndDate}</span></p>
+                            <p>No Of Participants: <span>{geteventdata.NoOfParticipants}</span></p>
+                        </div>
+                    </div>
 
+                </CardContent>
+            </Card>
+        </div>
+    )
 }
-    });
 
-
-}
-
-render() {
-const {EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = this.state.post;
-
-return (
-
-
-
-<div>
-    
-    <div>
-    <h1>View event detail #{EventType}</h1>
-    <hr/>
-
-
-
-
-
-
-<div>
-
-<label style={{}}>EventName</label>
-    <label>{EventName}</label>
-<br></br>
-
-    <label>EventType</label>
-    <label>{EventType}</label>
-    <br></br>
-
-    <label>EventDate</label>
-    <label>{EventDate}</label>
-    <br></br>
-
-    <label>ClientName</label>
-    <label>{ClientName}</label>
-    <br></br>
-
-    
-    <label>EventEndDate</label>
-    <label>{EventEndDate}</label>
-    <br></br>
-
-    <label>EventStartDate<p>{EventStartDate}</p></label>
-    <br></br>
-
-</div>
-
-<div>
-
-
-    <label>NoOfParticipants</label>
-    <label>{NoOfParticipants}</label>
-    <br></br>
-
-    <label>EventStatus</label>
-    <label>{EventStatus}</label>
-    <br></br>
-
-    <label>EventLocation</label>
-    <label>{EventLocation}</label>
-    <br></br>
-
-    <label>EventDescription</label>
-    <label>{EventDescription}</label>
-    <br></br>
-
-    <label>EventImage</label>
-    <label>{EventImage}</label>
-    <br></br>
-
-    </div>
-
-    <div>
-
-</div>
-
-
-
-</div>
-
-<div>
-<a href="/AvailableRooms"><input type="button" value="BACK"></input></a>
-<a href="/addroom"><input type="button" value="ADD NEW ROOM"></input></a>
-</div>
-</div>
-)
-}
-}
+export default ViewEvent

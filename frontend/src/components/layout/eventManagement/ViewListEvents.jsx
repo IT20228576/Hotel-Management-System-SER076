@@ -1,125 +1,171 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import React, { useState, useEffect, useContext } from 'react'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SummarizeIcon from '@mui/icons-material/Summarize';
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { NavLink } from 'react-router-dom';
+import { adddata, deldata } from './context/ContextProvider';
+import { updatedata } from './context/ContextProvider'
 
 
 
 
-export default class ViewListEvents extends Component{
-constructor(props){
-super(props);
-this.state={
-posts:[]
-};
-}
+const ViewListEvents = () => {
 
-componentDidMount(){
-this.retrievePosts();
-}
+    const [geteventdata, setEventdata] = useState([]);
+    console.log(geteventdata);
 
-retrievePosts(){
-axios.get("http://localhost:8000/event").then(res =>{
-if(res.data.success){
-this.setState({
-posts:res.data.existingRoom,
-});
-console.log(this.state.posts)
-} 
-});
-}
+    const { udata, setUdata } = useContext(adddata);
 
-onDelete = (id) =>{
-axios.delete(`http://localhost:8000/event/delete/${id}`).then((res) =>{
-alert("Event Delete Successfully")
-this.retrievePosts();  
-})
-}
+    const {updata, setUPdata} = useContext(updatedata);
 
-filterData(posts,searchKey){
-    const result = posts.filter((post) =>
-    post.EventName.toLowerCase().includes(searchKey)||
-    post.EventDate.toLowerCase().includes(searchKey)||
-    post.NoOfParticipants.toLowerCase().includes(searchKey)
+    const {dltdata, setDLTdata} = useContext(deldata);
+
+    const getdata = async () => {
+
+        const res = await fetch("http://localhost:8000/event/view", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+
+        } else {
+            setEventdata(data)
+            console.log("get data");
+
+        }
+    }
+
+    useEffect(() => {
+        getdata();
+    }, [])
+
+    const deleteevent = async (id) => {
+
+        const res2 = await fetch(`http://localhost:8000/event/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const deletedata = await res2.json();
+        console.log(deletedata);
+
+        if (res2.status === 422 || !deletedata) {
+            console.log("error");
+        } else {
+            console.log("event deleted");
+            setDLTdata(deletedata)
+            getdata();
+        }
+
+    }
+
+
+    return (
+
+        <>
+            {
+                udata ?
+                    <>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{udata.name}</strong>  added succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+            {
+                updata ?
+                    <>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{updata.name}</strong>  updated succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+
+            {
+                dltdata ?
+                    <>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{dltdata.name}</strong>  deleted succesfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </> : ""
+            }
+
+
+            <div className="mt-5">
+                <div className="container">
+                    <div className="add_btn mt-2 mb-2">
+                        <NavLink to="/event/new" className="btn btn-primary">Add Event</NavLink>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Event ID</th>
+                                <th>Event Name</th>
+                                <th>Event Type</th>
+                                <th>Event Start Date</th>
+                                <th>Client Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                geteventdata.map((element, id) => {
+                                    return (
+                                        <>
+                                            <tr>
+                                                <th>{id + 1}</th>
+                                                <td>{element.EventName}</td>
+                                                <td>{element.EventType}</td>
+                                                <td>{element.EventStartDate}</td>
+                                                <td>{element.ClientName}</td>
+                                                <td className="d-flex justify-content-between">
+                                                    <NavLink to={`view/${element._id}`}> <button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
+                                                    <NavLink to={`edit/${element._id}`}>  <button className="btn btn-primary"><CreateIcon /></button></NavLink>
+                                                    <button className="btn btn-danger" onClick={() => deleteevent(element._id)}><DeleteOutlineIcon /></button>
+                                                </td>
+                                            </tr>
+                                        </>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </>
     )
-    this.setState({posts:result})
-    }
-    
-    handleSearchArea = (e) =>{
-        const searchKey=e.currentTarget.value;
-        axios.get(`http://localhost:8000/event`).then(res =>{
-    if(res.data.success){
-        this.filterData(res.data.existingRoom,searchKey)
-    }
-    });
-    }
-
-render() {
-return (
-
-<div>
-<div>
-
-<div>
-
-
-    <nav class="navbar navbar-expand-lg navbar-light">
-  <h1 class="navbar-brand" style={{marginRight:"100px", marginLeft:"100px"}}>Events</h1>
-  <a href="/add" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" type="submit"><AddCircleIcon/> Add</button></a>
-  <a href="/add" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
-
-  <div style={{marginLeft:"500px"}}>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2"
-      placeholder="Search" 
-      type="search"
-    name="searchQuery"
-    onChange={this.handleSearchArea}></input>
-    </form>
-  </div>
-</nav>
-
-    </div>
-
- </div>
- <table class="table table-hover" style={{textAlign:"center"}}>
- <thead>
-    <tr>
-<th scope="col"><b>Event ID</b></th>
-<th scope="col"><b>Event Name</b></th>
-<th scope="col"><b>Actions</b></th>
-</tr>
-</thead>
-  <tbody>
-{this.state.posts.map((posts,index) =>(
-<tr key={index} style={{}}>
-    <th scope="row">{index+1}</th> 
-<td>
-<a href={`/event/${posts._id}`}>
-{posts.EventName}
-</a>
-</td>
-<td>
-<a href={`/event/${posts._id}`} style={{textDecoration:"none"}}><button>aaaa</button>
-<i class="btn btn-outline-secondary"><RemoveRedEyeIcon/></i>&nbsp;
-</a>
-&nbsp;
-<a  href={`/updateevent/${posts._id}`} style={{textDecoration:"none"}}>
-<i class="btn btn-outline-warning"><EditIcon/></i>&nbsp;
-</a>
-&nbsp;
-<a href="/ViewListEvents" onClick={() =>this.onDelete(posts._id)} style={{textDecoration:"none"}}>
-<i class="btn btn-outline-danger"><DeleteIcon/></i>&nbsp;
-</a>
-</td>
-</tr>
-))}
-</tbody>
-</table>
-</div>
-)
 }
-}
+
+export default ViewListEvents
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

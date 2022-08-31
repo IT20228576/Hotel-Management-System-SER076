@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const bodyParser = require('body-parser');
-
+const router = require("./routes/eventManagement/event.route");
 /* Loading the environment variables from the .env file. */
 dotenv.config();
 
@@ -36,8 +36,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use(eventRoutes);
-app.use(roomRoutes);
+app.use(router);
 
 //
 // ─── CONNECT TO MONGODB ─────────────────────────────────────────────────────────

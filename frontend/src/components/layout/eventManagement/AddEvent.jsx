@@ -1,200 +1,104 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useContext, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { adddata } from './context/ContextProvider';
 
-export default class AddEvent extends Component {
+const AddEvent = () => {
 
-constructor(props){
-super(props);
-this.state={
-    EventName:"",
-    EventType:"",
-    EventDate:"",
-    ClientName:"",
-    EventStartDate:"",
-    EventEndDate:"",
-    NoOfParticipants:"",
-    EventStatus:"",
-    EventLocation:"",
-    EventDescription:"",
-    EventImage:""
+    const { udata, setUdata } = useContext(adddata);
 
+    const navigate  = useNavigate();
+
+    const [inpval, setINP] = useState({
+        EventName: "",
+        EventType: "",
+        EventDate: "",
+        ClientName: "",
+        EventStartDate: "",
+        EventEndDate: "",
+        NoOfParticipants: ""
+    })
+
+    const setdata = (e) => {
+        console.log(e.target.value);
+        const { name, value } = e.target;
+        setINP((preval) => {
+            return {
+                ...preval,
+                [name]: value
+            }
+        })
+    }
+
+
+    const addinpdata = async (e) => {
+        e.preventDefault();
+
+        const { EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate } = inpval;
+
+        const res = await fetch("http://localhost:8000/event/new", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate
+            })
+        });
+
+        const data = await res.json();
+        console.log(data);
+        // alert("Success");
+
+        if (res.status === 422 || !data) {
+            console.log("error ");
+            alert("error");
+
+        } else {
+            navigate("/")
+            setUdata(data)
+            console.log("data added");
+
+        }
+    }
+
+    return (
+        <div className="container">
+            <NavLink to="/">Add Event</NavLink>
+            <form className="mt-4">
+                <div className="row">
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Event Name</label>
+                        <input type="text" value={inpval.EventName} onChange={setdata} name="EventName" class="form-control" aria-describedby="emailHelp" />
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Event Type</label>
+                        <input type="text" value={inpval.EventType} onChange={setdata} name="EventType" class="form-control" />
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Event Date</label>
+                        <input type="text" value={inpval.EventDate} onChange={setdata} name="EventDate" class="form-control" />
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Client Name</label>
+                        <input type="text" value={inpval.ClientName} onChange={setdata} name="ClientName" class="form-control" />
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Event Start Date</label>
+                        <input type="text" value={inpval.EventStartDate} onChange={setdata} name="EventStartDate" class="form-control" />
+                    </div>
+                    <div class="mb-3 col-lg-6 col-md-6 col-12">
+                        <label class="form-label">Event End Date</label>
+                        <input type="text" value={inpval.EventEndDate} onChange={setdata} name="EventEndDate" class="form-control" />
+                    </div>
+                    <div class="mb-3 col-lg-12 col-md-12 col-12">
+                        <label class="form-label">No Of Participants</label>
+                        <textarea type="text" value={inpval.NoOfParticipants} onChange={setdata} name="NoOfParticipants" className="form-control" cols="30" rows="5"></textarea>
+                    </div>
+
+                    <button type="submit" onClick={addinpdata} class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    )
 }
-}
-
-handleInputChange = (e) =>{
-const {name,value} = e.target;
-
-this.setState({
-...this.state,
-[name]:value
-})
-}
-
-onSubmit = (e) =>{
-e.preventDefault();
-
-const {EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = this.state;
-
-const data ={
-    EventName:EventName,
-  EventType:EventType,
-  EventDate:EventDate,
-  ClientName:ClientName,
-  EventStartDate:EventStartDate,
-  EventEndDate:EventEndDate,
-  NoOfParticipants:NoOfParticipants,
-  EventStatus:EventStatus,
-  EventLocation:EventLocation,
-  EventDescription:EventDescription,
-  EventImage:EventImage
-
-}
-console.log(data)
-
-axios.post("http://localhost:8000/event/save",data).then((res) =>{
-if(res.data.success){
-  alert("New Event Details Successfully Added")
-this.setState(
-{
-  EventName:"",
-  EventType:"",
-  EventDate:"",
-  ClientName:"",
-  EventStartDate:"",
-  EventEndDate:"",
-  NoOfParticipants:"",
-  EventStatus:"",
-  EventLocation:"",
-  EventDescription:"",
-  EventImage:""
- 
-}
-)
-}
-})
-}
-
-render() {
-return (
-
-
-
-<div>
-
-
-
-
-    <h1 >Add New Event Details</h1>
-    <form noValidate style={{marginTop:"50px"}}>
-    
-
- 
-
-<label style={{marginBottom:'5px'}}>Event Title</label>
-<input style={{marginLeft:'46px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventName"
-placeholder="Enter Event Title"
-value={this.state.EventName}
-onChange={this.handleInputChange} required/>
-
-
-
-
-
-<input style={{marginLeft:'24px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventType"
-placeholder="Enter Event Number"
-value={this.state.EventType}
-onChange={this.handleInputChange} required/>
-
-
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventDate"
-placeholder="Enter Event Short Code"
-value={this.state.EventDate}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="ClientName"
-placeholder="Enter Event Short Code"
-value={this.state.ClientName}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventStartDate"
-placeholder="Enter Event Short Code"
-value={this.state.EventStartDate}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventEndDate"
-placeholder="Enter Event Short Code"
-value={this.state.EventEndDate}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="NoOfParticipants"
-placeholder="Enter Event Short Code"
-value={this.state.NoOfParticipants}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventStatus"
-placeholder="Enter Event Short Code"
-value={this.state.EventStatus}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventLocation"
-placeholder="Enter Event Short Code"
-value={this.state.EventLocation}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventDescription"
-placeholder="Enter Event Short Code"
-value={this.state.EventDescription}
-onChange={this.handleInputChange} required/>
-
-<input style={{marginLeft:'8px', border: '1px solid #4CAF50'}} type="text"
-className="form-contorl"
-name="EventImage"
-placeholder="Enter Event Short Code"
-value={this.state.EventImage}
-onChange={this.handleInputChange} required/>
-
-
-
-
-
-
-<button type="submit" style={{marginTop:'15px', marginLeft:"200px", width:"200px"}} onClick={this.onSubmit}>
-    
-&nbsp; SAVE
-</button>
-
-<a href="/addevent"><button type="submit" style={{marginTop:'15px', marginLeft:"200px", width:"200px", background:"blue"}}>
-    
-    &nbsp; RESET
-</button></a>
-
-
-
-
-
-</form>
-</div>
-)
-}
-}
+export default AddEvent;
