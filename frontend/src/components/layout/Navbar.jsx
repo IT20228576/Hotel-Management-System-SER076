@@ -9,7 +9,7 @@ import Logo from "../Images/Logo.png";
 function Navbar() {
   return (
     <>
-      <div className="navbar">
+      <div className="navbar-styles">
         <div className="navbar-items-left">
           <ul className="navbar-items">
             <li>
