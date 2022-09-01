@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import countries from "react-select-country-list";
+import "../authentication/style.css";
 
 function Profile() {
   const [userData, setUserData] = useState("");
@@ -31,107 +32,104 @@ function Profile() {
   }, []);
 
   return (
-    <div className="main">
-      {userData ? (
-        <>
-          <div>
-            <h1>Profile</h1>
-            <hr />
-          </div>
-          <table>
-            <tbody>
-              <tr key={1}>
-                <td>
-                  <h3>First Name</h3>
-                </td>
-                <td>
-                  <h3>{userData.firstName}</h3>
-                </td>
-              </tr>
-              <tr key={2}>
-                <td>
-                  <h3>Last Name</h3>
-                </td>
-                <td>
-                  <h3>{userData.lastName}</h3>
-                </td>
-              </tr>
-              <tr key={3}>
-                <td>
-                  <h3>E-mail</h3>
-                </td>
-                <td>
-                  <h3>{userData.email}</h3>
-                </td>
-              </tr>
-              <tr key={4}>
-                <td>
-                  <h3>Mobile</h3>
-                </td>
-                <td>
-                  <h3>{userData.mobile}</h3>
-                </td>
-              </tr>
-              <tr key={5}>
-                <td>
-                  <h3>Date of birth</h3>
-                </td>
-                <td>
-                  <h3>{userData.dob}</h3>
-                </td>
-              </tr>
-              <tr key={6}>
-                <td>
-                  <h3>Country</h3>
-                </td>
-                <td>
-                  <h3>{countries().getLabel(userData?.country)}</h3>
-                </td>
-              </tr>
-              <tr key={7}>
-                <td>
-                  <h3>User Type</h3>
-                </td>
-                <td>
-                  <h3>{userData.userType}</h3>
-                </td>
-              </tr>
-              <tr key={8}>
-                <td>
-                  <h3>Verified</h3>
-                </td>
-                {userData.verified === true && (
+    <div className="main-profile">
+      <div className="sub-main-profile">
+        {userData ? (
+          <>
+            <div>
+              <h1>
+                {userData.firstName} {userData.lastName}
+              </h1>
+              <hr />
+            </div>
+            <table className="table table-bordered">
+              <tbody>
+              
+                <tr key={1}>
                   <td>
-                    <h3>E-mail Verified</h3>
+                    <h3>E-mail</h3>
                   </td>
-                )}
-                {userData.verified === false && (
                   <td>
-                    <h3>E-mail Not Verified</h3>
+                    <h3>{userData.email}</h3>
                   </td>
-                )}
-              </tr>
-              <tr key={9}>
-                <td>
-                  <h3>Created by</h3>
-                </td>
-                {userData.adminCreated === true && (
+                </tr>
+                <tr key={2}>
                   <td>
-                    <h3>Admin</h3>
+                    <h3>Mobile</h3>
                   </td>
-                )}
-                {userData.adminCreated === false && (
                   <td>
-                    <h3>User</h3>
+                    <h3>{userData.mobile}</h3>
                   </td>
-                )}
-              </tr>
-            </tbody>
-          </table>
-        </>
-      ) : (
-        <h1>Loading...</h1>
-      )}
+                </tr>
+                <tr key={3}>
+                  <td>
+                    <h3>Date of birth</h3>
+                  </td>
+                  <td>
+                    <h3>{userData.dob}</h3>
+                  </td>
+                </tr>
+                <tr key={4}>
+                  <td>
+                    <h3>Country</h3>
+                  </td>
+                  <td>
+                    <h3>{countries().getLabel(userData?.country)}</h3>
+                  </td>
+                </tr>
+                <tr key={5}>
+                  <td>
+                    <h3>User Type</h3>
+                  </td>
+                  <td>
+                    <h3>{userData.userType}</h3>
+                  </td>
+                </tr>
+                <tr key={6}>
+                  <td>
+                    <h3>Verified</h3>
+                  </td>
+                  {userData.verified === true && (
+                    <td>
+                      <h3>E-mail Verified</h3>
+                    </td>
+                  )}
+                  {userData.verified === false && (
+                    <td>
+                      <h3>E-mail Not Verified</h3>
+                    </td>
+                  )}
+                </tr>
+                <tr key={7}>
+                  <td>
+                    <h3>Created by</h3>
+                  </td>
+                  {userData.adminCreated === true && (
+                    <td>
+                      <h3>Admin</h3>
+                    </td>
+                  )}
+                  {userData.adminCreated === false && (
+                    <td>
+                      <h3>User</h3>
+                    </td>
+                  )}
+                </tr>
+              </tbody>
+            </table>
+          </>
+        ) : (
+          <h1>Loading...</h1>
+        )}
+
+        <div className="main-center">
+          <button className="btn btn-primary account-button">Edit</button>
+          <button className="btn btn-warning account-button">
+            Change Password
+          </button>
+          <button className="btn btn-danger account-button">Delete</button>
+        </div>
+      </div>
     </div>
   );
 }
