@@ -8,9 +8,9 @@ const ReservationSchema = new mongoose.Schema(
     email: { type: String, required: true },
     roomType: { type: String, required: true },
     room: { type: String, required: true },
-    checkinDate: { type: new Date("YYYY-mm-dd"), required: true },
+    checkinDate: { type: Date, required: true },
     checkinTime: { type: String, required: true },
-    checkoutDate: { type: new Date("YYYY-mm-dd"), required: true },
+    checkoutDate: { type: Date, required: true },
     checkoutTime: { type: String, required: true },
     adults: { type: Number, required: true },
     children: { type: Number },
@@ -24,6 +24,6 @@ const ReservationSchema = new mongoose.Schema(
   }
 );
 
-const Reservations = new mongoose.model("reservations", ReservationSchema);
+const Reservations = mongoose.model("reservations", ReservationSchema);
 
 module.exports = Reservations;
