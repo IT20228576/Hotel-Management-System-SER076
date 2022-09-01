@@ -1,32 +1,117 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import ReservationPopup from "./ReservationPopup";
+import axios from "axios";
 
 function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [details, setDetails] = useState([]);
+  const [reservationInfo, setReservationInfo] = useState([]);
+
+  async function getAllData() {
+    try {
+      await axios
+        .get("http://localhost:8000/reservations/getAll")
+        .then((res) => {
+          if (res.status === 200) {
+            setDetails(res.data.data);
+          }
+        });
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllData();
+  }, []);
+
+  async function deleteReservation(detail) {
+    console.log(detail._id);
+    try {
+      if (window.confirm("This Reservation Will Be Deleted!")) {
+        await axios
+          .delete(`http://localhost:8000/reservations/delete/${detail._id}`)
+          .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+              alert(res.data.message);
+              getAllData();
+            }
+          });
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
 
   const handleModalClose = () => {
     setModalOpen(false);
   };
 
+  var dataList = details.map((item, index) => {
+    return (
+      <tr key={index}>
+        <td>{item.referenceNumber}</td>
+        <td>{item.firstName + " " + item.lastName}</td>
+        <td>{item.mobile}</td>
+        <td>{item.checkinDate.substring(0, 10)}</td>
+        <td>{item.checkoutDate.substring(0, 10)}</td>
+        <td>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => {
+              setModalOpen(true);
+              setReservationInfo(item);
+            }}
+          >
+            <RemoveRedEyeIcon />
+          </button>
+          &nbsp;
+          <a href={`/#`} style={{ textDecoration: "none" }}>
+            <i className="btn btn-outline-warning">
+              <EditIcon />
+            </i>
+            &nbsp;
+          </a>
+          &nbsp;
+          <button
+            className="btn btn-outline-danger"
+            onClick={() => {
+              deleteReservation(item);
+            }}
+          >
+            <DeleteIcon />
+          </button>
+        </td>
+      </tr>
+    );
+  });
+
   return (
     <div className="container">
-      <div className="center">
+      <div>
         <div>
-          <nav class="navbar navbar-expand-lg navbar-light">
+          <nav className="navbar navbar-expand-lg navbar-light">
             <h1
-              class="navbar-brand"
-              style={{ marginRight: "100px", marginLeft: "100px" }}
+              className="navbar-brand"
+              style={{
+                marginRight: "80px",
+                marginLeft: "80px",
+                fontSize: "32px",
+              }}
             >
-              Events
+              Reservations
             </h1>
             <a href="/#" style={{ marginRight: "10px" }}>
               <button
-                class="btn btn-outline-success my-1 my-sm-0"
+                className="btn btn-outline-success my-1 my-sm-0"
                 type="submit"
               >
                 <AddCircleIcon /> Add
@@ -34,17 +119,17 @@ function ViewReservationList() {
             </a>
             <a href="/#" style={{ marginRight: "10px" }}>
               <button
-                class="btn btn-outline-primary my-2 my-sm-0"
+                className="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"
               >
                 <SummarizeIcon /> Report
               </button>
             </a>
 
-            <div style={{ marginLeft: "500px" }}>
-              <form class="form-inline my-2 my-lg-0">
+            <div style={{ marginLeft: "400px" }}>
+              <form className="form-inline my-2 my-lg-0">
                 <input
-                  class="form-control mr-sm-2"
+                  className="form-control mr-sm-2"
                   placeholder="Search"
                   type="search"
                   name="searchQuery"
@@ -54,55 +139,36 @@ function ViewReservationList() {
           </nav>
         </div>
       </div>
-      <table class="table table-hover" style={{ textAlign: "center" }}>
+      <table className="table table-hover" style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <th scope="col">
-              <b>Event ID</b>
+              <b>Reference Number</b>
             </th>
             <th scope="col">
-              <b>Event Name</b>
+              <b>Name</b>
+            </th>
+            <th scope="col">
+              <b>Phone Number</b>
+            </th>
+            <th scope="col">
+              <b>Check-in</b>
+            </th>
+            <th scope="col">
+              <b>Check-out</b>
             </th>
             <th scope="col">
               <b>Actions</b>
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <a href={`/#`}>Meeing</a>
-            </td>
-            <td>
-              <button
-                className="btn btn-outline-secondary"
-                onClick={() => {
-                  setModalOpen(true);
-                }}
-              >
-                <RemoveRedEyeIcon />
-              </button>
-              &nbsp;
-              <a href={`/#`} style={{ textDecoration: "none" }}>
-                <i class="btn btn-outline-warning">
-                  <EditIcon />
-                </i>
-                &nbsp;
-              </a>
-              &nbsp;
-              <a href="/#" style={{ textDecoration: "none" }}>
-                <i class="btn btn-outline-danger">
-                  <DeleteIcon />
-                </i>
-                &nbsp;
-              </a>
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{dataList}</tbody>
       </table>
       {modalOpen === true ? (
-        <ReservationPopup handleModalClose={handleModalClose} />
+        <ReservationPopup
+          handleModalClose={handleModalClose}
+          reservationInfo={reservationInfo}
+        />
       ) : (
         <></>
       )}
