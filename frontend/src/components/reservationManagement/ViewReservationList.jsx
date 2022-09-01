@@ -4,9 +4,9 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
-import PopUpViewTemplate from "./PopUpViewTemplate";
+import ReservationPopup from "./ReservationPopup";
 
-function ViewListTemplate() {
+function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleModalClose = () => {
@@ -15,7 +15,7 @@ function ViewListTemplate() {
 
   return (
     <div className="container">
-      <div>
+      <div className="center">
         <div>
           <nav class="navbar navbar-expand-lg navbar-light">
             <h1
@@ -102,7 +102,7 @@ function ViewListTemplate() {
         </tbody>
       </table>
       {modalOpen === true ? (
-        <PopUpViewTemplate handleModalClose={handleModalClose} />
+        <ReservationPopup handleModalClose={handleModalClose} />
       ) : (
         <></>
       )}
@@ -110,4 +110,4 @@ function ViewListTemplate() {
   );
 }
 
-export default ViewListTemplate;
+export default ViewReservationList;
