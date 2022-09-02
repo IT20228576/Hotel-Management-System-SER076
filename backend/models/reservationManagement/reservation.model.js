@@ -17,7 +17,7 @@ const ReservationSchema = new mongoose.Schema(
     children: { type: Number, default: 0 },
     numberOfRooms: { type: Number, required: true },
     amount: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
+    paymentMethod: { type: String, default: "Cash" },
     note: { type: String },
   },
   {
