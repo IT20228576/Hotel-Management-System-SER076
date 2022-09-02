@@ -113,13 +113,11 @@ function AddReservation() {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
-                  <span style={{}}>
-                    <TimePicker
-                      required
-                      onChange={(value) => setCheckinTime(value)}
-                    />
-                  </span>
+                <Col className="row justify-content-center align-items-center mt-3">
+                  <TimePicker
+                    required
+                    onChange={(value) => setCheckinTime(value)}
+                  />
                 </Col>
               </Row>
 
@@ -190,9 +188,10 @@ function AddReservation() {
                   <option value="R002">R002</option>
                 </Form.Select>
               </Form.Group>
+
               <Row>
                 <Col>
-                  <Form.Group as={Col} className="mb-3">
+                  <Form.Group className="mb-3">
                     <Form.Label>Check-out Date and Time *</Form.Label>
                     <Form.Control
                       required
@@ -202,12 +201,12 @@ function AddReservation() {
                     />
                   </Form.Group>
                 </Col>
-                    <TimePicker
-                      required
-                      closeClock={true}
-                      onChange={(value) => setCheckoutTime(value)}
-                    />                 
-                <Col className="mt-3">                  
+                <Col className="row justify-content-center align-items-center mt-3">
+                  <TimePicker
+                    required
+                    closeClock={true}
+                    onChange={(value) => setCheckoutTime(value)}
+                  />
                 </Col>
               </Row>
 
@@ -225,7 +224,7 @@ function AddReservation() {
               <Row>
                 <Form.Label>Payment Method</Form.Label>
                 <Col>
-                  <Form.Group>
+                  <Form.Group className="mb-3">
                     <Form.Check
                       type="radio"
                       label="Cash"
@@ -237,7 +236,7 @@ function AddReservation() {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group>
+                  <Form.Group className="mb-3">
                     <Form.Check
                       type="radio"
                       label="Card"
@@ -249,6 +248,7 @@ function AddReservation() {
                   </Form.Group>
                 </Col>
               </Row>
+
               <Form.Group className="mb-3">
                 <Form.Label>Note</Form.Label>
                 <Form.Control
@@ -284,6 +284,7 @@ function AddReservation() {
               </Button>
             </Col>
           </Row>
+          
         </form>
       </Container>
     </div>

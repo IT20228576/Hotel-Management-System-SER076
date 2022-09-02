@@ -84,7 +84,7 @@ function ViewReservationList() {
             <td>{item.mobile}</td>
             <td>{item.checkinDate.substring(0, 10)}</td>
             <td>{item.checkoutDate.substring(0, 10)}</td>
-            <td>
+            <td className="d-flex justify-content-center">
               <button
                 className="btn btn-outline-secondary"
                 onClick={() => {
