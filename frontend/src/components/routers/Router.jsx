@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { useContext } from "react";
+
 
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
-import Login from "../userManagement/authentication/login";
-import Register from "../userManagement/authentication/register";
+import Login from "../userManagement/authentication/Login";
+import Register from "../userManagement/authentication/Register";
 import Verify from "../userManagement/authentication/Verify";
-import AuthContext from "../userManagement/context/userContext";
+import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
 import ViewListTemplate from "../layout/ViewListTemplate";
 
