@@ -46,29 +46,8 @@ const ViewEvent = () => {
         getdata();
     }, [])
 
-    const deleteevent = async (id) => {
-
-        const res2 = await fetch(`http://localhost:8000/event/delete/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        const deletedata = await res2.json();
-        console.log(deletedata);
-
-        if (res2.status === 422 || !deletedata) {
-            console.log("error");
-        } else {
-            console.log("event deleted");
-            history.push("/");
-        }
-
-    }
-
     return (
-        <div className="container mt-3">
+        <div className="container mt-3" style={{marginLeft:"100px"}}>
             <h1 style={{ fontWeight: 400 }}>View Event</h1>
 
             <Card sx={{ maxWidth: 600 }}>
@@ -76,16 +55,17 @@ const ViewEvent = () => {
                     <div>
                         <div>
                             
-                            <p>Event Name: <span >{geteventdata.EventName}</span></p>
-                            <p>Event Date: <span >{geteventdata.EventDate}</span></p>
-                            <p>Event Type: <span>{geteventdata.EventType}</span></p>
-                            <p>Event Start Date: <span>{geteventdata.EventStartDate}</span></p>
-                        </div>
-                        <div>
-
-                            <p>Client Name: <span>{geteventdata.ClientName}</span></p>
-                            <p>Event End Date: <span>{geteventdata.EventEndDate}</span></p>
-                            <p>No Of Participants: <span>{geteventdata.NoOfParticipants}</span></p>
+                            <p>EventName: <span >{geteventdata.EventName}</span></p>
+                            <p>EventType: <span >{geteventdata.EventType}</span></p>
+                            <p>EventDate: <span>{geteventdata.EventDate}</span></p>
+                            <p>ClientName: <span>{geteventdata.ClientName}</span></p>
+                            <p>EventStartTime: <span >{geteventdata.EventStartTime}</span></p>
+                            <p>EventEndTime: <span >{geteventdata.EventEndTime}</span></p>
+                            <p>NoOfParticipants: <span>{geteventdata.NoOfParticipants}</span></p>
+                            <p>EventStatus: <span>{geteventdata.EventStatus}</span></p>
+                            <p>EventLocation: <span>{geteventdata.EventLocation}</span></p>
+                            <p>EventDescription: <span >{geteventdata.EventDescription}</span></p>
+                            <p>EventImage: <span>{geteventdata.EventImage}</span></p>
                         </div>
                     </div>
 

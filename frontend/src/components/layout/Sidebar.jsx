@@ -23,7 +23,7 @@ export const Sidebar = [
   },
   {
     title: "Events",
-    path: "/events",
+    path: "/view",
     icon: <PhotoCameraBackIcon />,
   },
   {

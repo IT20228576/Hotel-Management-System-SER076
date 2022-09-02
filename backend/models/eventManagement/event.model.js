@@ -18,18 +18,42 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    EventStartDate: {
+    EventStartTime: {
         type: String,
         required: true
     },
-    EventEndDate: {
+    EventEndTime: {
         type: String,   
         required: true
     },
     NoOfParticipants: {
         type: String,
         required: true
-    }
+    },
+
+    EventStatus:{
+
+        type:String,
+        required:true
+        },
+
+        EventLocation:{
+
+            type:String,
+            required:true
+            },
+
+            EventDescription:{
+
+                type:String,
+                required:true
+                },
+
+                EventImage:{
+
+                    type:String,
+                    required:true
+                    }
 });
 
 const events = new mongoose.model("events",eventSchema);
