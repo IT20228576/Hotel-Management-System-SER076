@@ -18,6 +18,7 @@ import UpdateEvent from "../layout/eventManagement/UpdateEvent";
 import ContextProvider from "../layout/eventManagement/context/ContextProvider";
 
 import ViewReservationList from "../reservationManagement/ViewReservationList";
+import AddReservation from "../reservationManagement/AddReservation";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -54,12 +55,13 @@ function Router() {
             <Route exact path="*" element={<Home />} />
 
             <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
-            <Route exact path="/" element={<ViewListEvents />} />
+            <Route exact path="/events" element={<ViewListEvents />} />
             <Route exact path="/event/new" element={<AddEvent />} />
             <Route exact path="/edit/:id" element={<UpdateEvent />} />
             <Route exact path="/view/:id" element={<ViewEvent />} />
             
             <Route exact path="/reservations" element={<ViewReservationList />} />
+            <Route exact path="/reservations/add" element={<AddReservation />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>
