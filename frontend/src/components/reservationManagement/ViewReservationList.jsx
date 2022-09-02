@@ -32,7 +32,6 @@ function ViewReservationList() {
   }, []);
 
   async function deleteReservation(detail) {
-    console.log(detail._id);
     try {
       if (window.confirm("This Reservation Will Be Deleted!")) {
         await axios
@@ -55,44 +54,82 @@ function ViewReservationList() {
     setModalOpen(false);
   };
 
-  var dataList = details.map((item, index) => {
-    return (
-      <tr key={index}>
-        <td>{item.referenceNumber}</td>
-        <td>{item.firstName + " " + item.lastName}</td>
-        <td>{item.mobile}</td>
-        <td>{item.checkinDate.substring(0, 10)}</td>
-        <td>{item.checkoutDate.substring(0, 10)}</td>
-        <td>
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              setModalOpen(true);
-              setReservationInfo(item);
-            }}
-          >
-            <RemoveRedEyeIcon />
-          </button>
-          &nbsp;
-          <a href={`/#`} style={{ textDecoration: "none" }}>
-            <i className="btn btn-outline-warning">
-              <EditIcon />
-            </i>
-            &nbsp;
-          </a>
-          &nbsp;
-          <button
-            className="btn btn-outline-danger"
-            onClick={() => {
-              deleteReservation(item);
-            }}
-          >
-            <DeleteIcon />
-          </button>
-        </td>
-      </tr>
+  const handleSearch = async (e) => {
+    const searchTerm = e.target.value;
+    try {
+      if (searchTerm) {
+        await axios
+          .get(`http://localhost:8000/reservations/search/${searchTerm}`)
+          .then((res) => {
+            if (res.status === 200) {
+              setDetails(res.data.data);
+            }
+          });
+      } else {
+        getAllData();
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
+  var dataList =
+    details.length > 0 ? (
+      details.map((item, index) => {
+        return (
+          <tr key={index}>
+            <td>{item.referenceNumber}</td>
+            <td>{item.firstName + " " + item.lastName}</td>
+            <td>{item.mobile}</td>
+            <td>{item.checkinDate.substring(0, 10)}</td>
+            <td>{item.checkoutDate.substring(0, 10)}</td>
+            <td>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={() => {
+                  setModalOpen(true);
+                  setReservationInfo(item);
+                }}
+              >
+                <RemoveRedEyeIcon />
+              </button>
+              &nbsp;
+              <a href={`/#`} style={{ textDecoration: "none" }}>
+                <i className="btn btn-outline-warning">
+                  <EditIcon />
+                </i>
+                &nbsp;
+              </a>
+              &nbsp;
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => {
+                  deleteReservation(item);
+                }}
+              >
+                <DeleteIcon />
+              </button>
+            </td>
+          </tr>
+        );
+      })
+    ) : (
+      <div
+        className="notify"
+        style={{
+          position: "absolute",
+          left: "30%",
+          right: "30%",
+          top: "50%",
+          bottom: "50%",
+          fontSize: "40px",
+          fontWeight: "bold",
+        }}
+      >
+        No Result Found
+      </div>
     );
-  });
 
   return (
     <div className="container">
@@ -109,7 +146,7 @@ function ViewReservationList() {
             >
               Reservations
             </h1>
-            <a href="/#" style={{ marginRight: "10px" }}>
+            <a href="/reservations/add" style={{ marginRight: "10px" }}>
               <button
                 className="btn btn-outline-success my-1 my-sm-0"
                 type="submit"
@@ -133,6 +170,7 @@ function ViewReservationList() {
                   placeholder="Search"
                   type="search"
                   name="searchQuery"
+                  onChange={handleSearch}
                 ></input>
               </form>
             </div>

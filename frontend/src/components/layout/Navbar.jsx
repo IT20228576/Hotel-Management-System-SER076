@@ -5,8 +5,13 @@ import "./Styles/NavbarStyles.css";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LoginIcon from "@mui/icons-material/Login";
 import Logo from "../Images/Logo.png";
+import { useContext } from "react";
+import AuthContext from "../userManagement/context/userContext";
 
 function Navbar() {
+  /* Getting the userType from the AuthContext. */
+  const { userType } = useContext(AuthContext);
+
   return (
     <>
       <div className="navbar-styles">
@@ -45,30 +50,36 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      <nav className="nav-menu">
-        <div className="menubar">
-          <MenuIcon />
-        </div>
-        <ul className="nav-menu-items">
-          {Sidebar.map((item, index) => {
-            return (
-              <li
-                key={index}
-                className="row"
-                id={window.location.pathname === item.path ? "active" : ""}
-                onClick={() => {
-                  window.location.pathname = item.path;
-                }}
-              >
-                <div>
-                  <div id="nav-icon">{item.icon}</div>
-                  <div id="nav-title">{item.title}</div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      {userType === "Admin" ? (
+        <>
+          <nav className="nav-menu">
+            <div className="menubar">
+              <MenuIcon />
+            </div>
+            <ul className="nav-menu-items">
+              {Sidebar.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    className="row"
+                    id={window.location.pathname === item.path ? "active" : ""}
+                    onClick={() => {
+                      window.location.pathname = item.path;
+                    }}
+                  >
+                    <div>
+                      <div id="nav-icon">{item.icon}</div>
+                      <div id="nav-title">{item.title}</div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }

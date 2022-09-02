@@ -79,4 +79,29 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+/* Search a Reservation */
+router.get("/search/:searchTerm", async (req, res) => {
+  try {
+    const details = await Reservations.find({
+      $or: [
+        {
+          referenceNumber: { $regex: req.params.searchTerm },
+        },
+        {
+          firstName: { $regex: req.params.searchTerm },
+        },
+        {
+          lastName: { $regex: req.params.searchTerm },
+        },
+      ],
+    });
+
+    return res.status(200).json({
+      data: details,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
 module.exports = router;
