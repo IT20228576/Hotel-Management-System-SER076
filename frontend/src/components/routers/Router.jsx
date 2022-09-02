@@ -4,11 +4,14 @@ import { useContext } from "react";
 
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
-
+<<<<<<<<< Temporary merge branch 1
+import Login from "../userManagement/authentication/Login";
+import Register from "../userManagement/authentication/Register";
+=========
 import Sidebar from "../layout/Sidebar";
 import Login from "../userManagement/authentication/login";
 import Register from "../userManagement/authentication/register";
-
+>>>>>>>>> Temporary merge branch 2
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
@@ -100,9 +103,7 @@ function Router() {
             <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
 
             {/* <Route exact path="/event" element={<ViewListEvents />} />
-=======
-            <Route exact path="/events" element={<ViewListEvents />} />
->>>>>>> d74e904c8d4679b207bfcd3565c5ca80b4c0b7ea
+>>>>>>>>> Temporary merge branch 2
             <Route exact path="/event/new" element={<AddEvent />} />
             <Route exact path="/edit/:id" element={<UpdateEvent />} />
             <Route exact path="/view/:id" element={<ViewEvent />} /> */}
