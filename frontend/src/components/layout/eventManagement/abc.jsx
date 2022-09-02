@@ -22,8 +22,8 @@ const Abc = () => {
         EventType: "",
         EventDate: "",
         ClientName: "",
-        EventStartDate: "",
-        EventEndDate: "",
+        EventStartTime: "",
+        EventEndTime: "",
         NoOfParticipants: ""
     })
 
@@ -42,7 +42,7 @@ const Abc = () => {
     const addinpdata = async (e) => {
         e.preventDefault();
 
-        const { EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate } = inpval;
+        const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate } = inpval;
 
         const res = await fetch("http://localhost:8000/event/new", {
             method: "POST",
@@ -50,7 +50,7 @@ const Abc = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate
+                EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate
             })
         });
 
@@ -118,14 +118,14 @@ const Abc = () => {
                 <Form.Label>Room Name</Form.Label>
                 <Form.Control
                   placeholder="Room Name"
-                  value={inpval.EventStartDate} onChange={setdata} name="EventStartDate"
+                  value={inpval.EventStartTime} onChange={setdata} name="EventStartTime"
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Room Name</Form.Label>
                 <Form.Control
                   placeholder="Room Name"
-                  value={inpval.EventEndDate} onChange={setdata} name="EventEndDate"
+                  value={inpval.EventEndTime} onChange={setdata} name="EventEndTime"
                 />
               </Form.Group>
 
@@ -166,11 +166,11 @@ const Abc = () => {
                     </div> */}
                     {/* <div class="mb-3 col-lg-6 col-md-6 col-12">
                         <label class="form-label">Event Start Date</label>
-                        <input type="text" value={inpval.EventStartDate} onChange={setdata} name="EventStartDate" class="form-control" />
+                        <input type="text" value={inpval.EventStartTime} onChange={setdata} name="EventStartTime" class="form-control" />
                     </div> */}
                     {/* <div class="mb-3 col-lg-6 col-md-6 col-12">
                         <label class="form-label">Event End Date</label>
-                        <input type="text" value={inpval.EventEndDate} onChange={setdata} name="EventEndDate" class="form-control" />
+                        <input type="text" value={inpval.EventEndTime} onChange={setdata} name="EventEndTime" class="form-control" />
                     </div> */}
                     {/* <div class="mb-3 col-lg-12 col-md-12 col-12">
                         <label class="form-label">No Of Participants</label>

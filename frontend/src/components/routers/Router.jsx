@@ -20,8 +20,7 @@ import UpdateEvent from "../layout/eventManagement/UpdateEvent";
 import ContextProvider from "../layout/eventManagement/context/ContextProvider";
 
 import ViewReservationList from "../reservationManagement/ViewReservationList";
-import PopUpViewTemplate from "../layout/PopUpViewTemplate";
-import Abc from "../layout/eventManagement/abc";
+import EventReport from "../layout/eventManagement/EventReport";
 
 
 function Router() {
@@ -47,7 +46,7 @@ function Router() {
       <Route exact path="/event/new" element={<AddEvent/>} />
       <Route exact path="/edit/:id" element={<UpdateEvent/>} />
       <Route exact path="/view/:id" element={<ViewEvent/>} />
-      <Route path="/popup" element={<Abc />} />
+      <Route path="/eventreport" element={<EventReport />} />
             </>
           )}
 

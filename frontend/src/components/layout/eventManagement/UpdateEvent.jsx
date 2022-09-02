@@ -18,8 +18,8 @@ const UpdateEvent = () => {
         EventType: "",
         EventDate: "",
         ClientName: "",
-        EventStartDate: "",
-        EventEndDate: "",
+        EventStartTime: "",
+        EventEndTime: "",
         NoOfParticipants: "",
         EventStatus: "",
         EventLocation: "",
@@ -74,7 +74,7 @@ const UpdateEvent = () => {
     const updateevent = async(e)=>{
         e.preventDefault();
 
-        const {EventName,EventType,EventStartDate,EventEndDate,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage} = inpval;
+        const {EventName,EventType,EventStartTime,EventEndTime,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage} = inpval;
 
         const res2 = await fetch(`http://localhost:8000/event/update/${id}`,{
             method: "PATCH",
@@ -82,7 +82,7 @@ const UpdateEvent = () => {
                 "Content-Type": "application/json"
             },
             body:JSON.stringify({
-                EventName,EventType,EventStartDate,EventEndDate,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage
+                EventName,EventType,EventStartTime,EventEndTime,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage
             })
         });
 
@@ -117,7 +117,7 @@ const UpdateEvent = () => {
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Event Start Date</Form.Label>
-                <Form.Control value={inpval.EventStartDate} onChange={setdata} name="EventStartDate" />
+                <Form.Control value={inpval.EventStartTime} onChange={setdata} name="EventStartTime" />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>No Of Participants</Form.Label>
@@ -142,7 +142,7 @@ const UpdateEvent = () => {
               </Form.Group>
               <Form.Group className="mb-3">
               <Form.Label>Event End Date</Form.Label>
-                <Form.Control value={inpval.EventEndDate} onChange={setdata} name="EventEndDate" />
+                <Form.Control value={inpval.EventEndTime} onChange={setdata} name="EventEndTime" />
               </Form.Group>
               <Form.Group className="mb-3">
               <Form.Label>Event Status</Form.Label>

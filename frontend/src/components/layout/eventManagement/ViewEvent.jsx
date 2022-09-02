@@ -59,8 +59,8 @@ const ViewEvent = () => {
                             <p>EventType: <span >{geteventdata.EventType}</span></p>
                             <p>EventDate: <span>{geteventdata.EventDate}</span></p>
                             <p>ClientName: <span>{geteventdata.ClientName}</span></p>
-                            <p>EventStartDate: <span >{geteventdata.EventStartDate}</span></p>
-                            <p>EventEndDate: <span >{geteventdata.EventEndDate}</span></p>
+                            <p>EventStartTime: <span >{geteventdata.EventStartTime}</span></p>
+                            <p>EventEndTime: <span >{geteventdata.EventEndTime}</span></p>
                             <p>NoOfParticipants: <span>{geteventdata.NoOfParticipants}</span></p>
                             <p>EventStatus: <span>{geteventdata.EventStatus}</span></p>
                             <p>EventLocation: <span>{geteventdata.EventLocation}</span></p>

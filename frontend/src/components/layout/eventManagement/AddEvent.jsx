@@ -22,8 +22,8 @@ const AddEvent = () => {
         EventType: "",
         EventDate: "",
         ClientName: "",
-        EventStartDate: "",
-        EventEndDate: "",
+        EventStartTime: "",
+        EventEndTime: "",
         NoOfParticipants: "",
         EventStatus: "",
         EventLocation: "",
@@ -46,7 +46,7 @@ const AddEvent = () => {
     const addinpdata = async (e) => {
         e.preventDefault();
 
-        const { EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
+        const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
 
         const res = await fetch("http://localhost:8000/event/new", {
             method: "POST",
@@ -54,7 +54,7 @@ const AddEvent = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                EventName, EventType, EventStartDate, EventEndDate, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
+                EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
             })
         });
 
@@ -103,7 +103,7 @@ const AddEvent = () => {
                 <Form.Label>Event Start Date</Form.Label>
                 <Form.Control
                   placeholder="Event Start Date"
-                  value={inpval.EventStartDate} onChange={setdata} name="EventStartDate"
+                  value={inpval.EventStartTime} onChange={setdata} name="EventStartTime"
                 />
               </Form.Group>
 
@@ -145,7 +145,7 @@ const AddEvent = () => {
                 <Form.Label>Event End Date</Form.Label>
                 <Form.Control
                   placeholder="Event End Date"
-                  value={inpval.EventEndDate} onChange={setdata} name="EventEndDate"
+                  value={inpval.EventEndTime} onChange={setdata} name="EventEndTime"
                 />
               </Form.Group>
               <Form.Group className="mb-3">

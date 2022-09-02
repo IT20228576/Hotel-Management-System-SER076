@@ -121,7 +121,7 @@ const ViewListEvents = () => {
     <nav class="navbar navbar-expand-lg navbar-light" style={{marginLeft:"100px"}}>
   <h1 class="navbar-brand" style={{marginRight:"100px", marginLeft:"100px"}}>Events</h1>
   <a href="/event/new" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" type="submit"><AddCircleIcon/> Add</button></a>
-  <a href="/#" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
+  <a href="/eventreport" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
 
   <div style={{marginLeft:"500px"}}>
     <form class="form-inline my-2 my-lg-0">
@@ -160,7 +160,7 @@ const ViewListEvents = () => {
                                                 <th scope="row">{id + 1}</th>
                                                 <td scope="row">{element.EventName}</td>
                                                 {/* <td scope="row">{element.EventType}</td>
-                                                <td scope="row">{element.EventStartDate}</td>
+                                                <td scope="row">{element.EventStartTime}</td>
                                                 <td scope="row">{element.ClientName}</td> */}
                                                 <td>
 
