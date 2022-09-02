@@ -4,14 +4,11 @@ import { useContext } from "react";
 
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
-<<<<<<<<< Temporary merge branch 1
-import Login from "../userManagement/authentication/Login";
-import Register from "../userManagement/authentication/Register";
-=========
+
 import Sidebar from "../layout/Sidebar";
 import Login from "../userManagement/authentication/login";
 import Register from "../userManagement/authentication/register";
->>>>>>>>> Temporary merge branch 2
+
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
