@@ -10,12 +10,15 @@ import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/userContext";
 import Profile from "../userManagement/user/Profile";
 import ViewListTemplate from "../layout/ViewListTemplate";
-
 import AddEvent from "../layout/eventManagement/AddEvent";
 import ViewEvent from "../layout/eventManagement/ViewEvent";
 import ViewListEvents from "../layout/eventManagement/ViewListEvents";
 import UpdateEvent from "../layout/eventManagement/UpdateEvent";
 import ContextProvider from "../layout/eventManagement/context/ContextProvider";
+import AddRoom from "../roomMangement/AddRoom";
+import ViewRooms from "../roomMangement/ViewRooms";
+import UpdateRoom from "../roomMangement/UpdateRoom";
+
 
 import ViewReservationList from "../reservationManagement/ViewReservationList";
 
@@ -58,8 +61,10 @@ function Router() {
             <Route exact path="/event/new" element={<AddEvent />} />
             <Route exact path="/edit/:id" element={<UpdateEvent />} />
             <Route exact path="/view/:id" element={<ViewEvent />} />
-            
             <Route exact path="/reservations" element={<ViewReservationList />} />
+            <Route path="/addRoom"  element={<AddRoom />} />
+            <Route path="/viewRooms"  element={<ViewRooms />} />
+            <Route path="/updateRoom"  element={<UpdateRoom />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>

@@ -18,7 +18,7 @@ export const Sidebar = [
   },
   {
     title: "Rooms",
-    path: "/rooms",
+    path: "/viewRooms",
     icon: <BedIcon />,
   },
   {
