@@ -29,7 +29,31 @@ const eventSchema = new mongoose.Schema({
     NoOfParticipants: {
         type: String,
         required: true
-    }
+    },
+
+    EventStatus:{
+
+        type:String,
+        required:true
+        },
+
+        EventLocation:{
+
+            type:String,
+            required:true
+            },
+
+            EventDescription:{
+
+                type:String,
+                required:true
+                },
+
+                EventImage:{
+
+                    type:String,
+                    required:true
+                    }
 });
 
 const events = new mongoose.model("events",eventSchema);

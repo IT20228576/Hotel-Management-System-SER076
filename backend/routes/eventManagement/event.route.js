@@ -12,9 +12,9 @@ const events = require("../../models/eventManagement/event.model");
 
 router.post("/event/new",async(req,res)=>{
     // console.log(req.body);
-    const {EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants} = req.body;
+    const {EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = req.body;
 
-    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartDate || !EventEndDate || !NoOfParticipants){
+    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartDate || !EventEndDate || !NoOfParticipants || !ClientName || !EventStartDate || !EventEndDate || !NoOfParticipants){
         res.status(422).json("plz fill the data");
     }
 
@@ -27,7 +27,7 @@ router.post("/event/new",async(req,res)=>{
             res.status(422).json("this is event is already present");
         }else{
             const addevent = new events({
-                EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants
+                EventName,EventType,EventDate,ClientName,EventStartDate,EventEndDate,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage
             });
 
             await addevent.save();

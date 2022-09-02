@@ -67,6 +67,7 @@ const ViewListEvents = () => {
         if (res2.status === 422 || !deletedata) {
             console.log("error");
         } else {
+            alert("Deleted Event Details Successfully")
             console.log("event deleted");
             setDLTdata(deletedata)
             getdata();
@@ -78,34 +79,36 @@ const ViewListEvents = () => {
     return (
 
         <>
+            <div style={{marginLeft:"100px"}}>
             {
-                udata ?
-                    <>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{udata.name}</strong>  added succesfully!
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </> : ""
+                // udata ?
+                //     <>
+                //         <div class="alert alert-success alert-dismissible fade show" role="alert">
+                //             <alert> added succesfully! </alert>
+                //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                //         </div>
+                //     </> : ""
             }
             {
-                updata ?
-                    <>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>{updata.name}</strong>  updated succesfully!
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </> : ""
+                // updata ?
+                //     <>
+                //         <div class="alert alert-success alert-dismissible fade show" role="alert">
+                //             <strong>{updata.name}</strong>  updated succesfully!
+                //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                //         </div>
+                //     </> : ""
             }
 
             {
-                dltdata ?
-                    <>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>{dltdata.name}</strong>  deleted succesfully!
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </> : ""
+                // dltdata ?
+                //     <>
+                //         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                //             <strong>{dltdata.name}</strong>  deleted succesfully!
+                //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                //         </div>
+                //     </> : ""
             }
+            </div>
 
 
             <div className="mt-5">
@@ -115,7 +118,7 @@ const ViewListEvents = () => {
 <div>
 
 
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" style={{marginLeft:"100px"}}>
   <h1 class="navbar-brand" style={{marginRight:"100px", marginLeft:"100px"}}>Events</h1>
   <a href="/event/new" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" type="submit"><AddCircleIcon/> Add</button></a>
   <a href="/#" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
@@ -141,9 +144,9 @@ const ViewListEvents = () => {
                             <tr>
                                 <th scope="col">Event ID</th>
                                 <th scope="col">Event Name</th>
-                                <th scope="col">Event Type</th>
+                                {/* <th scope="col">Event Type</th>
                                 <th scope="col">Event Start Date</th>
-                                <th scope="col">Client Name</th>
+                                <th scope="col">Client Name</th> */}
                                 <th></th>
                             </tr>
                         </thead>
@@ -156,15 +159,15 @@ const ViewListEvents = () => {
                                             <tr>
                                                 <th scope="row">{id + 1}</th>
                                                 <td scope="row">{element.EventName}</td>
-                                                <td scope="row">{element.EventType}</td>
+                                                {/* <td scope="row">{element.EventType}</td>
                                                 <td scope="row">{element.EventStartDate}</td>
-                                                <td scope="row">{element.ClientName}</td>
+                                                <td scope="row">{element.ClientName}</td> */}
                                                 <td>
 
                                                
-                                                <NavLink to={`view/${element._id}`}>  <i class="btn btn-outline-secondary"><RemoveRedEyeIcon/></i></NavLink>&nbsp;
+                                                <NavLink to={`/view/${element._id}`}>  <i class="btn btn-outline-secondary"><RemoveRedEyeIcon/></i></NavLink>&nbsp;
                                                 &nbsp;
-                                                <NavLink to={`edit/${element._id}`}><i class="btn btn-outline-warning"><EditIcon/></i></NavLink>&nbsp;
+                                                <NavLink to={`/edit/${element._id}`}><i class="btn btn-outline-warning"><EditIcon/></i></NavLink>&nbsp;
                                                 &nbsp;
                                                 <i class="btn btn-outline-danger" onClick={() => deleteevent(element._id)}><DeleteIcon/></i>&nbsp;
                                                </td>
