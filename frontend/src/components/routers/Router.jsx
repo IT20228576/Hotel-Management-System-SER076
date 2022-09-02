@@ -6,8 +6,8 @@ import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
 
 import Sidebar from "../layout/Sidebar";
-import Login from "../userManagement/authentication/login";
-import Register from "../userManagement/authentication/register";
+import Login from "../userManagement/authentication/Login";
+import Register from "../userManagement/authentication/Register";
 
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
