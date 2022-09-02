@@ -1,14 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { useContext } from "react";
+
 
 import Home from "../layout/Home";
 import Navbar from "../layout/Navbar";
+
 import Sidebar from "../layout/Sidebar";
 import Login from "../userManagement/authentication/login";
 import Register from "../userManagement/authentication/register";
+
 import Verify from "../userManagement/authentication/Verify";
-import AuthContext from "../userManagement/context/userContext";
+import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
 
 import ViewListTemplate from "../layout/ViewListTemplate";
@@ -20,7 +22,11 @@ import UpdateEvent from "../layout/eventManagement/UpdateEvent";
 import ContextProvider from "../layout/eventManagement/context/ContextProvider";
 
 import ViewReservationList from "../reservationManagement/ViewReservationList";
+
 import EventReport from "../layout/eventManagement/EventReport";
+
+
+import AddReservation from "../reservationManagement/AddReservation";
 
 
 function Router() {
@@ -92,12 +98,17 @@ function Router() {
             <Route exact path="*" element={<Home />} />
 
             <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
+
             {/* <Route exact path="/event" element={<ViewListEvents />} />
+=======
+            <Route exact path="/events" element={<ViewListEvents />} />
+>>>>>>> d74e904c8d4679b207bfcd3565c5ca80b4c0b7ea
             <Route exact path="/event/new" element={<AddEvent />} />
             <Route exact path="/edit/:id" element={<UpdateEvent />} />
             <Route exact path="/view/:id" element={<ViewEvent />} /> */}
             
             <Route exact path="/reservations" element={<ViewReservationList />} />
+            <Route exact path="/reservations/add" element={<AddReservation />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,35 +43,53 @@ const Login = () => {
   return (
     <div className="main">
       <div className="sub-main">
-        <h1>Log in</h1>
+        <div className="main-center">
+          <h1 style={{ margin: "2%" }}>Login</h1>
+        </div>
         <hr />
-        <form onSubmit={login}>
-          <label>E-mail</label>
-          <div>
-            <input
-              type="email"
-              placeholder="E-mail"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              className="form-input"
-            />
-          </div>
-          <label>Password</label>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <button className="button" type="submit">
-              Log In
-            </button>
+        <form border="dark" onSubmit={login}>
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="E-mail"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                </Form.Group>
+              </Col>
+
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+          <div className="main-center">
+            <Button
+              variant="primary"
+              size="lg"
+              type="submit"
+              style={{ width: "40%", float: "center", margin: "5px" }}
+            >
+              Submit
+            </Button>
           </div>
         </form>
+        <hr />
+        <div className="main-center">
+          <button className="forgot-button">Forgot Password?</button>
+        </div>
       </div>
     </div>
   );

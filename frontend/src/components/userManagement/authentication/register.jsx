@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import countryList from "react-select-country-list";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -72,98 +73,133 @@ const Register = () => {
       <div className="sub-main">
         <h1>Register</h1>
         <hr />
-        <form onSubmit={register}>
-          <div>
-            <label>First Name</label>
-            <input
-              type="text"
-              placeholder="First Name"
-              required
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>Last Name</label>
-            <input
-              type="text"
-              placeholder="Last Name"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>E-mail</label>
-            <input
-              type="email"
-              placeholder="E-mail"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>Mobile</label>
-            <input
-              type="text"
-              placeholder="Mobile"
-              maxLength="10"
-              required
-              onChange={(e) => setMobile(e.target.value)}
-              value={mobile}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>Country</label>
-            <Select
-              options={options}
-              value={tempCountry}
-              onChange={countryHandler}
-            />
-          </div>
-          <div>
-            <label>Date Of Birth</label>
-            <input
-              type="date"
-              placeholder="Date Of Birth"
-              required
-              onChange={(e) => setDob(e.target.value)}
-              value={dob}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <label>Password Verify</label>
-            <input
-              type="password"
-              placeholder="Password Verify"
-              required
-              onChange={(e) => setPasswordVerify(e.target.value)}
-              value={passwordVerify}
-              className="form-input"
-            />
-          </div>
-          <div>
-            <button className="button" type="submit">
-              Register
-            </button>
-          </div>
+        <form onSubmit={register} border="dark">
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="First Name"
+                    required
+                    onChange={(e) => setFirstName(e.target.value)}
+                    value={firstName}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Last Name"
+                    required
+                    onChange={(e) => setLastName(e.target.value)}
+                    value={lastName}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="E-mail"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Phone Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Phone Number"
+                    maxLength="10"
+                    required
+                    onChange={(e) => setMobile(e.target.value)}
+                    value={mobile}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Date Of Birth</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Date Of Birth"
+                    required
+                    onChange={(e) => setDob(e.target.value)}
+                    value={dob}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Country</Form.Label>
+                  <Select
+                    options={options}
+                    value={tempCountry}
+                    onChange={countryHandler}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    required
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3">
+                  <Form.Label>Password Verify</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password Verify"
+                    required
+                    onChange={(e) => setPasswordVerify(e.target.value)}
+                    value={passwordVerify}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  style={{ width: "70%", float: "right", margin: "5px" }}
+                >
+                  Reset
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  type="submit"
+                  style={{ width: "70%", margin: "5px" }}
+                >
+                  Submit
+                </Button>
+              </Col>
+            </Row>
+          </Container>
         </form>
       </div>
     </div>
