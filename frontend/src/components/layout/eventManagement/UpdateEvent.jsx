@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { NavLink, useParams,useNavigate } from 'react-router-dom'
 import { updatedata } from './context/ContextProvider'
+import { Card, Col, Row, Button, Accordion, Form, Container } from "react-bootstrap";
 
 
 const UpdateEvent = () => {
@@ -17,9 +18,13 @@ const UpdateEvent = () => {
         EventType: "",
         EventDate: "",
         ClientName: "",
-        EventStartDate: "",
-        EventEndDate: "",
-        NoOfParticipants: ""
+        EventStartTime: "",
+        EventEndTime: "",
+        NoOfParticipants: "",
+        EventStatus: "",
+        EventLocation: "",
+        EventDescription: "",
+        EventImage: ""
     })
 
     const setdata = (e) => {
@@ -69,7 +74,7 @@ const UpdateEvent = () => {
     const updateevent = async(e)=>{
         e.preventDefault();
 
-        const {EventName,EventType,EventStartDate,EventEndDate,ClientName,NoOfParticipants,EventDate} = inpval;
+        const {EventName,EventType,EventStartTime,EventEndTime,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage} = inpval;
 
         const res2 = await fetch(`http://localhost:8000/event/update/${id}`,{
             method: "PATCH",
@@ -77,7 +82,7 @@ const UpdateEvent = () => {
                 "Content-Type": "application/json"
             },
             body:JSON.stringify({
-                EventName,EventType,EventStartDate,EventEndDate,ClientName,NoOfParticipants,EventDate
+                EventName,EventType,EventStartTime,EventEndTime,ClientName,NoOfParticipants,EventDate,EventStatus, EventLocation, EventDescription, EventImage
             })
         });
 
@@ -87,49 +92,77 @@ const UpdateEvent = () => {
         if(res2.status === 422 || !data2){
             alert("fill the data");
         }else{
-            navigate("/")
+          alert("Update Event Details Successfully")
+            navigate("/view")
             setUPdata(data2);
         }
 
     }
 
     return (
-        <div className="container">
-            {/* <NavLink to="/"></NavLink> */}
-            <form className="mt-4">
-                <div className="row">
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputEmail1" class="form-label">Event Name</label>
-                        <input type="text" value={inpval.EventName} onChange={setdata} name="EventName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                    </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">Event Type</label>
-                        <input type="email" value={inpval.EventType} onChange={setdata} name="EventType" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">Event Date</label>
-                        <input type="text" value={inpval.EventDate} onChange={setdata} name="EventDate" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">Client Name</label>
-                        <input type="number" value={inpval.ClientName} onChange={setdata} name="ClientName" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">Event Start Date</label>
-                        <input type="text" value={inpval.EventStartDate} onChange={setdata} name="EventStartDate" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 col-lg-6 col-md-6 col-12">
-                        <label for="exampleInputPassword1" class="form-label">EventEndDate</label>
-                        <input type="text" value={inpval.EventEndDate} onChange={setdata} name="EventEndDate" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 col-lg-12 col-md-12 col-12">
-                        <label for="exampleInputPassword1" class="form-label">No Of Participants</label>
-                        <textarea name="NoOfParticipants" value={inpval.NoOfParticipants} onChange={setdata} className="form-control" id="" cols="30" rows="5"></textarea>
-                    </div>
-
-                    <button type="submit" onClick={updateevent} class="btn btn-primary">Submit</button>
-                </div>
+        <div style={{marginLeft:"100px", marginTop:"10px"}}>
+            <Container>
+            <h1>Update Event</h1>
+      <hr></hr>
+            <form className="formCard" border="dark">
+            <Row className="justify-content-md-center">
+            <Col>
+            <Form.Group className="mb-3">
+                <Form.Label>Event Name</Form.Label>
+                <Form.Control value={inpval.EventName} onChange={setdata} name="EventName" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Date</Form.Label>
+                <Form.Control value={inpval.EventDate} onChange={setdata} name="EventDate" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Start Date</Form.Label>
+                <Form.Control value={inpval.EventStartTime} onChange={setdata} name="EventStartTime" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>No Of Participants</Form.Label>
+                <Form.Control value={inpval.NoOfParticipants} onChange={setdata} name="NoOfParticipants" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Location</Form.Label>
+                <Form.Control value={inpval.EventLocation} onChange={setdata} name="EventLocation" />
+              </Form.Group>
+              <Button variant="secondary" size="lg"  style={{width:"100%"}}>
+                Reset
+              </Button>
+              </Col>
+              <Col>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Type</Form.Label>
+                <Form.Control value={inpval.EventType} onChange={setdata} name="EventType" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+              <Form.Label>Client Name</Form.Label>
+                <Form.Control value={inpval.ClientName} onChange={setdata} name="ClientName" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+              <Form.Label>Event End Date</Form.Label>
+                <Form.Control value={inpval.EventEndTime} onChange={setdata} name="EventEndTime" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+              <Form.Label>Event Status</Form.Label>
+                <Form.Control value={inpval.EventStatus} onChange={setdata} name="EventStatus" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+              <Form.Label>Event Description</Form.Label>
+                <Form.Control value={inpval.EventDescription} onChange={setdata} name="EventDescription" />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Image</Form.Label>
+                <Form.Control value={inpval.EventImage} onChange={setdata} name="EventImage" />
+              </Form.Group>
+              <Button variant="secondary" size="lg" type="submit" style={{width:"100%"}} onClick={updateevent}>
+                Submit
+              </Button>
+              </Col>
+          </Row>
             </form>
+            </Container>
         </div>
     )
 }

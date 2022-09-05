@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const ReservationSchema = new mongoose.Schema(
   {
+    referenceNumber: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     mobile: { type: String, required: true },
@@ -13,10 +14,10 @@ const ReservationSchema = new mongoose.Schema(
     checkoutDate: { type: Date, required: true },
     checkoutTime: { type: String, required: true },
     adults: { type: Number, required: true },
-    children: { type: Number },
+    children: { type: Number, default: 0 },
     numberOfRooms: { type: Number, required: true },
     amount: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
+    paymentMethod: { type: String, default: "Cash" },
     note: { type: String },
   },
   {

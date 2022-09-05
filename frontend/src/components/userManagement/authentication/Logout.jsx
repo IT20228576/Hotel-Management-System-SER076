@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function LogOut() {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ function LogOut() {
   }
 
   return (
-    <button onClick={logOut}>
-      Log out
+    <button onClick={logOut} className="logout-button">
+      Log out <LogoutIcon/>
     </button>
   );
 }

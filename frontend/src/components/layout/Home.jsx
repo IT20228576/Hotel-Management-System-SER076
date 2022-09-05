@@ -21,7 +21,7 @@ import MailIcon from "@mui/icons-material/Mail";
 
 function Home() {
   return (
-    <div>
+    <div style={{marginLeft:"100px"}}>
       <div style={{ textAlign: "center", marginTop: "10px" }}>
         <h1>
           <b>CISP Hotel</b>
@@ -233,7 +233,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <GroupsIcon />
     </div>
   );
 }
