@@ -15,6 +15,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddRoom() {
+  const [image, setImage] = useState("");
   function handleChange(event) {
     const { name, value } = event.target;
     setRoom({ ...room, [name]: value });
@@ -27,20 +28,40 @@ function AddRoom() {
     roomPrice: "",
     roomType: "",
     description: "",
+    imageURL:"",
   });
 
   async function hadleSubmit(e) {
+
     
     e.preventDefault();
-    console.log(room);
-    axios
-      .post("http://localhost:8000/api/room/create", room)
-      .then(function (response) {
-        console.log(response);
+    //console.log(room);
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "roommangment");
+    data.append("cloud_name", "dottqi9rk");
+    fetch("https://api.cloudinary.com/v1_1/dottqi9rk/image/upload/", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setTimeout(() => {
+          setRoom((room.imageURL = data.url));
+
+          axios
+          .post("http://localhost:8000/api/room/create", room)
+          .then(function (response) {
+            console.log(response);
+            window.location.reload();
+          })
+          .catch(function (error) {
+            console.log(error.response);
+          });
+        }, 2000);
       })
-      .catch(function (error) {
-        console.log(error.response);
-      });
+      .catch((err) => console.log(err));
+   
   }
 
   return (
@@ -76,7 +97,7 @@ function AddRoom() {
                   accept="image/*"
                   name="image"
                   placeholder="Image"
-                  onChange={handleChange}
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
               </Form.Group>
 
@@ -85,6 +106,7 @@ function AddRoom() {
                 <Form.Control
                   name="roomPrice"
                   placeholder="Room Price"
+                  type="number"
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -99,10 +121,12 @@ function AddRoom() {
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleChange}
+                  name="roomType"
                 >
                   <option>Room Type</option>
                   <option value="King room">King room</option>
                   <option value="Twin room">Twin room</option>
+
                 </Form.Select>
               </Form.Group>
 
