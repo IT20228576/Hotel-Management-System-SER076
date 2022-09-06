@@ -19,6 +19,10 @@ import AddReservation from "../reservationManagement/AddReservation";
 import AddRoom from "../roomMangement/AddRoom";
 import ViewRooms from "../roomMangement/ViewRooms";
 import UpdateRoom from "../roomMangement/UpdateRoom";
+import ReservationReport from "../reservationManagement/ReservationReport";
+import UpdateReservation from "../reservationManagement/UpdateReservation";
+import Reserve from "../reservationManagement/Reserve";
+import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -101,6 +105,11 @@ function Router() {
             <Route exact path="/edit/:id" element={<UpdateEvent />} />
             <Route exact path="/view/:id" element={<ViewEvent />} /> */}
 
+            <Route path="/addRoom" element={<AddRoom />} />
+            <Route path="/viewRooms" element={<ViewRooms />} />
+            <Route path="/updateRoom" element={<UpdateRoom />} />
+
+            {/*Reservation Routes*/}
             <Route
               exact
               path="/reservations"
@@ -111,14 +120,18 @@ function Router() {
               path="/reservations/add"
               element={<AddReservation />}
             />
-
-            <Route path="/addRoom" element={<AddRoom />} />
-
-            <Route path="/viewRooms" element={<ViewRooms />} />
-
-            <Route path="/updateRoom" element={<UpdateRoom />} />
-
-
+            <Route
+              exact
+              path="/reservations/update"
+              element={<UpdateReservation />}
+            />
+            <Route
+              exact
+              path="/reservations/report"
+              element={<ReservationReport />}
+            />
+            <Route exact path="/reserve" element={<Reserve />} />
+            <Route exact path="/reserve/confirm" element={<ConfirmReserve />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>
