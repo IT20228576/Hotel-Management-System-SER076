@@ -54,8 +54,22 @@ router.post("/add", async (req, res) => {
 /* Get All Reservation Details */
 router.get("/getAll", async (req, res) => {
   try {
-    const details = await Reservations.find().sort({ createdAt: -1 });
+    // getting page number from query parameter, or assigning to 0
+    const pageNo = req.query.pageNo || 1;
+    const itemsPerPage = 3;
+    const skip = (pageNo - 1) * itemsPerPage;
+
+    // getting the number of records in the DB
+    const count = await Reservations.estimatedDocumentCount();
+
+    const pageCount = Math.ceil(count / itemsPerPage);
+    const details = await Reservations.find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(itemsPerPage);
+
     return res.status(200).json({
+      pagination: { count, pageCount },
       data: details,
       message: "Fetched All Successfully",
     });

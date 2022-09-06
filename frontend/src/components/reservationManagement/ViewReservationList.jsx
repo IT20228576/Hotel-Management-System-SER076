@@ -7,20 +7,29 @@ import SummarizeIcon from "@mui/icons-material/Summarize";
 import ReservationPopup from "./ReservationPopup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [details, setDetails] = useState([]);
   const [reservationInfo, setReservationInfo] = useState([]);
   const navigate = useNavigate();
+  const [pageNo, setPageNo] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  console.log(pageCount, "aaaaaaaaa");
 
   async function getAllData() {
     try {
       await axios
-        .get("http://localhost:8000/reservations/getAll")
+        .get(`http://localhost:8000/reservations/getAll?pageNo=${pageNo}`)
         .then((res) => {
           if (res.status === 200) {
             setDetails(res.data.data);
+            setPageCount(res.data.pagination.pageCount);
+            setTotalCount(res.data.pagination.count);
           }
         });
     } catch (error) {
@@ -31,7 +40,8 @@ function ViewReservationList() {
 
   useEffect(() => {
     getAllData();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNo, pageCount]);
 
   async function deleteReservation(detail) {
     try {
@@ -77,9 +87,27 @@ function ViewReservationList() {
   };
 
   function updateReservation(detail) {
-    console.log(detail, "ass")
+    console.log(detail, "ass");
     navigate("/reservations/update", { state: detail });
   }
+
+  const handlePrevious = () => {
+    setPageNo((p) => {
+      if (p === 1) {
+        return parseInt(p);
+      }
+      return parseInt(p) - 1;
+    });
+  };
+
+  const handleNext = () => {
+    setPageNo((p) => {
+      if (p === pageCount) {
+        return parseInt(p);
+      }
+      return parseInt(p) + 1;
+    });
+  };
 
   var dataList =
     details.length > 0 ? (
@@ -127,10 +155,10 @@ function ViewReservationList() {
       <div
         className="notify"
         style={{
-          position: "absolute",
-          left: "30%",
-          right: "30%",
-          top: "50%",
+          position: "relative",
+          left: "60%",
+          right: "40%",
+          top: "30%",
           bottom: "50%",
           fontSize: "40px",
           fontWeight: "bold",
@@ -219,6 +247,42 @@ function ViewReservationList() {
       ) : (
         <></>
       )}
+      <footer>
+        No of Total Records: {totalCount}
+        <div className="d-flex justify-content-center align-items-center">
+          <Button
+            disabled={pageNo === 1}
+            onClick={handlePrevious}
+            className="btn-light m-2"
+          >
+            <ArrowBackIosIcon />
+            Previous
+          </Button>
+          <span className="m-3">Page: {pageNo}</span>
+          <Button
+            disabled={pageNo === pageCount ? true : false}
+            onClick={handleNext}
+            className="btn-light m-2"
+          >
+            Next
+            <ArrowForwardIosIcon />
+          </Button>
+          <select
+            value={pageNo}
+            onChange={(event) => {
+              setPageNo(event.target.value);
+            }}
+            className="btn btn-light p-2"
+          >
+            {Array(pageCount)
+              .fill(null)
+              .map((_, index) => {
+                console.log(index);
+                return <option key={index}>{index + 1}</option>;
+              })}
+          </select>
+        </div>
+      </footer>
     </div>
   );
 }
