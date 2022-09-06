@@ -20,8 +20,14 @@ import ContextProvider from "../layout/eventManagement/context/ContextProvider";
 import EventReport from "../layout/eventManagement/EventReport";
 import ViewReservationList from "../reservationManagement/ViewReservationList";
 import AddReservation from "../reservationManagement/AddReservation";
+
 import PopUpViewTemplate from "../layout/PopUpViewTemplate";
 import Abc from "../layout/Abc";
+
+import AddRoom from "../roomMangement/AddRoom";
+import ViewRooms from "../roomMangement/ViewRooms";
+import UpdateRoom from "../roomMangement/UpdateRoom";
+
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -114,6 +120,14 @@ function Router() {
               path="/reservations/add"
               element={<AddReservation />}
             />
+
+            <Route path="/addRoom" element={<AddRoom />} />
+
+            <Route path="/viewRooms" element={<ViewRooms />} />
+
+            <Route path="/updateRoom" element={<UpdateRoom />} />
+
+
           </Routes>
         </BrowserRouter>
       </ContextProvider>
