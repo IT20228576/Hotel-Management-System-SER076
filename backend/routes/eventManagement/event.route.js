@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const events = require("../../models/eventManagement/event.model");
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
 
 
 
@@ -10,11 +13,32 @@ const events = require("../../models/eventManagement/event.model");
 
 // event/new event
 
-router.post("/event/new",async(req,res)=>{
-    // console.log(req.body);
-    const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = req.body;
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'images');
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
-    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants){
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+let upload = multer({ storage, fileFilter });
+
+router.post("/event/new",upload.single('photo'),async(req,res)=>{
+    // console.log(req.body);
+    // const photo = req.file.filename;
+    const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage,photo} = req.body;
+
+    if(!EventName){
         res.status(422).json("plz fill the data");
     }else if(NoOfParticipants>100){
         res.status(420).json("Maximum Partipants are 100");
@@ -29,7 +53,7 @@ router.post("/event/new",async(req,res)=>{
         //     res.status(422).json("Already reserved");
         // }else{
             const addevent = new events({
-                EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage
+                EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage,photo
             });
 
             await addevent.save();

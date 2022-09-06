@@ -28,7 +28,8 @@ const AddEvent = () => {
         EventStatus: "",
         EventLocation: "",
         EventDescription: "",
-        EventImage: ""
+        EventImage: "",
+        photo: ""
     })
 
     const setdata = (e) => {
@@ -37,16 +38,31 @@ const AddEvent = () => {
         setINP((preval) => {
             return {
                 ...preval,
-                [name]: value
+                [name]: value,
             }
         })
     }
+
+    const handlePhoto = (e) => {
+
+      console.log(e.target.files[0].filename);
+        // const { photo, value } = e.target;
+        setINP((preval) => {
+            return {
+                ...preval,
+                photo: e.target.files[0],
+            }
+        })
+
+
+      // setUdata({...udata, photo: e.target.files[0]});
+  }
 
 
     const addinpdata = async (e) => {
         e.preventDefault();
 
-        const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
+        const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage, photo } = inpval;
 
         const res = await fetch("http://localhost:8000/event/new", {
             method: "POST",
@@ -54,7 +70,7 @@ const AddEvent = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
+                EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage, photo
             })
         });
 
@@ -81,6 +97,13 @@ const AddEvent = () => {
         <h1 style={{margin:"2%" }}>Add Event</h1>
       <hr></hr>
             <form className="formCard" border="dark">
+            <input 
+                type="file" 
+                accept=".png, .jpg, .jpeg"
+                name="photo"
+                // value={inpval.photo}
+                onChange={handlePhoto}
+            />
             <Row className="justify-content-md-center">
             <Col>
             <Form.Group className="mb-3">
