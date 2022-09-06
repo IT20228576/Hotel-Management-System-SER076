@@ -58,7 +58,7 @@ function ViewRooms() {
               >
                 Rooms
               </h1>
-              <a href="/#" style={{ marginRight: "10px" }}>
+              <a href="/addRoom" style={{ marginRight: "10px" }}>
                 <button
                   class="btn btn-outline-success my-1 my-sm-0"
                   type="submit"
