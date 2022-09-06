@@ -104,4 +104,24 @@ router.get("/search/:searchTerm", async (req, res) => {
   }
 });
 
+/* Update a Reservation */
+router.put("/update/:id", async (req, res) => {
+  try {
+    // assign id to a separate variable
+    const id = req.params.id;
+
+    // assign the data coming from the req body to separate variable
+    const oldData = req.body;
+
+    const details = await Reservations.findByIdAndUpdate(id, { $set: oldData });
+
+    return res.status(200).json({
+      message: "Reservation Updated Successfully",
+      data: details,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
 module.exports = router;

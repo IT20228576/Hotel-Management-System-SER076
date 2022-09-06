@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TimePicker from "react-time-picker";
 import Clock from "react-clock";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function AddReservation() {
   const [firstName, setFirstName] = useState("");
@@ -121,10 +122,19 @@ function AddReservation() {
     setAmount(0);
   };
 
+  const handleBack = () => {
+    navigate("/reservations");
+  };
+
   return (
     <div className="container">
       <div className="container-fluid p-3">
-        <h1 style={{ margin: "2%" }}>Add Reservation</h1>
+        <div>
+          <Button className="btn btn-light ms-2" onClick={handleBack}>
+            <ArrowBackIcon />
+          </Button>
+          <h1 style={{ margin: "2%" }}>Add Reservation</h1>
+        </div>
         <hr />
         <Container>
           <form onSubmit={handleSubmit} onReset={handleReset} border="dark">
