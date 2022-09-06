@@ -25,6 +25,7 @@ const ViewListEvents = () => {
     const {updata, setUPdata} = useContext(updatedata);
 
     const {dltdata, setDLTdata} = useContext(deldata);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getdata = async () => {
 
@@ -120,15 +121,19 @@ const ViewListEvents = () => {
 
     <nav class="navbar navbar-expand-lg navbar-light" style={{marginLeft:"100px"}}>
   <h1 class="navbar-brand" style={{marginRight:"100px", marginLeft:"100px"}}>Events</h1>
-  <a href="/event/new" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" type="submit"><AddCircleIcon/> Add</button></a>
-  <a href="/eventreport" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><SummarizeIcon/> Report</button></a>
+  <a href="/event/new" style={{marginRight:"10px"}}><button class="btn btn-outline-success my-1 my-sm-0" style={{width: "100px"}} type="submit"><AddCircleIcon/> Add</button></a>
+  <a href="/eventreport" style={{marginRight:"10px"}}><button class="btn btn-outline-primary my-2 my-sm-0" style={{width: "130px"}} type="submit"><SummarizeIcon/> Report</button></a>
 
-  <div style={{marginLeft:"500px"}}>
+  <div style={{}}>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2"
-      placeholder="Search" 
+      style={{width: "430px", marginLeft: "100px", marginRight: "10px"}}
+      placeholder="EventName / EventType / EventDate / EventStatus" 
       type="search"
-    name="searchQuery"></input>
+    name="searchQuery"
+    onChange={(event) => {
+        setSearchTerm(event.target.value);
+    }}></input>
     </form>
   </div>
 </nav>
@@ -144,6 +149,7 @@ const ViewListEvents = () => {
                             <tr>
                                 <th scope="col">Event ID</th>
                                 <th scope="col">Event Name</th>
+                                <th scope="col">Action</th>
                                 {/* <th scope="col">Event Type</th>
                                 <th scope="col">Event Start Date</th>
                                 <th scope="col">Client Name</th> */}
@@ -153,11 +159,20 @@ const ViewListEvents = () => {
                         <tbody>
 
                             {
-                                geteventdata.map((element, id) => {
+                                geteventdata.filter((element)=> {
+                                    if(searchTerm == ""){
+                                        return element
+                                    }else if (element.EventName.toLowerCase().includes(searchTerm.toLowerCase()) 
+                                    || element.EventType.toLowerCase().includes(searchTerm.toLowerCase())
+                                 || element.EventDate.toLowerCase().includes(searchTerm.toLowerCase())
+                                    || element.EventStatus.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return element
+                                    }
+                                }).map((element, id) => {
                                     return (
                                         <>
                                             <tr>
-                                                <th scope="row">{id + 1}</th>
+                                                <th scope="row">E{id + 100 + 1}</th>
                                                 <td scope="row">{element.EventName}</td>
                                                 {/* <td scope="row">{element.EventType}</td>
                                                 <td scope="row">{element.EventStartTime}</td>

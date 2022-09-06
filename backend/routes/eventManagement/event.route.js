@@ -16,16 +16,18 @@ router.post("/event/new",async(req,res)=>{
 
     if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants){
         res.status(422).json("plz fill the data");
+    }else if(NoOfParticipants>100){
+        res.status(420).json("Maximum Partipants are 100");
     }
 
     try {
         
-        const preevent = await events.findOne({EventType:EventType});
-        console.log(preevent);
+        // const preevent = await events.findOne("");
+        // console.log(preevent);
 
-        if(preevent){
-            res.status(422).json("this is event is already present");
-        }else{
+        // if(preevent){
+        //     res.status(422).json("Already reserved");
+        // }else{
             const addevent = new events({
                 EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage
             });
@@ -33,7 +35,7 @@ router.post("/event/new",async(req,res)=>{
             await addevent.save();
             res.status(201).json(addevent);
             console.log(addevent);
-        }
+        // }
 
     } catch (error) {
         res.status(422).json(error);

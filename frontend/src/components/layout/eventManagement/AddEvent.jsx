@@ -95,13 +95,15 @@ const AddEvent = () => {
                 <Form.Label>Event Date</Form.Label>
                 <Form.Control
                   placeholder="Event Date"
+                  type='date'
                   value={inpval.EventDate} onChange={setdata} name="EventDate"
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Start Date</Form.Label>
+                <Form.Label>Event Start Time</Form.Label>
                 <Form.Control
+                type='time'
                   placeholder="Event Start Date"
                   value={inpval.EventStartTime} onChange={setdata} name="EventStartTime"
                 />
@@ -116,22 +118,40 @@ const AddEvent = () => {
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Event Location</Form.Label>
-                <Form.Control
+                <Form.Select aria-label="Default select example" value={inpval.EventLocation} onChange={setdata} name="EventLocation">
+                <option>Event Location</option>
+      <option>Hall 01</option>
+      <option>Hall 02</option>
+      <option>Meeting Room 01</option>
+      <option>Meetng Room 02</option>
+      <option>Outdoor</option>
+    </Form.Select>
+                {/* <Form.Control
                   placeholder="Event Location"
                   value={inpval.EventLocation} onChange={setdata} name="EventLocation"
-                />
+                /> */}
               </Form.Group>
-              <Button variant="secondary" size="lg" style={{ width: "70%", float: "right" }}>
+              <Button variant="secondary" size="lg" style={{ width: "70%", float: "right", margin:"5px" }}>
                 Reset
               </Button>
               </Col>
               <Col>
             <Form.Group className="mb-3">
                 <Form.Label>Event Type</Form.Label>
-                <Form.Control
+
+                <Form.Select aria-label="Default select example" value={inpval.EventType} onChange={setdata} name="EventType">
+                <option>Event Type</option>
+      <option>Wedding</option>
+      <option>Meeting</option>
+      <option>Award Ceremony</option>
+      <option>Birthday Party</option>
+      <option>Batch Party</option>
+    </Form.Select>
+
+                {/* <Form.Control
                   placeholder="Event Type"
                   value={inpval.EventType} onChange={setdata} name="EventType"
-                />
+                /> */}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Client Name</Form.Label>
@@ -142,18 +162,28 @@ const AddEvent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event End Date</Form.Label>
+                <Form.Label>Event End Time</Form.Label>
                 <Form.Control
                   placeholder="Event End Date"
+                  type='time'
                   value={inpval.EventEndTime} onChange={setdata} name="EventEndTime"
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Event Status</Form.Label>
-                <Form.Control
+
+                <Form.Select aria-label="Default select example" value={inpval.EventStatus} onChange={setdata} name="EventStatus">
+                <option>Event Status</option>
+      <option>Available</option>
+      <option>Not Available</option>
+      <option>Postponed</option>
+      <option>Cancelled</option>
+    </Form.Select>
+
+                {/* <Form.Control
                   placeholder="Event Status"
                   value={inpval.EventStatus} onChange={setdata} name="EventStatus"
-                />
+                /> */}
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Event Description</Form.Label>
@@ -162,13 +192,13 @@ const AddEvent = () => {
                   value={inpval.EventDescription} onChange={setdata} name="EventDescription"
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
+              {/* <Form.Group className="mb-3">
                 <Form.Label>Event Image</Form.Label>
                 <Form.Control
                   placeholder="Event Image"
                   value={inpval.EventImage} onChange={setdata} name="EventImage"
                 />
-              </Form.Group>
+              </Form.Group> */}
               <Button
                 variant="primary"
                 size="lg"
@@ -178,6 +208,16 @@ const AddEvent = () => {
               >
                 Submit
               </Button>
+            </Col>
+            <Col>
+            <Form.Group className="mb-3" style={{marginTop: "140px"}}>
+                <Form.Label>Event Image</Form.Label>
+                <Form.Control
+                  placeholder="Event Image"
+                  type= 'file'
+                  value={inpval.EventImage} onChange={setdata} name="EventImage"
+                />
+              </Form.Group>
             </Col>
           </Row>
             </form>

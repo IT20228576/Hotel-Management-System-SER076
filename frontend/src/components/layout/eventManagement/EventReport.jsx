@@ -13,6 +13,7 @@ const EventReport = () => {
 
     const [geteventdata, setEventdata] = useState([]);
     console.log(geteventdata);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getdata = async () => {
 
@@ -47,6 +48,23 @@ const EventReport = () => {
     })
     return(
         <div style={{marginLeft: "100px"}}>
+            <div style={{marginTop: "15px", marginBottom: "-56px", marginLeft: "70px"}}>
+        <Button variant="primary" onClick={handlePrint}>Download</Button>
+        </div>
+            <br></br>
+            <div style={{marginLeft:"200px"}}>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2"
+      style={{width: "700px", marginLeft: "300px"}}
+      placeholder="month of number" 
+      type="search"
+    name="searchQuery"
+    onChange={(event) => {
+        setSearchTerm(event.target.value);
+    }}></input>
+    </form>
+  </div>
+  <br></br>
         <div ref={componentRef} style={{width: '100%', height:window.innerHeight}}>
 
         <CardGroup>
@@ -88,17 +106,23 @@ const EventReport = () => {
                                 <th scope="col">No Of Participants</th>
                                 <th scope="col">Event Status</th>
                                 <th scope="col">Event Location</th>
-                                <th scope="col">Event Description</th>
+                                {/* <th scope="col">Event Description</th> */}
                             </tr>
                         </thead>
                         <tbody>
 
                             {
-                                geteventdata.map((element, id) => {
+                                geteventdata.filter((element)=> {
+                                    if(searchTerm == ""){
+                                        return element
+                                    }else if (element.EventDate.toLowerCase().includes(searchTerm.toLowerCase())){
+                                        return element
+                                    }
+                                }).map((element, id) => {
                                     return (
                                         <>
                                             <tr>
-                                                <th scope="row">{id + 1}</th>
+                                                <th scope="row">E{id + 100 + 1}</th>
                                                 <td scope="row">{element.EventName}</td>
                                                 <td scope="row">{element.EventType}</td>
                                                 <td scope="row">{element.EventDate}</td>
@@ -107,7 +131,7 @@ const EventReport = () => {
                                                 <td scope="row">{element.NoOfParticipants}</td>
                                                 <td scope="row">{element.EventStatus}</td>
                                                 <td scope="row">{element.EventLocation}</td>
-                                                <td scope="row">{element.EventDescription}</td>
+                                                {/* <td scope="row">{element.EventDescription}</td> */}
                                             </tr>
                                         </>
                                     )
@@ -121,9 +145,6 @@ const EventReport = () => {
                 </Card.Body>
               </Card>
             </CardGroup>
-        </div>
-        <div class="col-md-12 text-center" style={{marginTop: "-25px", marginBottom: "10px"}}>
-        <Button variant="primary" onClick={handlePrint}>Download</Button>
         </div>
         </div>
     )
