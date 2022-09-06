@@ -34,14 +34,13 @@ function Router() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/a" element={<Home />} />
-
-            <Route path="/a" element={<Home />} />
             <Route path="/verify/:id/:token" element={<Verify />} />
+            <Route exact path="/" element={<Home />} />
             {userType === null && (
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+
                 <Route
                   path="/viewlisttemplate"
                   element={<ViewListTemplate />}
@@ -57,11 +56,6 @@ function Router() {
             {userType === "Admin" && (
               <>
                 <Route path="/profile" element={<Profile />} />
-                {/* <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
-                <Route exact path="/view" element={<ViewListEvents/>} />
-                <Route exact path="/event/new" element={<AddEvent/>} />
-                <Route exact path="/edit/:id" element={<UpdateEvent/>} />
-                <Route exact path="/view/:id" element={<ViewEvent/>} /> */}
               </>
             )}
 
@@ -70,41 +64,8 @@ function Router() {
                 <Route path="/profile" element={<Profile />} />
               </>
             )}
-            <Route exact path="/" element={<Home />} />
-            {/* </Routes>
-      </BrowserRouter> */}
-            <Route path="/" element={<Home />} />
-            <Route path="/verify/:id/:token" element={<Verify />} />
-            {userType === null && (
-              <>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-              </>
-            )}
 
-            {userType === "Admin" && (
-              <>
-                <Route path="/profile" element={<Profile />} />
-              </>
-            )}
-
-            {userType === "Customer" && (
-              <>
-                <Route path="/profile" element={<Profile />} />
-              </>
-            )}
-            <Route exact path="*" element={<Home />} />
-
-            <Route path="/viewlisttemplate" element={<ViewListTemplate />} />
-
-            {/* <Route exact path="/event" element={<ViewListEvents />} />
-
-            <Route exact path="/events" element={<ViewListEvents />} />
-
-            <Route exact path="/event/new" element={<AddEvent />} />
-            <Route exact path="/edit/:id" element={<UpdateEvent />} />
-            <Route exact path="/view/:id" element={<ViewEvent />} /> */}
-
+            {/*Rooms Routes*/}
             <Route path="/addRoom" element={<AddRoom />} />
             <Route path="/viewRooms" element={<ViewRooms />} />
             <Route path="/updateRoom" element={<UpdateRoom />} />
@@ -132,6 +93,8 @@ function Router() {
             />
             <Route exact path="/reserve" element={<Reserve />} />
             <Route exact path="/reserve/confirm" element={<ConfirmReserve />} />
+
+            <Route exact path="*" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>
