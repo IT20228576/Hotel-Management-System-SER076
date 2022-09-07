@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { adddata } from './context/ContextProvider';
 import {
     Col,
@@ -11,7 +11,7 @@ import {
 
 const AddEvent = () => {
 
-    const { udata, setUdata } = useContext(adddata);
+    const { setUdata } = useContext(adddata);
 
     const navigate  = useNavigate();
 
@@ -40,16 +40,16 @@ const AddEvent = () => {
         })
     }
 
-    const handlePhoto = (e) => {
+  //   const handlePhoto = (e) => {
 
-      console.log(e.target.files[0].filename);
-        setINP((preval) => {
-            return {
-                ...preval,
-                EventImage: e.target.files[0],
-            }
-        })
-  }
+  //     console.log(e.target.files[0].filename);
+  //       setINP((preval) => {
+  //           return {
+  //               ...preval,
+  //               EventImage: e.target.files[0],
+  //           }
+  //       })
+  // }
 
     const addinpdata = async (e) => {
         e.preventDefault();
@@ -70,10 +70,14 @@ const AddEvent = () => {
         console.log(data);
 
         if (res.status === 422 || !data) {
-            console.log("error ");
-            alert("error");
+            console.log("error ")
+            alert("error")
+            return 0;
+        }else if(NoOfParticipants>100){
+alert("Maximum no of participants are 100")
+return 0;
         } else {
-          alert("Add Event Details Successfully")
+          alert("Add Event Details Successfully");
             navigate("/view")
             setUdata(data)
             console.log("data added");
@@ -83,7 +87,7 @@ const AddEvent = () => {
     return (
         <div style={{marginLeft:"100px", marginTop:"10px"}}>
         <Container>
-        <h1 style={{margin:"2%" }}>Add Event</h1>
+        <h1 style={{margin:"2%" }}>Add New Event</h1>
       <hr></hr>
             <form className="formCard" border="dark">
             <Row className="justify-content-md-center">
@@ -205,7 +209,7 @@ const AddEvent = () => {
                 <Form.Control
                   placeholder="Event Image"
                   type= 'file'
-                  onChange={handlePhoto} name="EventImage"
+                  onChange={setdata} name="EventImage"
                 />
               </Form.Group>
             </Col>

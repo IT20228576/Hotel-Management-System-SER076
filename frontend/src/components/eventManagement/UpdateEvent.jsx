@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { NavLink, useParams,useNavigate } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import { updatedata } from './context/ContextProvider'
-import { Card, Col, Row, Button, Accordion, Form, Container } from "react-bootstrap";
+import { Col, Row, Button, Form, Container } from "react-bootstrap";
 
 
 const UpdateEvent = () => {
 
-   const {updata, setUPdata} = useContext(updatedata)
+   const { setUPdata} = useContext(updatedata)
 
     const navigate = useNavigate("");
 
@@ -35,15 +35,15 @@ const UpdateEvent = () => {
         })
     }
 
-    const handlePhoto = (e) => {
-      console.log(e.target.files[0].filename);
-        setINP((preval) => {
-            return {
-                ...preval,
-                EventImage: e.target.files[0],
-            }
-        })
-  }
+  //   const handlePhoto = (e) => {
+  //     console.log(e.target.files[0].filename);
+  //       setINP((preval) => {
+  //           return {
+  //               ...preval,
+  //               EventImage: e.target.files[0],
+  //           }
+  //       })
+  // }
 
     const { id } = useParams("");
     console.log(id);
@@ -59,8 +59,9 @@ const UpdateEvent = () => {
         console.log(data);
 
         if (res.status === 422 || !data) {
-            console.log("error ");
-        } else {
+            console.log("error ")
+            return 0;
+        }else {
             setINP(data)
             console.log("get data");
         }
@@ -100,7 +101,7 @@ const UpdateEvent = () => {
     return (
         <div style={{marginLeft:"100px", marginTop:"10px"}}>
             <Container>
-            <h1>Update Event of {inpval.EventName}</h1>
+            <h1>Update Event - {inpval.EventName}</h1>
       <hr></hr>
             <form className="formCard" border="dark">
             <Row className="justify-content-md-center">
@@ -185,11 +186,11 @@ const UpdateEvent = () => {
                 Submit
               </Button>
               </Col>
-              
+
               <Col>
               <Form.Group className="mb-3" style={{marginTop: "140px"}}>
                 <Form.Label>Event Image</Form.Label>
-                <Form.Control onChange={handlePhoto} name="EventImage" />
+                <Form.Control type='file' onChange={setdata} name="EventImage" />
               </Form.Group>
               </Col>
           </Row>

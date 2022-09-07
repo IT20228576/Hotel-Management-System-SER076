@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { NavLink } from 'react-router-dom';
-import { adddata, deldata } from './context/ContextProvider';
-import { updatedata } from './context/ContextProvider';
+import { deldata } from './context/ContextProvider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,11 +12,7 @@ const ViewListEvents = () => {
     const [geteventdata, setEventdata] = useState([]);
     console.log(geteventdata);
 
-    const { udata, setUdata } = useContext(adddata);
-
-    const {updata, setUPdata} = useContext(updatedata);
-
-    const {dltdata, setDLTdata} = useContext(deldata);
+    const { setDLTdata} = useContext(deldata);
     const [searchTerm, setSearchTerm] = useState("");
 
     const getdata = async () => {
@@ -105,7 +100,7 @@ const ViewListEvents = () => {
                         <tbody>
                             {
                                 geteventdata.filter((element)=> {
-                                    if(searchTerm == ""){
+                                    if(searchTerm === ""){
                                         return element
                                     }else if (element.EventName.toLowerCase().includes(searchTerm.toLowerCase()) 
                                     || element.EventType.toLowerCase().includes(searchTerm.toLowerCase())

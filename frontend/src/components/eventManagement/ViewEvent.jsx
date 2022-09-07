@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Modal, Button, Table } from "react-bootstrap";
 import img7 from '../eventManagement/Images/image7.jpeg';
 import "../layout/Styles/PopUpStyles.css";
@@ -15,7 +13,7 @@ const ViewEvent = () => {
     const { id } = useParams("");
     console.log(id);
 
-    const history = useNavigate();
+    // const history = useNavigate();
 
     const getdata = async () => {
         const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
@@ -39,7 +37,7 @@ const ViewEvent = () => {
 
     useEffect(() => {
         getdata();
-    }, [])
+    })
 
     return (
         <div className="container mt-3" style={{marginLeft:"100px"}}>
@@ -51,7 +49,7 @@ const ViewEvent = () => {
         <a href='/view'><Modal.Header closeButton></Modal.Header></a>
           <Modal.Title style={{textAlign: "center"}}>{geteventdata.EventName}</Modal.Title>
           <br></br>
-          <img style={{width:"400px", height: "300px", margin: "auto"}}src={img7}/>
+          <img style={{width:"400px", height: "300px", margin: "auto"}} src={img7}/>
         <Modal.Body>
           <Table bordered responsive>
             <tbody>
@@ -115,12 +113,6 @@ const ViewEvent = () => {
          </td>
         <td>{geteventdata.EventDescription}</td>
        </tr>
-       <tr>
-         <td style={{ backgroundColor: "#D3D3D3" }}>
-           <b>Event Image</b>
-         </td>
-        <td>{geteventdata.EventImage}</td>
-       </tr>
        </tbody>
           </Table>
         </Modal.Body>
@@ -130,27 +122,6 @@ const ViewEvent = () => {
           </Button></a>
         </Modal.Footer>
       </Modal>
-
-            <h1 style={{ fontWeight: 400 }}>View Event</h1>
-            <Card sx={{ maxWidth: 600 }}>
-                <CardContent>
-                    <div>
-                        <div>
-                            <p>EventName: <span >{geteventdata.EventName}</span></p>
-                            <p>EventType: <span >{geteventdata.EventType}</span></p>
-                            <p>EventDate: <span>{geteventdata.EventDate}</span></p>
-                            <p>ClientName: <span>{geteventdata.ClientName}</span></p>
-                            <p>EventStartTime: <span >{geteventdata.EventStartTime}</span></p>
-                            <p>EventEndTime: <span >{geteventdata.EventEndTime}</span></p>
-                            <p>NoOfParticipants: <span>{geteventdata.NoOfParticipants}</span></p>
-                            <p>EventStatus: <span>{geteventdata.EventStatus}</span></p>
-                            <p>EventLocation: <span>{geteventdata.EventLocation}</span></p>
-                            <p>EventDescription: <span >{geteventdata.EventDescription}</span></p>
-                            <p>EventImage: <span>{geteventdata.EventImage}</span></p>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
         </div>
     )
 }

@@ -103,8 +103,8 @@ const EventReport = () => {
                         </thead>
                         <tbody>
                             {
-                                geteventdata.filter((element)=> {
-                                    if(searchTerm == ""){
+                                geteventdata.filter((element) => {
+                                    if(searchTerm === ""){
                                         return element
                                     }else if (element.EventDate.toLowerCase().includes(searchTerm.toLowerCase())){
                                         return element
@@ -118,7 +118,7 @@ const EventReport = () => {
                                                 <th scope="row">{element.EventType}</th>
                                                 <th scope="row">{element.EventDate}</th>
                                                 <th scope="row">{element.ClientName}</th>
-                                                <th scope="row">{element.EventStartTime} {element.EventEndTime}</th>
+                                                <th scope="row">{element.EventStartTime} - {element.EventEndTime}</th>
                                                 <th scope="row">{element.NoOfParticipants}</th>
                                                 <th scope="row">{element.EventStatus}</th>
                                                 <th scope="row">{element.EventLocation}</th>
