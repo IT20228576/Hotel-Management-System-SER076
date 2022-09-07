@@ -201,11 +201,16 @@ function ViewReservationList() {
               </button>
             </a>
 
-            <div style={{ marginLeft: "400px" }}>
+            <div>
               <form className="form-inline my-2 my-lg-0">
                 <input
                   className="form-control mr-sm-2"
-                  placeholder="Search"
+                  style={{
+                    width: "430px",
+                    marginLeft: "100px",
+                    marginRight: "10px",
+                  }}
+                  placeholder="Search By Reference Number/ First Name/ Last Name"
                   type="search"
                   name="searchQuery"
                   onChange={handleSearch}

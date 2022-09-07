@@ -10,12 +10,12 @@ function Dashboard() {
   return (
     <div class="container">
       <Card.Header>
-        <h1 style={{ textAlign: "center" }}> DASHBOARD </h1>
+        <h1 style={{ textAlign: "center", marginTop: "2rem" }}> DASHBOARD </h1>
       </Card.Header>
       <div className="dashboard-container">
         <div className="dashboard-col">
-          <Card style={{ width: "20rem", height: "20rem" }}>
-            <Card.Body style={{}}>
+          <Card style={{ width: "18rem" }}>
+            <Card.Body>
               <a href="/users">
                 <Button className="dashboard-button">
                   USERS <br />
@@ -25,7 +25,7 @@ function Dashboard() {
             </Card.Body>
           </Card>
 
-          <Card style={{ width: "20rem", height: "20rem" }}>
+          <Card style={{ width: "18rem" }}>
             <Card.Body>
               <a href="/view">
                 <Button className="dashboard-button">
@@ -38,7 +38,7 @@ function Dashboard() {
         </div>
 
         <div className="dashboard-row">
-          <Card style={{ width: "20rem", height: "20rem" }}>
+          <Card style={{ width: "18rem" }}>
             <Card.Body>
               <a href="/viewRooms">
                 <Button className="dashboard-button">
@@ -49,7 +49,7 @@ function Dashboard() {
             </Card.Body>
           </Card>
 
-          <Card style={{ width: "20rem", height: "20rem" }}>
+          <Card style={{ width: "18rem" }}>
             <Card.Body>
               <a href="/reservations">
                 <Button className="dashboard-button">

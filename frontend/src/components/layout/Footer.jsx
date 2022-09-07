@@ -8,9 +8,8 @@ import "./Styles/FooterStyles.css";
 
 function Footer() {
   return (
-    <div className="container">
-      <div className="main-footer">
-        <hr />
+    <div className="main-footer">
+      <div className="container">
         <div className="main-footer-container">
           <div className="col">
             <div className="row">

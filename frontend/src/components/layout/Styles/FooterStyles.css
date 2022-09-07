@@ -1,11 +1,13 @@
 .main-footer {
+  z-index: 100;
   color: black;
   background-color: white;
-  position: relative;
-  top: 1em;
+  position: fixed;
+  left: 0;
   bottom: 0;
   width: 100%;
   padding: 5px;
+  border-top: 1px solid lightgrey;
 }
 
 .border-line {
@@ -13,6 +15,7 @@
 }
 
 .main-footer-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
