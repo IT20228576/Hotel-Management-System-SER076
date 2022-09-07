@@ -210,6 +210,7 @@ function AddReservation() {
                     name="adults"
                     placeholder="Adults"
                     type="number"
+                    min="1"
                     onChange={(e) => setAdults(e.target.value)}
                   />
                 </Form.Group>
@@ -220,6 +221,7 @@ function AddReservation() {
                     name="children"
                     placeholder="Children"
                     type="number"
+                    min="0"
                     onChange={(e) => setChildren(e.target.value)}
                   />
                 </Form.Group>
