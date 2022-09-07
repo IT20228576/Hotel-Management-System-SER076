@@ -56,7 +56,8 @@ router.get("/getAll", async (req, res) => {
   try {
     // getting page number from query parameter, or assigning to 0
     const pageNo = req.query.pageNo || 1;
-    const itemsPerPage = 3;
+    // getting page size from query parameter, or assigning to 10
+    const itemsPerPage = req.query.pageSize || 10;
     const skip = (pageNo - 1) * itemsPerPage;
 
     // getting the number of records in the DB

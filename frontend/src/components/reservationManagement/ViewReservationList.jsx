@@ -19,12 +19,14 @@ function ViewReservationList() {
   const [pageNo, setPageNo] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-  console.log(pageCount, "aaaaaaaaa");
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   async function getAllData() {
     try {
       await axios
-        .get(`http://localhost:8000/reservations/getAll?pageNo=${pageNo}`)
+        .get(
+          `http://localhost:8000/reservations/getAll?pageNo=${pageNo}&pageSize=${itemsPerPage}`
+        )
         .then((res) => {
           if (res.status === 200) {
             setDetails(res.data.data);
@@ -40,8 +42,8 @@ function ViewReservationList() {
 
   useEffect(() => {
     getAllData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNo, pageCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNo, pageCount, itemsPerPage]);
 
   async function deleteReservation(detail) {
     try {
@@ -87,7 +89,6 @@ function ViewReservationList() {
   };
 
   function updateReservation(detail) {
-    console.log(detail, "ass");
     navigate("/reservations/update", { state: detail });
   }
 
@@ -247,40 +248,56 @@ function ViewReservationList() {
       ) : (
         <></>
       )}
-      <footer>
-        No of Total Records: {totalCount}
-        <div className="d-flex justify-content-center align-items-center">
-          <Button
-            disabled={pageNo === 1}
-            onClick={handlePrevious}
-            className="btn-light m-2"
-          >
-            <ArrowBackIosIcon />
-            Previous
-          </Button>
-          <span className="m-3">Page: {pageNo}</span>
-          <Button
-            disabled={pageNo === pageCount ? true : false}
-            onClick={handleNext}
-            className="btn-light m-2"
-          >
-            Next
-            <ArrowForwardIosIcon />
-          </Button>
-          <select
-            value={pageNo}
-            onChange={(event) => {
-              setPageNo(event.target.value);
-            }}
-            className="btn btn-light p-2"
-          >
-            {Array(pageCount)
-              .fill(null)
-              .map((_, index) => {
-                console.log(index);
-                return <option key={index}>{index + 1}</option>;
-              })}
-          </select>
+      <footer className="container mt-5">
+        <div className="d-flex justify-content-between align-items-center">
+          <div>No of Total Records: {totalCount}</div>
+          <div>
+            <Button
+              disabled={pageNo === 1}
+              onClick={handlePrevious}
+              className="btn-light"
+            >
+              <ArrowBackIosIcon />
+              Previous
+            </Button>
+            <span className="col m-2">Page: {pageNo}</span>
+            <Button
+              disabled={pageNo === pageCount ? true : false}
+              onClick={handleNext}
+              className="btn-light"
+            >
+              Next
+              <ArrowForwardIosIcon />
+            </Button>
+            <select
+              value={pageNo}
+              onChange={(event) => {
+                setPageNo(event.target.value);
+              }}
+              className="btn btn-light p-2"
+            >
+              {Array(pageCount)
+                .fill(null)
+                .map((_, index) => {
+                  console.log(index);
+                  return <option key={index}>{index + 1}</option>;
+                })}
+            </select>
+          </div>
+          <div>
+            Records Per Page:
+            <select
+              value={itemsPerPage}
+              onChange={(event) => {
+                console.log();
+                setItemsPerPage(event.target.value);
+              }}
+              className="btn btn-light p-2"
+            >
+              <option>3</option>;<option>10</option>;<option>25</option>;
+              <option>20</option>;
+            </select>
+          </div>
         </div>
       </footer>
     </div>
