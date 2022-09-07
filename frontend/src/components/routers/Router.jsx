@@ -23,6 +23,8 @@ import ReservationReport from "../reservationManagement/ReservationReport";
 import UpdateReservation from "../reservationManagement/UpdateReservation";
 import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
+import Footer from "../layout/Footer";
+import Dashboard from "../layout/Dashboard";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -93,9 +95,11 @@ function Router() {
             />
             <Route exact path="/reserve" element={<Reserve />} />
             <Route exact path="/reserve/confirm" element={<ConfirmReserve />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
 
             <Route exact path="*" element={<Home />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </ContextProvider>
     </div>
