@@ -54,8 +54,23 @@ router.post("/add", async (req, res) => {
 /* Get All Reservation Details */
 router.get("/getAll", async (req, res) => {
   try {
-    const details = await Reservations.find().sort({ createdAt: -1 });
+    // getting page number from query parameter, or assigning to 0
+    const pageNo = req.query.pageNo || 1;
+    // getting page size from query parameter, or assigning to 10
+    const itemsPerPage = req.query.pageSize || 10;
+    const skip = (pageNo - 1) * itemsPerPage;
+
+    // getting the number of records in the DB
+    const count = await Reservations.estimatedDocumentCount();
+
+    const pageCount = Math.ceil(count / itemsPerPage);
+    const details = await Reservations.find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(itemsPerPage);
+
     return res.status(200).json({
+      pagination: { count, pageCount },
       data: details,
       message: "Fetched All Successfully",
     });
@@ -97,6 +112,26 @@ router.get("/search/:searchTerm", async (req, res) => {
     });
 
     return res.status(200).json({
+      data: details,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
+/* Update a Reservation */
+router.put("/update/:id", async (req, res) => {
+  try {
+    // assign id to a separate variable
+    const id = req.params.id;
+
+    // assign the data coming from the req body to separate variable
+    const oldData = req.body;
+
+    const details = await Reservations.findByIdAndUpdate(id, { $set: oldData });
+
+    return res.status(200).json({
+      message: "Reservation Updated Successfully",
       data: details,
     });
   } catch (error) {

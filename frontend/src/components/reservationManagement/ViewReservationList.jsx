@@ -6,19 +6,32 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import ReservationPopup from "./ReservationPopup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [details, setDetails] = useState([]);
   const [reservationInfo, setReservationInfo] = useState([]);
+  const navigate = useNavigate();
+  const [pageNo, setPageNo] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   async function getAllData() {
     try {
       await axios
-        .get("http://localhost:8000/reservations/getAll")
+        .get(
+          `http://localhost:8000/reservations/getAll?pageNo=${pageNo}&pageSize=${itemsPerPage}`
+        )
         .then((res) => {
           if (res.status === 200) {
             setDetails(res.data.data);
+            setPageCount(res.data.pagination.pageCount);
+            setTotalCount(res.data.pagination.count);
           }
         });
     } catch (error) {
@@ -29,7 +42,8 @@ function ViewReservationList() {
 
   useEffect(() => {
     getAllData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNo, pageCount, itemsPerPage]);
 
   async function deleteReservation(detail) {
     try {
@@ -74,6 +88,28 @@ function ViewReservationList() {
     }
   };
 
+  function updateReservation(detail) {
+    navigate("/reservations/update", { state: detail });
+  }
+
+  const handlePrevious = () => {
+    setPageNo((p) => {
+      if (p === 1) {
+        return parseInt(p);
+      }
+      return parseInt(p) - 1;
+    });
+  };
+
+  const handleNext = () => {
+    setPageNo((p) => {
+      if (p === pageCount) {
+        return parseInt(p);
+      }
+      return parseInt(p) + 1;
+    });
+  };
+
   var dataList =
     details.length > 0 ? (
       details.map((item, index) => {
@@ -95,12 +131,14 @@ function ViewReservationList() {
                 <RemoveRedEyeIcon />
               </button>
               &nbsp;
-              <a href={`/#`} style={{ textDecoration: "none" }}>
-                <i className="btn btn-outline-warning">
-                  <EditIcon />
-                </i>
-                &nbsp;
-              </a>
+              <button
+                className="btn btn-outline-warning"
+                onClick={() => {
+                  updateReservation.bind(this, item);
+                }}
+              >
+                <EditIcon />
+              </button>
               &nbsp;
               <button
                 className="btn btn-outline-danger"
@@ -118,10 +156,10 @@ function ViewReservationList() {
       <div
         className="notify"
         style={{
-          position: "absolute",
-          left: "30%",
-          right: "30%",
-          top: "50%",
+          position: "relative",
+          left: "60%",
+          right: "40%",
+          top: "30%",
           bottom: "50%",
           fontSize: "40px",
           fontWeight: "bold",
@@ -154,7 +192,7 @@ function ViewReservationList() {
                 <AddCircleIcon /> Add
               </button>
             </a>
-            <a href="/#" style={{ marginRight: "10px" }}>
+            <a href="/reservations/report" style={{ marginRight: "10px" }}>
               <button
                 className="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"
@@ -163,11 +201,16 @@ function ViewReservationList() {
               </button>
             </a>
 
-            <div style={{ marginLeft: "400px" }}>
+            <div>
               <form className="form-inline my-2 my-lg-0">
                 <input
                   className="form-control mr-sm-2"
-                  placeholder="Search"
+                  style={{
+                    width: "430px",
+                    marginLeft: "100px",
+                    marginRight: "10px",
+                  }}
+                  placeholder="Search By Reference Number/ First Name/ Last Name"
                   type="search"
                   name="searchQuery"
                   onChange={handleSearch}
@@ -210,6 +253,58 @@ function ViewReservationList() {
       ) : (
         <></>
       )}
+      <footer className="container mt-5">
+        <div className="d-flex justify-content-between align-items-center">
+          <div>No of Total Records: {totalCount}</div>
+          <div>
+            <Button
+              disabled={pageNo === 1}
+              onClick={handlePrevious}
+              className="btn-light"
+            >
+              <ArrowBackIosIcon />
+              Previous
+            </Button>
+            <span className="col m-2">Page: {pageNo}</span>
+            <Button
+              disabled={pageNo === pageCount ? true : false}
+              onClick={handleNext}
+              className="btn-light"
+            >
+              Next
+              <ArrowForwardIosIcon />
+            </Button>
+            <select
+              value={pageNo}
+              onChange={(event) => {
+                setPageNo(event.target.value);
+              }}
+              className="btn btn-light p-2"
+            >
+              {Array(pageCount)
+                .fill(null)
+                .map((_, index) => {
+                  console.log(index);
+                  return <option key={index}>{index + 1}</option>;
+                })}
+            </select>
+          </div>
+          <div>
+            Records Per Page:
+            <select
+              value={itemsPerPage}
+              onChange={(event) => {
+                console.log();
+                setItemsPerPage(event.target.value);
+              }}
+              className="btn btn-light p-2"
+            >
+              <option>3</option>;<option>10</option>;<option>25</option>;
+              <option>20</option>;
+            </select>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
