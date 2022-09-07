@@ -16,7 +16,7 @@ function UpdateRoom(props) {
 
   const [roomToUpdate, setRoomToUpdate] = useState([]);
   const [image, setImage] = useState("");
-  const [url, setUrl] = useState("");
+  //const [url, setUrl] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/room/getOne/" + localStorage.getItem("updateid"))
@@ -60,8 +60,8 @@ function UpdateRoom(props) {
       .then((data) => {
         setTimeout(() => {
           //console.log(data.url);
-          setUrl(data.url);
-          console.log(data.url);
+          //setUrl(data.url);
+          //console.log(data.url);
           setRoom((room.imageURL = data.url));
           console.log(room);
           

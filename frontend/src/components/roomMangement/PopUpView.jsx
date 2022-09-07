@@ -5,7 +5,7 @@ import { Modal, Button, Table } from "react-bootstrap";
 function PopUpView(props) {
   const [roomDetails, setroomDetails] = useState([]);
 
-  const { handleModalClose,details } = props;
+  const { details } = props;
   
 
   useEffect(() => {
