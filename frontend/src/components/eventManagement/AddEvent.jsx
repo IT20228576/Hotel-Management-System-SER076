@@ -1,19 +1,17 @@
 import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { adddata } from './context/ContextProvider';
 import {
-    Card,
     Col,
     Row,
     Button,
-    Accordion,
     Form,
     Container,
   } from "react-bootstrap";
 
 const AddEvent = () => {
 
-    const { udata, setUdata } = useContext(adddata);
+    const { setUdata } = useContext(adddata);
 
     const navigate  = useNavigate();
 
@@ -37,11 +35,21 @@ const AddEvent = () => {
         setINP((preval) => {
             return {
                 ...preval,
-                [name]: value
+                [name]: value,
             }
         })
     }
 
+  //   const handlePhoto = (e) => {
+
+  //     console.log(e.target.files[0].filename);
+  //       setINP((preval) => {
+  //           return {
+  //               ...preval,
+  //               EventImage: e.target.files[0],
+  //           }
+  //       })
+  // }
 
     const addinpdata = async (e) => {
         e.preventDefault();
@@ -60,31 +68,32 @@ const AddEvent = () => {
 
         const data = await res.json();
         console.log(data);
-        // alert("Success");
 
         if (res.status === 422 || !data) {
-            console.log("error ");
-            alert("error");
-
+            console.log("error ")
+            alert("error")
+            return 0;
+        }else if(NoOfParticipants>100){
+alert("Maximum no of participants are 100")
+return 0;
         } else {
-          alert("Add Event Details Successfully")
+          alert("Add Event Details Successfully");
             navigate("/view")
             setUdata(data)
             console.log("data added");
-
         }
     }
 
     return (
         <div style={{marginLeft:"100px", marginTop:"10px"}}>
         <Container>
-        <h1 style={{margin:"2%" }}>Add Event</h1>
+        <h1 style={{margin:"2%" }}>Add New Event</h1>
       <hr></hr>
             <form className="formCard" border="dark">
             <Row className="justify-content-md-center">
             <Col>
             <Form.Group className="mb-3">
-                <Form.Label>Event Name</Form.Label>
+                <Form.Label>Event Name *</Form.Label>
                 <Form.Control
                   placeholder="Event Name"
                   value={inpval.EventName} onChange={setdata} name="EventName"
@@ -92,49 +101,63 @@ const AddEvent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Date</Form.Label>
+                <Form.Label>Event Date *</Form.Label>
                 <Form.Control
                   placeholder="Event Date"
+                  type='date'
                   value={inpval.EventDate} onChange={setdata} name="EventDate"
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Start Date</Form.Label>
+                <Form.Label>Event Start Time *</Form.Label>
                 <Form.Control
+                type='time'
                   placeholder="Event Start Date"
                   value={inpval.EventStartTime} onChange={setdata} name="EventStartTime"
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>No Of Participants</Form.Label>
+                <Form.Label>No Of Participants *</Form.Label>
                 <Form.Control
                   placeholder="No Of Participants"
                   value={inpval.NoOfParticipants} onChange={setdata} name="NoOfParticipants"
                 />
               </Form.Group>
+
               <Form.Group className="mb-3">
-                <Form.Label>Event Location</Form.Label>
-                <Form.Control
-                  placeholder="Event Location"
-                  value={inpval.EventLocation} onChange={setdata} name="EventLocation"
-                />
+                <Form.Label>Event Location *</Form.Label>
+                <Form.Select aria-label="Default select example" value={inpval.EventLocation} onChange={setdata} name="EventLocation">
+                <option>Event Location</option>
+      <option>Hall 01</option>
+      <option>Hall 02</option>
+      <option>Meeting Room 01</option>
+      <option>Meetng Room 02</option>
+      <option>Outdoor</option>
+    </Form.Select>
               </Form.Group>
-              <Button variant="secondary" size="lg" style={{ width: "70%", float: "right" }}>
+
+              <a href="/event/new"><Button variant="secondary" size="lg" style={{ width: "70%", float: "right", margin:"5px" }}>
                 Reset
-              </Button>
+              </Button></a>
               </Col>
+
               <Col>
             <Form.Group className="mb-3">
-                <Form.Label>Event Type</Form.Label>
-                <Form.Control
-                  placeholder="Event Type"
-                  value={inpval.EventType} onChange={setdata} name="EventType"
-                />
+                <Form.Label>Event Type *</Form.Label>
+                <Form.Select aria-label="Default select example" value={inpval.EventType} onChange={setdata} name="EventType">
+                <option>Event Type</option>
+      <option>Wedding</option>
+      <option>Meeting</option>
+      <option>Award Ceremony</option>
+      <option>Birthday Party</option>
+      <option>Batch Party</option>
+    </Form.Select>
               </Form.Group>
+
               <Form.Group className="mb-3">
-                <Form.Label>Client Name</Form.Label>
+                <Form.Label>Client Name *</Form.Label>
                 <Form.Control
                   placeholder="Client Name"
                   value={inpval.ClientName} onChange={setdata} name="ClientName"
@@ -142,19 +165,25 @@ const AddEvent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event End Date</Form.Label>
+                <Form.Label>Event End Time *</Form.Label>
                 <Form.Control
                   placeholder="Event End Date"
+                  type='time'
                   value={inpval.EventEndTime} onChange={setdata} name="EventEndTime"
                 />
               </Form.Group>
+
               <Form.Group className="mb-3">
-                <Form.Label>Event Status</Form.Label>
-                <Form.Control
-                  placeholder="Event Status"
-                  value={inpval.EventStatus} onChange={setdata} name="EventStatus"
-                />
+                <Form.Label>Event Status *</Form.Label>
+                <Form.Select aria-label="Default select example" value={inpval.EventStatus} onChange={setdata} name="EventStatus">
+                <option>Event Status</option>
+      <option>Available</option>
+      <option>Not Available</option>
+      <option>Postponed</option>
+      <option>Cancelled</option>
+    </Form.Select>
               </Form.Group>
+
               <Form.Group className="mb-3">
                 <Form.Label>Event Description</Form.Label>
                 <Form.Control
@@ -162,13 +191,7 @@ const AddEvent = () => {
                   value={inpval.EventDescription} onChange={setdata} name="EventDescription"
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Event Image</Form.Label>
-                <Form.Control
-                  placeholder="Event Image"
-                  value={inpval.EventImage} onChange={setdata} name="EventImage"
-                />
-              </Form.Group>
+
               <Button
                 variant="primary"
                 size="lg"
@@ -178,6 +201,17 @@ const AddEvent = () => {
               >
                 Submit
               </Button>
+            </Col>
+            
+            <Col>
+            <Form.Group className="mb-3" style={{marginTop: "140px"}}>
+                <Form.Label>Event Image</Form.Label>
+                <Form.Control
+                  placeholder="Event Image"
+                  type= 'file'
+                  onChange={setdata} name="EventImage"
+                />
+              </Form.Group>
             </Col>
           </Row>
             </form>
