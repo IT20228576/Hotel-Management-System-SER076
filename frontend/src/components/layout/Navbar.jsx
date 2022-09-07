@@ -66,6 +66,19 @@ function Navbar() {
                 </li>
               </>
             )}
+            {userType === "Customer" && (
+              <>
+                <li>
+                  <a href="/profile">
+                    Customer <AccountCircleIcon />
+                  </a>
+                </li>
+                <h2 style={{ color: "white" }}>|</h2>
+                <li>
+                  <LogOut />
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
