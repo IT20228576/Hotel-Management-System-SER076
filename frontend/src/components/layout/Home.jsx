@@ -21,7 +21,7 @@ import MailIcon from "@mui/icons-material/Mail";
 
 function Home() {
   return (
-    <div style={{marginLeft:"100px"}}>
+    <div style={{marginLeft:"100px", marginBottom:"100px"}}>
       <div style={{ textAlign: "center", marginTop: "10px" }}>
         <h1>
           <b>CISP Hotel</b>
