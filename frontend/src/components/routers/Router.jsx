@@ -43,10 +43,10 @@ function Router() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                <Route
+                {/* <Route
                   path="/viewlisttemplate"
                   element={<ViewListTemplate />}
-                />
+                /> */}
               </>
             )}
 
