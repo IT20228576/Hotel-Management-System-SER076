@@ -1,23 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../layout/Styles/PopUpStyles.css";
 import { Modal, Button, Table } from "react-bootstrap";
 
-function PopUpViewTemplate(props) {
-  const { handleModalClose } = props;
-  const sampleData = [
-    { title: "sample1", data: "AB" },
-    { title: "sample2", data: "CD" },
-    { title: "sample3", data: "EF" },
-  ];
+function PopUpView(props) {
+  const [roomDetails, setroomDetails] = useState([]);
 
-  var listData = sampleData.map((item, index) => {
+  const { handleModalClose,details } = props;
+  
+
+  useEffect(() => {
+    var datalist = [];
+    datalist.push({
+    roomName: details.roomName,
+    roomNumber: details.roomNumber,
+    roomType: details.roomType,
+    roomPrice: details.roomPrice,
+    description: details.description
+    });
+
+    setroomDetails(datalist);
+  }, [details]);
+
+  var listData = roomDetails.map((item,index) => {
     return (
-      <tr key={index}>
-        <td style={{ backgroundColor: "#D3D3D3" }}>
-          <b>{item.title}</b>
-        </td>
-        <td>{item.data}</td>
-      </tr>
+      <tbody key={item._id}>
+        <tr>
+          <td style={{ backgroundColor: "#D3D3D3" }}>
+            <b>Room Name</b>
+          </td>
+          <td>{item.roomName}</td>
+        </tr>
+        <tr>
+          <td style={{ backgroundColor: "#D3D3D3" }}>
+            <b>Room Number</b>
+          </td>
+          <td>{item.roomNumber}</td>
+        </tr>
+        
+        <tr>
+          <td style={{ backgroundColor: "#D3D3D3" }}>
+            <b>Room Type</b>
+          </td>
+          <td>{item.roomType}</td>
+        </tr>
+        
+        <tr>
+          <td style={{ backgroundColor: "#D3D3D3" }}>
+            <b>Room Price</b>
+          </td>
+          <td>{item.roomPrice}</td>
+        </tr>
+       
+        
+        <tr>
+          <td style={{ backgroundColor: "#D3D3D3" }}>
+            <b>Description</b>
+          </td>
+          <td>{item.description}</td>
+        </tr>
+        
+      </tbody>
     );
   });
 
@@ -26,19 +68,19 @@ function PopUpViewTemplate(props) {
       <Modal
         dialogClassName="my-modal"
         show={true}
-        onHide={handleModalClose}
+        onHide={props.handleModalClose}
         backdrop="static"
       >
         <Modal.Header closeButton>
-          <Modal.Title>View Template</Modal.Title>
+          <Modal.Title>View Rooms</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Table bordered responsive>
-            <tbody>{listData}</tbody>
+            {listData}
           </Table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleModalClose}>
+          <Button variant="danger" onClick={props.handleModalClose}>
             Close
           </Button>
         </Modal.Footer>
@@ -47,4 +89,4 @@ function PopUpViewTemplate(props) {
   );
 }
 
-export default PopUpViewTemplate;
+export default PopUpView;

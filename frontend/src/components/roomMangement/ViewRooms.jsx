@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  Col,
-  Row,
-  Button,
-  Accordion,
-  Form,
-  Container,
-  Table,
-} from "react-bootstrap";
+
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -25,6 +16,7 @@ import PopUpViewTemplate from "./PopUpView";
 
 function ViewRooms() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [details,setDetails] =useState([]);
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -33,18 +25,43 @@ function ViewRooms() {
   const [rooms, setRooms] = useState([]);
   const [isEditable, setIsEditable] = useState(false);
   let navigate = useNavigate();
+
+  const getRooms = async () => {
+    await axios
+    .get("http://localhost:8000/api/room/get")
+    .then((res) => setRooms(res.data))
+    //.then((res) => console.log(res.data))
+    .catch((err) => console.error(err));
+  }
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/room/get")
-      .then((res) => setRooms(res.data))
-      //.then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+    getRooms();
   }, []);
 
   async function update(id) {
     localStorage.setItem("updateid", id);
     navigate("/updateRoom");
   }
+
+  async function deleteRoom(room) {
+    try {
+      if (window.confirm("This Room Will Be Deleted!")) {
+        await axios
+          .delete(`http://localhost:8000/api/room/delete/${room._id}`)
+          .then((res) => {
+            console.log(res);
+            if (res.status === 201) {
+              alert("Deleted successfully....");
+              getRooms();
+            }
+          });
+      }
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
+  
 
   return (
     <div>
@@ -58,7 +75,7 @@ function ViewRooms() {
               >
                 Rooms
               </h1>
-              <a href="/#" style={{ marginRight: "10px" }}>
+              <a href="/addRoom" style={{ marginRight: "10px" }}>
                 <button
                   class="btn btn-outline-success my-1 my-sm-0"
                   type="submit"
@@ -124,7 +141,7 @@ function ViewRooms() {
                   <button
                       className="btn btn-outline-secondary"
                       onClick={() => {
-                        setModalOpen(true);
+                        setModalOpen(true);setDetails(room);
                       }}
                     >
                       <RemoveRedEyeIcon fontSize="large" />
@@ -138,7 +155,8 @@ function ViewRooms() {
                       />
                     </i>
                     <i class="btn btn-outline-danger">
-                      <DeleteOutlineIcon fontSize="large" />
+                      <DeleteIcon fontSize="large"  onClick={()=>deleteRoom(room)}
+                       />
                     </i>
                    
                   </td>
@@ -148,7 +166,7 @@ function ViewRooms() {
           </tbody>
         </table>
         {modalOpen === true ? (
-        <PopUpViewTemplate handleModalClose={handleModalClose} />
+        <PopUpViewTemplate handleModalClose={handleModalClose} details={details}/>
       ) : (
         <></>
       )}

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import {
-  Card,
   Col,
   Row,
   Button,
-  Accordion,
   Form,
   Container,
 } from "react-bootstrap";
@@ -28,7 +26,7 @@ function AddRoom() {
     roomPrice: "",
     roomType: "",
     description: "",
-    imageURL:"",
+  
   });
 
   async function hadleSubmit(e) {
