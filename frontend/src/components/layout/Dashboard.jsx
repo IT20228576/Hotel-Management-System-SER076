@@ -8,7 +8,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 function Dashboard() {
   return (
-    <div class="container">
+    <div className="container">
       <Card.Header>
         <h1 style={{ textAlign: "center", marginTop: "2rem" }}> DASHBOARD </h1>
       </Card.Header>
