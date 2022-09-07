@@ -69,7 +69,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      {userType === null ? (
+      {userType === "Admin" ? (
         <>
           <nav className="nav-menu">
             <div className="menubar">
