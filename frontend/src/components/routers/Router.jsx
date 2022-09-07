@@ -23,6 +23,8 @@ import ReservationReport from "../reservationManagement/ReservationReport";
 import UpdateReservation from "../reservationManagement/UpdateReservation";
 import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
+import Footer from "../layout/Footer";
+import Dashboard from "../layout/Dashboard";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -56,12 +58,43 @@ function Router() {
             {userType === "Admin" && (
               <>
                 <Route path="/profile" element={<Profile />} />
+                <Route exact path="/dashboard" element={<Dashboard />} />
+
+                {/*Reservation Routes for Admin*/}
+                <Route
+                  exact
+                  path="/reservations"
+                  element={<ViewReservationList />}
+                />
+                <Route
+                  exact
+                  path="/reservations/add"
+                  element={<AddReservation />}
+                />
+                <Route
+                  exact
+                  path="/reservations/update"
+                  element={<UpdateReservation />}
+                />
+                <Route
+                  exact
+                  path="/reservations/report"
+                  element={<ReservationReport />}
+                />
               </>
             )}
 
             {userType === "Customer" && (
               <>
                 <Route path="/profile" element={<Profile />} />
+
+                {/*Reservation Routes for Customer*/}
+                <Route exact path="/reserve" element={<Reserve />} />
+                <Route
+                  exact
+                  path="/reserve/confirm"
+                  element={<ConfirmReserve />}
+                />
               </>
             )}
 
@@ -70,32 +103,9 @@ function Router() {
             <Route path="/viewRooms" element={<ViewRooms />} />
             <Route path="/updateRoom" element={<UpdateRoom />} />
 
-            {/*Reservation Routes*/}
-            <Route
-              exact
-              path="/reservations"
-              element={<ViewReservationList />}
-            />
-            <Route
-              exact
-              path="/reservations/add"
-              element={<AddReservation />}
-            />
-            <Route
-              exact
-              path="/reservations/update"
-              element={<UpdateReservation />}
-            />
-            <Route
-              exact
-              path="/reservations/report"
-              element={<ReservationReport />}
-            />
-            <Route exact path="/reserve" element={<Reserve />} />
-            <Route exact path="/reserve/confirm" element={<ConfirmReserve />} />
-
             <Route exact path="*" element={<Home />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </ContextProvider>
     </div>

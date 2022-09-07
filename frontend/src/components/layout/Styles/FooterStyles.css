@@ -1,0 +1,24 @@
+.main-footer {
+  z-index: 100;
+  color: black;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  border-top: 1px solid lightgrey;
+}
+
+.border-line {
+  border-right: 1px solid #000;
+}
+
+.main-footer-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: auto;
+  text-align: center;
+}
