@@ -42,11 +42,6 @@ function Router() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
-                {/* <Route
-                  path="/viewlisttemplate"
-                  element={<ViewListTemplate />}
-                /> */}
               </>
             )}
 
