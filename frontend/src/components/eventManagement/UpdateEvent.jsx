@@ -48,10 +48,6 @@ const UpdateEvent = () => {
     const { id } = useParams("");
     console.log(id);
 
-    useEffect(() => {
-      getdata();
-  }, []);
-
     const getdata = async () => {
         const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
             method: "GET",
@@ -71,9 +67,9 @@ const UpdateEvent = () => {
         }
     };
 
-    // useEffect(() => {
-    //     getdata();
-    // }, []);
+    useEffect(() => {
+        getdata();
+    });
 
     const updateevent = async(e)=>{
         e.preventDefault();
