@@ -51,16 +51,16 @@ function ViewRooms() {
       <div className="container">
         <div>
           <div>
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav className="navbar navbar-expand-lg navbar-light">
               <h1
-                class="navbar-brand"
+                className="navbar-brand"
                 style={{ marginRight: "100px", marginLeft: "100px" }}
               >
                 Rooms
               </h1>
               <a href="/addRoom" style={{ marginRight: "10px" }}>
                 <button
-                  class="btn btn-outline-success my-1 my-sm-0"
+                  className="btn btn-outline-success my-1 my-sm-0"
                   type="submit"
                 >
                   <AddCircleIcon /> Add
@@ -68,7 +68,7 @@ function ViewRooms() {
               </a>
               <a href="/#" style={{ marginRight: "10px" }}>
                 <button
-                  class="btn btn-outline-primary my-2 my-sm-0"
+                  className="btn btn-outline-primary my-2 my-sm-0"
                   type="submit"
                 >
                   <SummarizeIcon /> Report
@@ -76,9 +76,9 @@ function ViewRooms() {
               </a>
 
               <div style={{ marginLeft: "500px" }}>
-                <form class="form-inline my-2 my-lg-0">
+                <form className="form-inline my-2 my-lg-0">
                   <input
-                    class="form-control mr-sm-2"
+                    className="form-control mr-sm-2"
                     placeholder="Search"
                     type="search"
                     name="searchQuery"
@@ -88,7 +88,7 @@ function ViewRooms() {
             </nav>
           </div>
         </div>
-        <table class="table table-hover" style={{ textAlign: "center" }}>
+        <table className="table table-hover" style={{ textAlign: "center" }}>
           <thead>
             <tr>
               <th scope="col">
@@ -121,7 +121,7 @@ function ViewRooms() {
                   <td>{room.roomPrice}</td>
                   <td>{room.roomNumber}</td>
                   <td>
-                  <button
+                    <button
                       className="btn btn-outline-secondary"
                       onClick={() => {
                         setModalOpen(true);
@@ -129,7 +129,7 @@ function ViewRooms() {
                     >
                       <RemoveRedEyeIcon fontSize="large" />
                     </button>
-                    <i class="btn btn-outline-warning">
+                    <i className="btn btn-outline-warning">
                       <EditIcon
                         fontSize="large"
                         onClick={() => {
@@ -137,10 +137,9 @@ function ViewRooms() {
                         }}
                       />
                     </i>
-                    <i class="btn btn-outline-danger">
+                    <i className="btn btn-outline-danger">
                       <DeleteOutlineIcon fontSize="large" />
                     </i>
-                   
                   </td>
                 </tr>
               );
@@ -148,10 +147,10 @@ function ViewRooms() {
           </tbody>
         </table>
         {modalOpen === true ? (
-        <PopUpViewTemplate handleModalClose={handleModalClose} />
-      ) : (
-        <></>
-      )}
+          <PopUpViewTemplate handleModalClose={handleModalClose} />
+        ) : (
+          <></>
+        )}
       </div>
       {/* <h1 style={{ marginLeft: "8%", padding: "2%" }}>Rooms</h1>
       <Row style={{ marginLeft: "10%" }}>
@@ -179,7 +178,7 @@ function ViewRooms() {
                     <td>{room.roomPrice}</td>
                     <td>{room.roomNumber}</td>
                     <td>
-                    <i class="btn btn-outline-warning">
+                    <i className="btn btn-outline-warning">
                       <EditIcon
                         fontSize="large"
                         onClick={() => { update(room._id) }}

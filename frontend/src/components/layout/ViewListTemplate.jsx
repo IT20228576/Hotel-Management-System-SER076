@@ -17,16 +17,16 @@ function ViewListTemplate() {
     <div className="container">
       <div>
         <div>
-          <nav class="navbar navbar-expand-lg navbar-light">
+          <nav className="navbar navbar-expand-lg navbar-light">
             <h1
-              class="navbar-brand"
+              className="navbar-brand"
               style={{ marginRight: "100px", marginLeft: "100px" }}
             >
               Events
             </h1>
             <a href="/#" style={{ marginRight: "10px" }}>
               <button
-                class="btn btn-outline-success my-1 my-sm-0"
+                className="btn btn-outline-success my-1 my-sm-0"
                 type="submit"
               >
                 <AddCircleIcon /> Add
@@ -34,7 +34,7 @@ function ViewListTemplate() {
             </a>
             <a href="/#" style={{ marginRight: "10px" }}>
               <button
-                class="btn btn-outline-primary my-2 my-sm-0"
+                className="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"
               >
                 <SummarizeIcon /> Report
@@ -42,9 +42,9 @@ function ViewListTemplate() {
             </a>
 
             <div style={{ marginLeft: "500px" }}>
-              <form class="form-inline my-2 my-lg-0">
+              <form className="form-inline my-2 my-lg-0">
                 <input
-                  class="form-control mr-sm-2"
+                  className="form-control mr-sm-2"
                   placeholder="Search"
                   type="search"
                   name="searchQuery"
@@ -54,7 +54,7 @@ function ViewListTemplate() {
           </nav>
         </div>
       </div>
-      <table class="table table-hover" style={{ textAlign: "center" }}>
+      <table className="table table-hover" style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <th scope="col">
@@ -85,14 +85,14 @@ function ViewListTemplate() {
               </button>
               &nbsp;
               <a href={`/#`} style={{ textDecoration: "none" }}>
-                <i class="btn btn-outline-warning">
+                <i className="btn btn-outline-warning">
                   <EditIcon />
                 </i>
                 &nbsp;
               </a>
               &nbsp;
               <a href="/#" style={{ textDecoration: "none" }}>
-                <i class="btn btn-outline-danger">
+                <i className="btn btn-outline-danger">
                   <DeleteIcon />
                 </i>
                 &nbsp;
