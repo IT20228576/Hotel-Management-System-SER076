@@ -19,7 +19,7 @@ function ViewReservationList() {
   const [pageNo, setPageNo] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   async function getAllData() {
     try {
