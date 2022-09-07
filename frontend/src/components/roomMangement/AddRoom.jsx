@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
-  Card,
   Col,
   Row,
   Button,
-  Accordion,
   Form,
   Container,
 } from "react-bootstrap";
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+
 
 import axios from "axios";
 
@@ -28,7 +26,7 @@ function AddRoom() {
     roomPrice: "",
     roomType: "",
     description: "",
-    imageURL:"",
+  
   });
 
   async function hadleSubmit(e) {

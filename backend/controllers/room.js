@@ -50,3 +50,14 @@ exports.editRoom = async (req, res) => {
     res.status(400).json({ message: error });
   }
 };
+
+exports.deleteRoom = async (req, res) => {
+  try {
+    var room = await Room.findByIdAndDelete(req.params.id);
+
+    res.status(201).json({ message: "sucess" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
