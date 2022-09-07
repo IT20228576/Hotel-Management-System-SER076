@@ -1,31 +1,42 @@
 const express = require("express");
 const router = express.Router();
 const events = require("../../models/eventManagement/event.model");
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'EventImageUploads');
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
 
-// router.get("/",(req,res)=>{
-//     console.log("connect");
-// });
+let upload = multer({ storage, fileFilter });
 
-// event/new event
+router.post("/event/new",upload.single('EventImage'),async(req,res)=>{
 
-router.post("/event/new",async(req,res)=>{
-    // console.log(req.body);
     const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = req.body;
 
-    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants){
-        res.status(422).json("plz fill the data");
+    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation){
+        res.status(422).json("Please enter all data")
+        return 0;
+    }else if(NoOfParticipants>100){
+        res.status(420).json("Maximum Partipants are 100")
+        return 0;
     }
-
     try {
-        
-        const preevent = await events.findOne({EventType:EventType});
-        console.log(preevent);
-
-        if(preevent){
-            res.status(422).json("this is event is already present");
-        }else{
             const addevent = new events({
                 EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage
             });
@@ -33,15 +44,13 @@ router.post("/event/new",async(req,res)=>{
             await addevent.save();
             res.status(201).json(addevent);
             console.log(addevent);
-        }
 
     } catch (error) {
         res.status(422).json(error);
     }
 })
 
-
-// get eventdata
+// get event data
 
 router.get("/event/view",async(req,res)=>{
     try {
@@ -69,10 +78,15 @@ router.get("/event/vew/:id",async(req,res)=>{
     }
 })
 
-
 // update event data
 
-router.patch("/event/update/:id",async(req,res)=>{
+router.patch("/event/update/:id",upload.single('EventImage'),async(req,res)=>{
+
+    const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation} = req.body;
+    if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation){
+        res.status(422).json("Please enter all data")
+        return 0;
+    }
     try {
         const {id} = req.params;
 
@@ -88,7 +102,6 @@ router.patch("/event/update/:id",async(req,res)=>{
     }
 })
 
-
 // delete event
 router.delete("/event/delete/:id",async(req,res)=>{
     try {
@@ -102,9 +115,6 @@ router.delete("/event/delete/:id",async(req,res)=>{
         res.status(422).json(error);
     }
 })
-
-
-
 
 module.exports = router;
 

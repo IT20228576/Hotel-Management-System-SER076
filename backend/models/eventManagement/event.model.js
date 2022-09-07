@@ -27,7 +27,7 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     NoOfParticipants: {
-        type: String,
+        type: Number,
         required: true
     },
 
