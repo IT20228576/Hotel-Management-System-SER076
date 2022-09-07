@@ -15,7 +15,7 @@ let path = require('path');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'images');
+        cb(null, 'EventImageUploads');
     },
     filename: function(req, file, cb) {   
         cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
@@ -33,10 +33,10 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({ storage, fileFilter });
 
-router.post("/event/new",upload.single('photo'),async(req,res)=>{
+router.post("/event/new",upload.single('EventImage'),async(req,res)=>{
     // console.log(req.body);
     // const photo = req.file.filename;
-    const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage,photo} = req.body;
+    const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = req.body;
 
     if(!EventName){
         res.status(422).json("plz fill the data");
@@ -53,7 +53,7 @@ router.post("/event/new",upload.single('photo'),async(req,res)=>{
         //     res.status(422).json("Already reserved");
         // }else{
             const addevent = new events({
-                EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage,photo
+                EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage
             });
 
             await addevent.save();
@@ -98,7 +98,7 @@ router.get("/event/vew/:id",async(req,res)=>{
 
 // update event data
 
-router.patch("/event/update/:id",async(req,res)=>{
+router.patch("/event/update/:id",upload.single('EventImage'),async(req,res)=>{
     try {
         const {id} = req.params;
 

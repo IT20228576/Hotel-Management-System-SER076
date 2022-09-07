@@ -6,11 +6,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import ReservationPopup from "./ReservationPopup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [details, setDetails] = useState([]);
   const [reservationInfo, setReservationInfo] = useState([]);
+  const navigate = useNavigate();
 
   async function getAllData() {
     try {
@@ -74,6 +76,11 @@ function ViewReservationList() {
     }
   };
 
+  function updateReservation(detail) {
+    console.log(detail, "ass")
+    navigate("/reservations/update", { state: detail });
+  }
+
   var dataList =
     details.length > 0 ? (
       details.map((item, index) => {
@@ -95,12 +102,14 @@ function ViewReservationList() {
                 <RemoveRedEyeIcon />
               </button>
               &nbsp;
-              <a href={`/#`} style={{ textDecoration: "none" }}>
-                <i className="btn btn-outline-warning">
-                  <EditIcon />
-                </i>
-                &nbsp;
-              </a>
+              <button
+                className="btn btn-outline-warning"
+                onClick={() => {
+                  updateReservation.bind(this, item);
+                }}
+              >
+                <EditIcon />
+              </button>
               &nbsp;
               <button
                 className="btn btn-outline-danger"
@@ -154,7 +163,7 @@ function ViewReservationList() {
                 <AddCircleIcon /> Add
               </button>
             </a>
-            <a href="/#" style={{ marginRight: "10px" }}>
+            <a href="/reservations/report" style={{ marginRight: "10px" }}>
               <button
                 className="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import WorkIcon from '@mui/icons-material/Work';
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { NavLink, useParams, useNavigate } from 'react-router-dom';
 import { Modal, Button, Table } from "react-bootstrap";
-import img7 from '../eventManagement/Images/image1.png';
+import img7 from '../eventManagement/Images/image7.jpeg';
+import "../layout/Styles/PopUpStyles.css";
 
 
 const ViewEvent = () => {
@@ -22,9 +17,7 @@ const ViewEvent = () => {
 
     const history = useNavigate();
 
-
     const getdata = async () => {
-
         const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
             method: "GET",
             headers: {
@@ -50,7 +43,6 @@ const ViewEvent = () => {
 
     return (
         <div className="container mt-3" style={{marginLeft:"100px"}}>
-
 <Modal
         dialogClassName="my-modal"
         show={true}
@@ -67,10 +59,6 @@ const ViewEvent = () => {
          <td style={{ backgroundColor: "#D3D3D3" }}>
            <b>Event ID</b>
          </td>
-         {/* <td>{ geteventdata.map((id) => {
-                                    return (
-                                      
-                                          <div>{id + 1}</div>)})}</td> */}
         <td>{id}</td>
        </tr>
        <tr>
@@ -143,15 +131,11 @@ const ViewEvent = () => {
         </Modal.Footer>
       </Modal>
 
-
-
             <h1 style={{ fontWeight: 400 }}>View Event</h1>
-
             <Card sx={{ maxWidth: 600 }}>
                 <CardContent>
                     <div>
                         <div>
-                            
                             <p>EventName: <span >{geteventdata.EventName}</span></p>
                             <p>EventType: <span >{geteventdata.EventType}</span></p>
                             <p>EventDate: <span>{geteventdata.EventDate}</span></p>
@@ -165,11 +149,9 @@ const ViewEvent = () => {
                             <p>EventImage: <span>{geteventdata.EventImage}</span></p>
                         </div>
                     </div>
-
                 </CardContent>
             </Card>
         </div>
     )
 }
-
 export default ViewEvent
