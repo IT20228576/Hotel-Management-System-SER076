@@ -51,7 +51,7 @@ const EventReport = () => {
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2"
       style={{width: "700px", marginLeft: "300px"}}
-      placeholder="month of number" 
+      placeholder="Month no" 
       type="search"
     name="searchQuery"
     onChange={(event) => {
@@ -73,8 +73,8 @@ const EventReport = () => {
                     </div>
                     
                     <div style={{float:"left", width:"50%"}}>
-                    <h1 style={{marginTop: "10px", textAlign: "center"}}>CISP HOTEL</h1>
-                    <h4>Events Report</h4> 
+                    <h1 style={{marginTop: "10px", textAlign: "center", color:"#b38600"}}><i>CISP HOTEL</i></h1>
+                    <h4 style={{color:"#ffdb4d"}}>Events Report</h4> 
                     </div>
 
                     <div style={{float:"left", width:"25%"}}>
@@ -87,9 +87,9 @@ const EventReport = () => {
                   </Card.Title>
         
             <div className="container">
-                    <table  class="table table-hover" style={{textAlign:"center"}}>
+                    <table  class="table table-hover" style={{textAlign:"center", background:"#ffdb4d"}}>
                         <thead>
-                            <tr>
+                            <tr style={{background:"#b38600", color:"#ffffe6"}}>
                                 <th scope="col">Event ID</th>
                                 <th scope="col">Event Name</th>
                                  <th scope="col">Event Type</th>
@@ -113,15 +113,15 @@ const EventReport = () => {
                                     return (
                                         <>
                                             <tr>
-                                                <th scope="row">E{id + 100 + 1}</th>
-                                                <th scope="row">{element.EventName}</th>
-                                                <th scope="row">{element.EventType}</th>
-                                                <th scope="row">{element.EventDate}</th>
-                                                <th scope="row">{element.ClientName}</th>
-                                                <th scope="row">{element.EventStartTime} - {element.EventEndTime}</th>
-                                                <th scope="row">{element.NoOfParticipants}</th>
-                                                <th scope="row">{element.EventStatus}</th>
-                                                <th scope="row">{element.EventLocation}</th>
+                                                <td>E{id + 100 + 1}</td>
+                                                <td>{element.EventName}</td>
+                                                <td>{element.EventType}</td>
+                                                <td>{element.EventDate}</td>
+                                                <td>{element.ClientName}</td>
+                                                <td>{element.EventStartTime} - {element.EventEndTime}</td>
+                                                <td>{element.NoOfParticipants}</td>
+                                                <td>{element.EventStatus}</td>
+                                                <td>{element.EventLocation}</td>
                                             </tr>
                                         </>
                                     )

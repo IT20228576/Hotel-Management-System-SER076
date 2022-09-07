@@ -75,7 +75,7 @@ const ViewListEvents = () => {
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2"
       style={{width: "430px", marginLeft: "100px", marginRight: "10px"}}
-      placeholder="EventName / EventType / EventDate / EventStatus" 
+      placeholder="Event Name / Event Type / Event Date / Event Status" 
       type="search"
     name="searchQuery"
     onChange={(event) => {
@@ -91,7 +91,7 @@ const ViewListEvents = () => {
                     <table  class="table table-hover" style={{textAlign:"center"}}>
                         <thead>
                             <tr>
-                                <th scope="col">Event ID</th>
+                                <th scope="col"><b>Event ID</b></th>
                                 <th scope="col">Event Name</th>
                                 <th scope="col">Action</th>
                                 <th></th>
@@ -112,15 +112,15 @@ const ViewListEvents = () => {
                                     return (
                                         <>
                                             <tr>
-                                                <th scope="row">E{id + 100 + 1}</th>
-                                                <th scope="row">{element.EventName}</th>
-                                                <th>
+                                                <td>E{id + 100 + 1}</td>
+                                                <td>{element.EventName}</td>
+                                                <td>
                                                 <NavLink to={`/view/${element._id}`}>  <i class="btn btn-outline-secondary"><RemoveRedEyeIcon/></i></NavLink>&nbsp;
                                                 &nbsp;
                                                 <NavLink to={`/edit/${element._id}`}><i class="btn btn-outline-warning"><EditIcon/></i></NavLink>&nbsp;
                                                 &nbsp;
                                                 <i class="btn btn-outline-danger" onClick={() => deleteevent(element._id)}><DeleteIcon/></i>&nbsp;
-                                               </th>
+                                               </td>
                                             </tr>
                                         </>
                                     )
