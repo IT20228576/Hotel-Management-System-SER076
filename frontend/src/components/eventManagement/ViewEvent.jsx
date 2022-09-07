@@ -49,7 +49,7 @@ const ViewEvent = () => {
         <a href='/view'><Modal.Header closeButton></Modal.Header></a>
           <Modal.Title style={{textAlign: "center"}}>{geteventdata.EventName}</Modal.Title>
           <br></br>
-          <img style={{width:"400px", height: "300px", margin: "auto"}} src={img7}/>
+          <img style={{width:"400px", height: "300px", margin: "auto"}} src={img7} alt=''/>
         <Modal.Body>
           <Table bordered responsive>
             <tbody>

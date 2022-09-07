@@ -65,11 +65,11 @@ const UpdateEvent = () => {
             setINP(data)
             console.log("get data");
         }
-    }
+    };
 
     useEffect(() => {
         getdata();
-    }, []);
+    });
 
     const updateevent = async(e)=>{
         e.preventDefault();

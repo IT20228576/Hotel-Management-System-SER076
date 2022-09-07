@@ -7,7 +7,6 @@ import Register from "../userManagement/authentication/Register";
 import Verify from "../userManagement/authentication/Verify";
 import AuthContext from "../userManagement/context/UserContext";
 import Profile from "../userManagement/user/Profile";
-import ViewListTemplate from "../layout/ViewListTemplate";
 import AddEvent from "../eventManagement/AddEvent";
 import ViewEvent from "../eventManagement/ViewEvent";
 import ViewListEvents from "../eventManagement/ViewListEvents";
@@ -42,11 +41,6 @@ function Router() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
-                {/* <Route
-                  path="/viewlisttemplate"
-                  element={<ViewListTemplate />}
-                /> */}
               </>
             )}
 

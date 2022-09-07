@@ -60,7 +60,7 @@ const ViewListEvents = () => {
 
   return (
     <>
-      <div style={{ marginLeft: "100px" }}></div>
+      <div style={{ marginLeft: "100px", height:'500px' }}>
       <div className="mt-5">
         <div>
           <div>
@@ -102,7 +102,7 @@ const ViewListEvents = () => {
                       marginLeft: "100px",
                       marginRight: "10px",
                     }}
-                    placeholder="Event Name / Event Type / Event Date / Event Status"
+                    placeholder="Search By Event Name / Event Type / Event Date / Event Status"
                     type="search"
                     name="searchQuery"
                     onChange={(event) => {
@@ -148,8 +148,8 @@ const ViewListEvents = () => {
                   ) {
                     return element;
                   }
-                })
-                .map((element, id) => {
+                  return false;
+                }).map((element, id) => {
                   return (
                     <>
                       <tr>
@@ -184,6 +184,7 @@ const ViewListEvents = () => {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </>
   );

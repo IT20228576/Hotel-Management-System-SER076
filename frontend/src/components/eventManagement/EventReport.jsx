@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import img5 from "../eventManagement/Images/Logo.png";
 import { Button } from "react-bootstrap";
+import PrintIcon from "@mui/icons-material/Print";
 
 const EventReport = () => {
   const componentRef = useRef();
@@ -45,8 +46,11 @@ const EventReport = () => {
       <div
         style={{ marginTop: "15px", marginBottom: "-56px", marginLeft: "70px" }}
       >
-        <Button variant="primary" onClick={handlePrint}>
+        {/* <Button variant="primary" onClick={handlePrint}>
           Download
+        </Button> */}
+        <Button className="btn btn-secondary ms-2" onClick={handlePrint}>
+          <PrintIcon />
         </Button>
       </div>
       <br></br>
@@ -131,8 +135,7 @@ const EventReport = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {geteventdata
-                      .filter((element) => {
+                    {geteventdata.filter((element) => {
                         if (searchTerm === "") {
                           return element;
                         } else if (
@@ -142,6 +145,7 @@ const EventReport = () => {
                         ) {
                           return element;
                         }
+                        return false;
                       })
                       .map((element, id) => {
                         return (
