@@ -63,6 +63,24 @@ const Register = () => {
     }
   };
 
+/**
+ * When the user clicks the reset button, clear all the form fields.
+ */
+  const resetForm = (e) => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setDob("");
+    setMobile("");
+    setCountry("");
+    setPassword("");
+    setPasswordVerify("");
+  };
+
+/**
+ * When the user selects a country, set the country to the value of the selected country and set the
+ * temporary country to the selected country.
+ */
   const countryHandler = (e) => {
     setCountry(e.value);
     setTempCountry(e);
@@ -181,6 +199,7 @@ const Register = () => {
             <Row className="justify-content-md-center">
               <Col>
                 <Button
+                  onClick={resetForm}
                   variant="secondary"
                   size="lg"
                   style={{ width: "70%", float: "right", margin: "5px" }}
