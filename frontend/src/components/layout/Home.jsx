@@ -21,12 +21,12 @@ import MailIcon from "@mui/icons-material/Mail";
 
 function Home() {
   return (
-    <div style={{marginLeft:"100px"}}>
+    <div style={{ marginLeft: "100px" }}>
       <div style={{ textAlign: "center", marginTop: "10px" }}>
         <h1>
           <b>CISP Hotel</b>
         </h1>
-        <p>Welcome to the your next home</p>
+        Welcome to the your next home
       </div>
 
       <CardGroup>
@@ -64,7 +64,6 @@ function Home() {
 
           <Card.Body>
             <Card.Text>
-              <p style={{ textAlign: "justify" }}>
                 Finding the right space for your function is never easy and
                 getting advice from friends, family, clients, co-workers or
                 anyone is always great. we at amalya provides you a life time
@@ -79,7 +78,6 @@ function Home() {
                 provide memorable party spaces. Before you make the final
                 decision, also remember to take into account who is on your
                 guest list, and how accessible it may be for everyone involved.
-              </p>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -87,9 +85,9 @@ function Home() {
 
       <br />
 
-      <div class="container">
-        <div class="row">
-          <div class="col">
+      <div className="container">
+        <div className="row">
+          <div className="col">
             <CardGroup>
               <Card>
                 <Card.Body>
@@ -194,12 +192,12 @@ function Home() {
               </Card>
             </CardGroup>
           </div>
-          <div class="col">
+          <div className="col">
             <CardGroup>
               <Card>
                 <Card.Body>
                   <Card.Title style={{ textAlign: "center" }}>
-                    <i class="bi bi-telephone"></i>About Us
+                    <i className="bi bi-telephone"></i>About Us
                   </Card.Title>
                 </Card.Body>
               </Card>
@@ -209,23 +207,19 @@ function Home() {
                 <Card.Img variant="top" src={img4} />
                 <Card.Body>
                   <Card.Text>
-                    <p>
                       {" "}
                       <BusinessIcon /> No:556, Moragahahena, Pitipana North,
                       Homagama, Sri Lanka
-                    </p>
-                    <p>
+
                       {" "}
                       <ContactPhoneIcon /> Tel/Fax :94 11 2748913, 4404040
-                    </p>
-                    <p>
+
                       {" "}
                       <LocalPhoneIcon /> Mobile:77 7743612
-                    </p>
-                    <p>
+
                       {" "}
                       <MailIcon /> Email:info@cisphotel.com
-                    </p>
+
                   </Card.Text>
                 </Card.Body>
               </Card>
