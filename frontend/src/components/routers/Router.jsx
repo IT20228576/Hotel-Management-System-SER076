@@ -47,11 +47,6 @@ function Router() {
                   path="/viewlisttemplate"
                   element={<ViewListTemplate />}
                 />
-                <Route exact path="/view" element={<ViewListEvents />} />
-                <Route exact path="/event/new" element={<AddEvent />} />
-                <Route exact path="/edit/:id" element={<UpdateEvent />} />
-                <Route exact path="/view/:id" element={<ViewEvent />} />
-                <Route path="/eventreport" element={<EventReport />} />
               </>
             )}
 
@@ -81,6 +76,12 @@ function Router() {
                   path="/reservations/report"
                   element={<ReservationReport />}
                 />
+ {/* Event routes for admin */}
+                <Route exact path="/view" element={<ViewListEvents />} />
+                <Route exact path="/event/new" element={<AddEvent />} />
+                <Route exact path="/edit/:id" element={<UpdateEvent />} />
+                <Route exact path="/view/:id" element={<ViewEvent />} />
+                <Route path="/eventreport" element={<EventReport />} />
               </>
             )}
 

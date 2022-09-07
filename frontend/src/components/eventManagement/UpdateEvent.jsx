@@ -99,7 +99,7 @@ const UpdateEvent = () => {
     }
 
     return (
-        <div style={{marginLeft:"100px", marginTop:"10px"}}>
+        <div style={{marginLeft:"100px", marginTop:"10px", marginBottom:"100px"}}>
             <Container>
             <h1>Update Event - {inpval.EventName}</h1>
       <hr></hr>
@@ -157,7 +157,7 @@ const UpdateEvent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-              <Form.Label>Client Name</Form.Label>
+              <Form.Label>Client/ Company/ Organization Name</Form.Label>
                 <Form.Control value={inpval.ClientName} onChange={setdata} name="ClientName" />
               </Form.Group>
 
@@ -182,7 +182,7 @@ const UpdateEvent = () => {
                 <Form.Control value={inpval.EventDescription} onChange={setdata} name="EventDescription" />
               </Form.Group>
 
-              <Button variant="secondary" size="lg" type="submit" style={{width:"100%"}} onClick={updateevent}>
+              <Button variant="primary" size="lg" type="submit" style={{width:"100%"}} onClick={updateevent}>
                 Submit
               </Button>
               </Col>

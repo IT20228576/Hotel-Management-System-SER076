@@ -57,7 +57,7 @@ const ViewEvent = () => {
          <td style={{ backgroundColor: "#D3D3D3" }}>
            <b>Event ID</b>
          </td>
-        <td>{id}</td>
+        <td>E10{id.lastIndexOf()+4}</td>
        </tr>
        <tr>
          <td style={{ backgroundColor: "#D3D3D3" }}>
@@ -73,7 +73,7 @@ const ViewEvent = () => {
        </tr>
        <tr>
          <td style={{ backgroundColor: "#D3D3D3" }}>
-           <b>Client Name</b>
+           <b>Client/ Company/ Organization Name</b>
          </td>
         <td>{geteventdata.ClientName}</td>
        </tr>

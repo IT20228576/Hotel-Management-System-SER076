@@ -70,8 +70,8 @@ const AddEvent = () => {
         console.log(data);
 
         if (res.status === 422 || !data) {
-            console.log("error ")
-            alert("error")
+            console.log("Please enter all mandatory inputs")
+            alert("Please enter all mandatory inputs")
             return 0;
         }else if(NoOfParticipants>100){
 alert("Maximum no of participants are 100")
@@ -85,7 +85,7 @@ return 0;
     }
 
     return (
-        <div style={{marginLeft:"100px", marginTop:"10px"}}>
+        <div style={{marginLeft:"100px", marginTop:"10px", marginBottom:"100px"}}>
         <Container>
         <h1 style={{margin:"2%" }}>Add New Event</h1>
       <hr></hr>
@@ -157,7 +157,7 @@ return 0;
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Client Name *</Form.Label>
+                <Form.Label>Client/ Company/ Organization Name *</Form.Label>
                 <Form.Control
                   placeholder="Client Name"
                   value={inpval.ClientName} onChange={setdata} name="ClientName"
