@@ -8,6 +8,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import PopUpViewTemplate from "./PopUpView";
+import PaginationComponent from "./layout/PaginationComponent";
 
 function ViewRooms() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,15 +17,48 @@ function ViewRooms() {
   const handleModalClose = () => {
     setModalOpen(false);
   };
+  const [pageNo, setPageNo] = useState(1);
 
+  const [pageCount, setPageCount] = useState(0);
+
+  const [totalCount, setTotalCount] = useState(0);
+
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [rooms, setRooms] = useState([]); 
   let navigate = useNavigate();
 
   const getRooms = async () => {
-    await axios
-    .get("http://localhost:8000/api/room/get")
-    .then((res) => setRooms(res.data))
-    .catch((err) => console.error(err));
+    try {
+
+      await axios
+
+        .get(
+
+          `http://localhost:8000/api/room/get?pageNo=${pageNo}&pageSize=${itemsPerPage}`
+
+        )
+
+        .then((res) => {
+
+          if (res.status === 200) {
+
+            setRooms(res.data.data);
+
+            setPageCount(res.data.pagination.pageCount);
+
+            setTotalCount(res.data.pagination.count);
+
+          }
+
+        });
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error);
+
+    }
   }
 
   useEffect(() => {
@@ -35,6 +69,46 @@ function ViewRooms() {
     localStorage.setItem("updateid", id);
     navigate("/updateRoom");
   }
+
+  const handleSearch = async (e) => {
+
+    const searchTerm = e.target.value;
+
+    try {
+
+      if (searchTerm) {
+
+        await axios
+
+          .get(`http://localhost:8000/api/room/search/${searchTerm}`)
+
+          .then((res) => {
+
+            if (res.status === 200) {
+
+              setRooms(res.data.data);
+
+            }
+
+          });
+
+      }
+
+       else {
+
+         getRooms();
+
+       }
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(error);
+
+    }
+
+  };
 
   async function deleteRoom(room) {
     try {
@@ -75,7 +149,7 @@ function ViewRooms() {
                   <AddCircleIcon /> Add
                 </button>
               </a>
-              <a href="/#" style={{ marginRight: "10px" }}>
+              <a href="/roomReport" style={{ marginRight: "10px" }}>
                 <button
                   className="btn btn-outline-primary my-2 my-sm-0"
                   type="submit"
@@ -88,9 +162,10 @@ function ViewRooms() {
                 <form className="form-inline my-2 my-lg-0">
                   <input
                     className="form-control mr-sm-2"
-                    placeholder="Search"
+                    placeholder="Search by room name"
                     type="search"
                     name="searchQuery"
+                    onChange={handleSearch}
                   ></input>
                 </form>
               </div>
@@ -162,7 +237,21 @@ function ViewRooms() {
         <></>
       )}
       </div>
-     
+      <PaginationComponent
+
+pageNo={pageNo}
+
+setPageNo={setPageNo}
+
+itemsPerPage={itemsPerPage}
+
+setItemsPerPage={setItemsPerPage}
+
+totalCount={totalCount}
+
+pageCount={pageCount}
+
+/>
     </div>
   );
 }
