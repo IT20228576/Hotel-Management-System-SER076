@@ -114,7 +114,7 @@ function ReservationReport() {
                   className="table table-hover"
                   style={{ textAlign: "center", background: "#ffdb4d" }}
                 >
-                  <thead>
+                  <thead style={{ background: "#b38600", color: "#ffffe6" }}>
                     <tr>
                       <th scope="col">
                         <b>Reference Number</b>
