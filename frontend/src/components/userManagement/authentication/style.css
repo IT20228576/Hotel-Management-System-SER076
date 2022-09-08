@@ -153,3 +153,8 @@ td {
   display: flex;
   padding-top: 10px;
 }
+
+.profilePic {
+  height: 300px;
+  width: 300px;
+}

@@ -64,20 +64,20 @@ function Home() {
 
           <Card.Body>
             <Card.Text>
-                Finding the right space for your function is never easy and
-                getting advice from friends, family, clients, co-workers or
-                anyone is always great. we at amalya provides you a life time
-                experience with our brand new wedding reception hallsand holiday
-                resort which can be used for a memorable day in your life.
-                First, it's always best to shop around for several locations to
-                see what's on offer (and within budget) and always consider
-                booking your party venue at least several months to a year in
-                advance, say the experts. Take your time, and don't settle for
-                the first location that comes along. Unusual venues like
-                historic mansions, galleries, and even sailing yachts can
-                provide memorable party spaces. Before you make the final
-                decision, also remember to take into account who is on your
-                guest list, and how accessible it may be for everyone involved.
+              Finding the right space for your function is never easy and
+              getting advice from friends, family, clients, co-workers or anyone
+              is always great. we at amalya provides you a life time experience
+              with our brand new wedding reception hallsand holiday resort which
+              can be used for a memorable day in your life. First, it's always
+              best to shop around for several locations to see what's on offer
+              (and within budget) and always consider booking your party venue
+              at least several months to a year in advance, say the experts.
+              Take your time, and don't settle for the first location that comes
+              along. Unusual venues like historic mansions, galleries, and even
+              sailing yachts can provide memorable party spaces. Before you make
+              the final decision, also remember to take into account who is on
+              your guest list, and how accessible it may be for everyone
+              involved.
             </Card.Text>
           </Card.Body>
         </Card>
@@ -207,19 +207,17 @@ function Home() {
                 <Card.Img variant="top" src={img4} />
                 <Card.Body>
                   <Card.Text>
-                      {" "}
-                      <BusinessIcon /> No:556, Moragahahena, Pitipana North,
-                      Homagama, Sri Lanka
-
-                      {" "}
-                      <ContactPhoneIcon /> Tel/Fax :94 11 2748913, 4404040
-
-                      {" "}
-                      <LocalPhoneIcon /> Mobile:77 7743612
-
-                      {" "}
-                      <MailIcon /> Email:info@cisphotel.com
-
+                    <BusinessIcon /> No:556, Moragahahena, Pitipana North,
+                    Homagama, Sri Lanka
+                    <br />
+                    <br />
+                    <ContactPhoneIcon /> Tel/Fax :94 11 2748913, 4404040
+                    <br />
+                    <br />
+                    <LocalPhoneIcon /> Mobile:77 7743612
+                    <br />
+                    <br />
+                    <MailIcon /> Email:info@cisphotel.com
                   </Card.Text>
                 </Card.Body>
               </Card>
