@@ -24,6 +24,7 @@ import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
+import RoomReport from "../roomMangement/RoomReport";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -80,6 +81,7 @@ function Router() {
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
+                <Route path="/roomReport"  element={<RoomReport />} />
               </>
             )}
 
