@@ -7,19 +7,17 @@ import SummarizeIcon from "@mui/icons-material/Summarize";
 import ReservationPopup from "./ReservationPopup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import PaginationComponent from "./layout/PaginationComponent";
 
 function ViewReservationList() {
   const [modalOpen, setModalOpen] = useState(false);
   const [details, setDetails] = useState([]);
   const [reservationInfo, setReservationInfo] = useState([]);
-  const navigate = useNavigate();
   const [pageNo, setPageNo] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const navigate = useNavigate();
 
   async function getAllData() {
     try {
@@ -91,24 +89,6 @@ function ViewReservationList() {
   function updateReservation(detail) {
     navigate("/reservations/update", { state: detail });
   }
-
-  const handlePrevious = () => {
-    setPageNo((p) => {
-      if (p === 1) {
-        return parseInt(p);
-      }
-      return parseInt(p) - 1;
-    });
-  };
-
-  const handleNext = () => {
-    setPageNo((p) => {
-      if (p === pageCount) {
-        return parseInt(p);
-      }
-      return parseInt(p) + 1;
-    });
-  };
 
   var dataList =
     details.length > 0 ? (
@@ -253,58 +233,14 @@ function ViewReservationList() {
       ) : (
         <></>
       )}
-      <footer className="container mt-5">
-        <div className="d-flex justify-content-between align-items-center">
-          <div>No of Total Records: {totalCount}</div>
-          <div>
-            <Button
-              disabled={pageNo === 1}
-              onClick={handlePrevious}
-              className="btn-light"
-            >
-              <ArrowBackIosIcon />
-              Previous
-            </Button>
-            <span className="col m-2">Page: {pageNo}</span>
-            <Button
-              disabled={pageNo === pageCount ? true : false}
-              onClick={handleNext}
-              className="btn-light"
-            >
-              Next
-              <ArrowForwardIosIcon />
-            </Button>
-            <select
-              value={pageNo}
-              onChange={(event) => {
-                setPageNo(event.target.value);
-              }}
-              className="btn btn-light p-2"
-            >
-              {Array(pageCount)
-                .fill(null)
-                .map((_, index) => {
-                  console.log(index);
-                  return <option key={index}>{index + 1}</option>;
-                })}
-            </select>
-          </div>
-          <div>
-            Records Per Page:
-            <select
-              value={itemsPerPage}
-              onChange={(event) => {
-                console.log();
-                setItemsPerPage(event.target.value);
-              }}
-              className="btn btn-light p-2"
-            >
-              <option>3</option>;<option>10</option>;<option>25</option>;
-              <option>20</option>;
-            </select>
-          </div>
-        </div>
-      </footer>
+      <PaginationComponent
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        itemsPerPage={itemsPerPage}
+        setItemsPerPage={setItemsPerPage}
+        totalCount={totalCount}
+        pageCount={pageCount}
+      />
     </div>
   );
 }

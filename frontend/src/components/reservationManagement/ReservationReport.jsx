@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+import { Button, Card, CardGroup } from "react-bootstrap";
 import { useReactToPrint } from "react-to-print";
 import { useNavigate } from "react-router-dom";
 import PrintIcon from "@mui/icons-material/Print";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Logo from "../eventManagement/Images/Logo.png";
 
 function ReservationReport() {
   const [details, setDetails] = useState([]);
@@ -53,7 +54,7 @@ function ReservationReport() {
 
   return (
     <div className="container">
-      <div className="mt-5">
+      <div className="mt-5 mb-2">
         <Button className="btn btn-light ms-2" onClick={handleBack}>
           <ArrowBackIcon />
         </Button>
@@ -61,31 +62,83 @@ function ReservationReport() {
           <PrintIcon />
         </Button>
       </div>
-      <div ref={componentRef}>
-        <div className="container-fluid mt-3">
-          <table className="table table-hover" style={{ textAlign: "center" }}>
-            <thead>
-              <tr>
-                <th scope="col">
-                  <b>Reference Number</b>
-                </th>
-                <th scope="col">
-                  <b>Name</b>
-                </th>
-                <th scope="col">
-                  <b>Phone Number</b>
-                </th>
-                <th scope="col">
-                  <b>Check-in</b>
-                </th>
-                <th scope="col">
-                  <b>Check-out</b>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{dataList}</tbody>
-          </table>
-        </div>
+      <div
+        ref={componentRef}
+        style={{ width: "100%", height: window.innerHeight }}
+      >
+        <CardGroup>
+          <Card>
+            <Card.Body>
+              <Card.Title style={{ textAlign: "center" }}>
+                <div style={{ float: "left", width: "25%" }}>
+                  <img
+                    src={Logo}
+                    alt="First slide"
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      marginTop: "10px",
+                    }}
+                  ></img>
+                </div>
+
+                <div style={{ float: "left", width: "50%" }}>
+                  <h1
+                    style={{
+                      marginTop: "10px",
+                      textAlign: "center",
+                      color: "#b38600",
+                    }}
+                  >
+                    <b>CISP HOTEL</b>
+                  </h1>
+                  <h4 style={{ color: "#ffdb4d" }}>Reservations Report</h4>
+                </div>
+
+                <div style={{ float: "left", width: "25%" }}>
+                  <img
+                    src={Logo}
+                    alt="First slide"
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      marginTop: "10px",
+                    }}
+                  ></img>
+                </div>
+                <br></br>
+              </Card.Title>
+
+              <div className="container-fluid mt-3">
+                <table
+                  className="table table-hover"
+                  style={{ textAlign: "center", background: "#ffdb4d" }}
+                >
+                  <thead style={{ background: "#b38600", color: "#ffffe6" }}>
+                    <tr>
+                      <th scope="col">
+                        <b>Reference Number</b>
+                      </th>
+                      <th scope="col">
+                        <b>Name</b>
+                      </th>
+                      <th scope="col">
+                        <b>Phone Number</b>
+                      </th>
+                      <th scope="col">
+                        <b>Check-in</b>
+                      </th>
+                      <th scope="col">
+                        <b>Check-out</b>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>{dataList}</tbody>
+                </table>
+              </div>
+            </Card.Body>
+          </Card>
+        </CardGroup>
       </div>
     </div>
   );

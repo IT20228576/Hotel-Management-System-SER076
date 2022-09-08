@@ -1,15 +1,12 @@
 .main-footer {
-  z-index: 100;
   color: black;
   background-color: white;
-  margin-top: 50px;
-  left: 0;
-  bottom: 0;
   width: 100%;
-  padding: 10px;
-  height: 70px;
+  height: 100px;
+  padding: 20px;
   border-top: 1px solid lightgrey;
-  clear: both;
+  position: absolute;
+  bottom: 0;
 }
 
 .border-line {
