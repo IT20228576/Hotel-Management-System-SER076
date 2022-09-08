@@ -7,6 +7,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -17,6 +18,9 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
+      /* Setting the loading state to true. */
+      setLoading(true);
+
       /* Creating an object with the email and password. */
       const loginData = {
         email,
@@ -28,6 +32,7 @@ const Login = () => {
 
       /* Checking if the status is true. */
       if (result) {
+        setLoading(false);
         /* Setting the local storage with the type and status. */
         localStorage.setItem("type", result?.data?.type);
         /* Reloading the page. */
@@ -35,8 +40,9 @@ const Login = () => {
         window.location.reload();
       }
     } catch (err) {
-      console.error(err.response.data.errorMessage);
+      setLoading(false);
       alert(err.response.data.errorMessage);
+      console.error(err.response.data.errorMessage);
     }
   };
 
@@ -56,6 +62,7 @@ const Login = () => {
                   <Form.Control
                     type="email"
                     placeholder="E-mail"
+                    required
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
@@ -68,6 +75,7 @@ const Login = () => {
                   <Form.Control
                     type="password"
                     placeholder="Password"
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
@@ -82,7 +90,18 @@ const Login = () => {
               type="submit"
               style={{ width: "40%", float: "center", margin: "5px" }}
             >
-              Submit
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="sr-only">Login...</span>
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </div>
         </form>
