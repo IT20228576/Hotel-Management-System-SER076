@@ -30,8 +30,7 @@ function ReservationReport() {
             setDetails(res.data.data);
           }
         });
-    } catch (error) {
-      console.error(error);
+    } catch (error) {     
       alert(error);
     }
   }

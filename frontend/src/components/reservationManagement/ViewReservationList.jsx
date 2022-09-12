@@ -32,8 +32,7 @@ function ViewReservationList() {
             setTotalCount(res.data.pagination.count);
           }
         });
-    } catch (error) {
-      console.error(error);
+    } catch (error) {      
       alert(error);
     }
   }
@@ -48,16 +47,14 @@ function ViewReservationList() {
       if (window.confirm("This Reservation Will Be Deleted!")) {
         await axios
           .delete(`http://localhost:8000/reservations/delete/${detail._id}`)
-          .then((res) => {
-            console.log(res);
+          .then((res) => {           
             if (res.status === 200) {
               alert(res.data.message);
               getAllData();
             }
           });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error) {     
       alert(error);
     }
   }
@@ -80,13 +77,12 @@ function ViewReservationList() {
       } else {
         getAllData();
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error) {      
       alert(error);
     }
   };
 
-  function updateReservation(detail) {
+  function updateReservation(detail) {   
     navigate("/reservations/update", { state: detail });
   }
 
@@ -114,7 +110,7 @@ function ViewReservationList() {
               <button
                 className="btn btn-outline-warning"
                 onClick={() => {
-                  updateReservation.bind(this, item);
+                  updateReservation(item);
                 }}
               >
                 <EditIcon />
