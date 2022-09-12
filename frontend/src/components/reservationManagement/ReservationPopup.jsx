@@ -90,7 +90,7 @@ function ReservationPopup(props) {
         </tr>
         <tr>
           <td style={{ backgroundColor: "#D3D3D3" }}>
-            <b>Amount</b>
+            <b>Amount ($)</b>
           </td>
           <td>{item.amount}</td>
         </tr>
