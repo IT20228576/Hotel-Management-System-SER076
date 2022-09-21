@@ -89,4 +89,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+/* This is a route handler for the update route. It is updating the user account. */
+router.put("/update", userAccess, async (req, res) => {
+  try {
+    /* Validating the request body using the Joi schema. */
+    const validated = await validation.userUpdateSchema.validateAsync(req.body);
+
+    /* Updating the user account. */
+    await User.findByIdAndUpdate(req.body.user._id, validated).exec();
+
+    res.status(201).send({ Message: "Successfully updated the user." });
+  } catch (err) {
+    if (err.isJoi === true) {
+      console.error(err);
+      return res.status(422).send({ errorMessage: err.details[0].message });
+    } else {
+      res.json(false);
+      console.error(err);
+      res.status(500).send(err);
+    }
+  }
+});
+
 module.exports = router;
