@@ -111,4 +111,46 @@ router.put("/update", userAccess, async (req, res) => {
   }
 });
 
+/* This is a route handler for the /changepassword route. It is used to change the password of the
+user. */
+router.put("/changepassword", userAccess, async (req, res) => {
+  try {
+    /* Validating the request body. */
+    const validated = await validation.changePasswordSchema.validateAsync(
+      req.body
+    );
+
+    /* Comparing the password entered by the user with the password stored in the database. */
+    const isPasswordCorrect = await bcrypt.compare(
+      validated.password,
+      validated.user.passwordHash
+    );
+
+    /* Checking if the password entered by the user is correct or not. */
+    if (!isPasswordCorrect)
+      return res.status(401).json({ errorMessage: "Wrong Current Password." });
+
+    // hash the password
+    /* Hashing the password. */
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(validated.newPassword, salt);
+
+    /* Checking the type of the user and updating the password of the user. */
+      await User.findByIdAndUpdate(validated.user._id, {
+        passwordHash: passwordHash,
+      }).exec();
+
+    /* Removing the cookie from the browser. */
+    await service.removeCookie(res);
+  } catch (err) {
+    if (err.isJoi === true) {
+      console.error(err);
+      res.status(422).send({ errorMessage: err.details[0].message });
+    } else {
+      console.error(err);
+      res.status(500).send(err);
+    }
+  }
+});
+
 module.exports = router;
