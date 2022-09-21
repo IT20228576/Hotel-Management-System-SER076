@@ -79,10 +79,28 @@ router.get("/profile", userAccess, async (req, res) => {
 /* This is a route handler for the / route. It is used to get all the users. */
 router.get("/", async (req, res) => {
   try {
+    /* Destructuring the query parameters. */
+    let { page, size } = req.query;
+
+    /* Checking if the page and size query parameters are not present, then it is setting the default
+    values. */
+    if (!page) {
+      page = 1;
+    }
+    if (!size) {
+      size = 10;
+    }
     /* Finding all the admins in the database. */
-    const user = await User.find();
-    /* Sending the user object to the client. */
-    res.json(user);
+    const users = await User.find()
+      .skip((page - 1) * size)
+      .limit(size)
+      .exec();
+    /* count total users in the database. */
+    let total = await User.countDocuments();
+    total = parseInt(total / size + 1);
+
+    /* Sending the users object to the client. */
+    res.json({ users: users, total: total });
   } catch (err) {
     console.error(err);
     res.status(500).send();
