@@ -61,15 +61,23 @@ correct, it is sending an error message to the user. */
       process.env.KEY
     );
 
-    // send the token in a HTTP-only cookie
-    var expiryTime = new Date(Number(new Date()) + 6 * 60 * 60 * 1000); //after 6 hours cookie will be expire
-    res
-      .cookie("token", token, {
-        expires: expiryTime,
-        secure: true,
-        sameSite: "none",
-      })
-      .send({ type: user.userType });
+    if (
+      user.verified === false &&
+      user.adminCreated === true
+    ) { 
+      return res.status(401).json({ errorMessage: "User not found" });
+    }
+    else {
+      
+      // send the token in a HTTP-only cookie
+      var expiryTime = new Date(Number(new Date()) + 6 * 60 * 60 * 1000); //after 6 hours cookie will be expire
+      return res        .cookie("token", token, {
+          expires: expiryTime,
+          secure: true,
+          sameSite: "none",
+        })
+        .send({ type: user.userType, verified: user.verified });
+    }
   } catch (err) {
     if (err.isJoi === true) {
       console.error(err);
