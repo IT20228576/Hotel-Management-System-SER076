@@ -23,18 +23,10 @@ router.post("/login", async (req, res) => {
 
     /* This is checking if the user is verified or not. If the user is not verified, it is sending a
 verification email to the user. */
-    if (
-      user.verified === false &&
-      user.adminCreated === false
-    ) {
+    if (user.verified === false && user.adminCreated === false) {
       const verifyToken = await service.getVerifyToken(user._id);
 
-      await email.sendVeri(
-        user.email,
-        user.name,
-        user._id,
-        verifyToken.token
-      );
+      await email.sendVeri(user.email, user.name, user._id, verifyToken.token);
 
       return res.status(401).json({
         errorMessage:
@@ -61,22 +53,18 @@ correct, it is sending an error message to the user. */
       process.env.KEY
     );
 
-    if (
-      user.verified === false &&
-      user.adminCreated === true
-    ) { 
-      return res.status(401).json({ errorMessage: "User not found" });
-    }
-    else {
-      
+    if (user.verified === false && user.adminCreated === true) {
       // send the token in a HTTP-only cookie
       var expiryTime = new Date(Number(new Date()) + 6 * 60 * 60 * 1000); //after 6 hours cookie will be expire
-      return res        .cookie("token", token, {
+      return res
+        .cookie("token", token, {
           expires: expiryTime,
           secure: true,
           sameSite: "none",
         })
         .send({ type: user.userType, verified: user.verified });
+    } else {
+      return res.status(401).json({ errorMessage: "User not found" });
     }
   } catch (err) {
     if (err.isJoi === true) {
@@ -94,7 +82,6 @@ router.get("/logout", async (req, res) => {
   /* Removing the cookie from the browser. */
   await service.removeCookie(res);
 });
-
 
 /* This is a route for verifying the email. It is checking if the user is present in the database or
 not. If the user is not present in the database, it is sending an error message to the user. If the
@@ -125,13 +112,13 @@ database, it is sending an error message to the user. */
 
     /* This is updating the verified field of the user to true. */
 
-      await User.findByIdAndUpdate(user._id, {
-        verified: true,
-      }).exec();
+    await User.findByIdAndUpdate(user._id, {
+      verified: true,
+    }).exec();
 
     /* Removing the token from the database. */
-      await token.remove();
-      return res.status(200).json({ errorMessage: "Successfully Verified!" });
+    await token.remove();
+    return res.status(200).json({ errorMessage: "Successfully Verified!" });
   } catch (err) {
     console.error(err);
     res.status(500).send();

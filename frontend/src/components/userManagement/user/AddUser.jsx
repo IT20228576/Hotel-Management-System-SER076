@@ -1,24 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import countryList from "react-select-country-list";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-const UpdateProfile = () => {
-  const { state } = useLocation();
-
-  const [firstName, setFirstName] = useState(state?.firstName);
-  const [lastName, setLastName] = useState(state?.lastName);
-  const [email, setEmail] = useState(state?.email);
-  const [dob, setDob] = useState(state?.dob);
-  const [mobile, setMobile] = useState(state?.mobile);
-  const [tempCountry, setTempCountry] = useState("");
-
-  const [country, setCountry] = useState();
+const AddUser = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [tempUserType, setTempUserType] = useState("");
+  const [userType, setUserType] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const options = useMemo(() => countryList().getData(), []);
+  const options = [
+    { value: "Admin", label: "Admin" },
+    { value: "Customer", label: "Customer" }
+  ];
 
   const navigate = useNavigate();
 
@@ -26,25 +25,26 @@ const UpdateProfile = () => {
    * When the user clicks the submit button, prevent the default action, then send a Put request to the
    * server with the user's details, and if successful, navigate to the home page.
    */
-  const update = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
     try {
       /* Setting the loading state to true. */
       setLoading(true);
 
       /* Creating an object with the same name as the variables. */
-      const updateData = {
+      const UserData = {
         firstName,
         lastName,
+        email,
         dob,
         mobile,
-        country,
+        userType,
       };
 
       /* Sending a post request to the server with the user's details. */
-      const result = await axios.put(
-        "http://localhost:8000/user/update",
-        updateData
+      const result = await axios.post(
+        "http://localhost:8000/user/create-user",
+        UserData
       );
 
       /* This is a conditional statement that checks if the status of the response is 200. If it is,
@@ -55,57 +55,48 @@ const UpdateProfile = () => {
         setLoading(false);
         alert(result?.data?.Message);
         /* Reloading the page. */
-        navigate("/profile");
+        navigate("/add-user");
         window.location.reload();
       }
     } catch (err) {
       setLoading(false);
-      alert(err?.response?.data?.errorMessage);
       console.error(err?.response?.data?.errorMessage);
+      alert(err?.response?.data?.errorMessage);
     }
   };
 
   /**
    * When the user clicks the reset button, clear all the form fields.
    */
-  const resetForm = () => {
-    setFirstName(state.firstName);
-    setLastName(state.lastName);
-    setDob(state.dob);
-    setMobile(state.mobile);
-    setTempCountry({
-      label: countryList().getLabel(state?.country),
-    });
+  const resetForm = (e) => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setDob("");
+    setMobile("");
+    setTempUserType("");
   };
 
   /**
    * When the user selects a country, set the country to the value of the selected country and set the
    * temporary country to the selected country.
    */
-  const countryHandler = (e) => {
-    setCountry(e.value);
-    setTempCountry(e);
+  const userTypeHandler = (e) => {
+    setUserType(e.value);
+    setTempUserType(e);
   };
-
-  useEffect(() => {
-  if (state?.country === "") {
-    setTempCountry({
-      label: countryList().getLabel(state?.country),
-    });
-  }
-  }, [state]);
 
   return (
     <div className="main">
       <div className="sub-main">
-        <h1>Update</h1>
+        <h1>Add User</h1>
         <hr />
-        <form onSubmit={update} border="dark">
+        <form onSubmit={register} border="dark">
           <Container>
             <Row className="justify-content-md-center">
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>First Name</Form.Label>
+                  <Form.Label>First Name*</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="First Name"
@@ -117,7 +108,7 @@ const UpdateProfile = () => {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Last Name</Form.Label>
+                  <Form.Label>Last Name*</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Last Name"
@@ -131,11 +122,11 @@ const UpdateProfile = () => {
             <Row className="justify-content-md-center">
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>E-mail</Form.Label>
+                  <Form.Label>E-mail*</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="E-mail"
-                    disabled
+                    required
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
@@ -148,7 +139,6 @@ const UpdateProfile = () => {
                     type="text"
                     placeholder="Phone Number"
                     maxLength="10"
-                    required
                     onChange={(e) => setMobile(e.target.value)}
                     value={mobile}
                   />
@@ -162,7 +152,6 @@ const UpdateProfile = () => {
                   <Form.Control
                     type="date"
                     placeholder="Date Of Birth"
-                    required
                     onChange={(e) => setDob(e.target.value)}
                     value={dob}
                   />
@@ -170,11 +159,11 @@ const UpdateProfile = () => {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Country</Form.Label>
+                  <Form.Label>User Type</Form.Label>
                   <Select
                     options={options}
-                    value={tempCountry}
-                    onChange={countryHandler}
+                    value={tempUserType}
+                    onChange={userTypeHandler}
                   />
                 </Form.Group>
               </Col>
@@ -204,10 +193,10 @@ const UpdateProfile = () => {
                         role="status"
                         aria-hidden="true"
                       ></span>
-                      <span className="sr-only">Updateing...</span>
+                      <span className="sr-only">Adding...</span>
                     </>
                   ) : (
-                    "Update"
+                    "Add User"
                   )}
                 </Button>
               </Col>
@@ -219,4 +208,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default AddUser;

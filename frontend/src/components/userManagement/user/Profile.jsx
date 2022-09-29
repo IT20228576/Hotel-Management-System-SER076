@@ -24,6 +24,7 @@ function Profile() {
           .substring(0, 10);
         result.data.dob = dobEdited;
       }
+      console.log(result.data);
       setUserData(result.data);
     } catch (err) {
       console.log(err);
@@ -58,7 +59,7 @@ function Profile() {
           <>
             <div>
               <h1>
-                {userData.firstName} {userData.lastName}
+                {userData?.firstName} {userData?.lastName}
               </h1>
               <hr />
               <img
@@ -75,7 +76,7 @@ function Profile() {
                     <h3>E-mail</h3>
                   </td>
                   <td>
-                    <h3>{userData.email}</h3>
+                    <h3>{userData?.email}</h3>
                   </td>
                 </tr>
                 <tr key={2}>
@@ -83,7 +84,7 @@ function Profile() {
                     <h3>Mobile</h3>
                   </td>
                   <td>
-                    <h3>{userData.mobile}</h3>
+                    <h3>{userData?.mobile}</h3>
                   </td>
                 </tr>
                 <tr key={3}>
@@ -91,7 +92,7 @@ function Profile() {
                     <h3>Date of birth</h3>
                   </td>
                   <td>
-                    <h3>{userData.dob}</h3>
+                    <h3>{userData?.dob}</h3>
                   </td>
                 </tr>
                 <tr key={4}>
@@ -99,7 +100,9 @@ function Profile() {
                     <h3>Country</h3>
                   </td>
                   <td>
-                    <h3>{countries().getLabel(userData?.country)}</h3>
+                    {userData?.country !== undefined && (
+                      <h3>{countries().getLabel(userData?.country)}</h3>
+                    )}
                   </td>
                 </tr>
                 <tr key={5}>
@@ -107,19 +110,19 @@ function Profile() {
                     <h3>User Type</h3>
                   </td>
                   <td>
-                    <h3>{userData.userType}</h3>
+                    <h3>{userData?.userType}</h3>
                   </td>
                 </tr>
                 <tr key={6}>
                   <td>
                     <h3>Verified</h3>
                   </td>
-                  {userData.verified === true && (
+                  {userData?.verified === true && (
                     <td>
                       <h3>E-mail Verified</h3>
                     </td>
                   )}
-                  {userData.verified === false && (
+                  {userData?.verified === false && (
                     <td>
                       <h3>E-mail Not Verified</h3>
                     </td>
@@ -129,12 +132,12 @@ function Profile() {
                   <td>
                     <h3>Created by</h3>
                   </td>
-                  {userData.adminCreated === true && (
+                  {userData?.adminCreated === true && (
                     <td>
                       <h3>Admin</h3>
                     </td>
                   )}
-                  {userData.adminCreated === false && (
+                  {userData?.adminCreated === false && (
                     <td>
                       <h3>User</h3>
                     </td>
