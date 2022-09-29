@@ -47,6 +47,27 @@ function Profile() {
     navigate("/profile/change-password", { state: userData });
   }
 
+  /**
+   * When the user clicks the delete button, delete the user's account.
+   */
+  async function deletePassword() {
+    try {
+      if (!window.confirm("Are you sure you wish to delete this account?")) {
+        return;
+      }
+
+      const result = await axios.delete("http://localhost:8000/account/delete");
+
+      if (result?.status === 201) {
+        alert(result?.data?.Message);
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  }
+
   /* Calling the getData function when the component is mounted. */
   useEffect(() => {
     getData();
@@ -163,7 +184,12 @@ function Profile() {
           >
             Change Password
           </button>
-          <button className="btn btn-danger account-button">Delete</button>
+          <button
+            className="btn btn-danger account-button"
+            onClick={deletePassword}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
