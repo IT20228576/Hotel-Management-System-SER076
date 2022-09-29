@@ -61,8 +61,6 @@ const changePasswordSchema = Joi.object({
 const createUserSchema = Joi.object({
   firstName: Joi.string().min(2).max(30).required().label("First Name"),
   lastName: Joi.string().min(2).max(30).required().label("Last Name"),
-  mobile: Joi.string().length(10).label("Mobile"),
-  dob: Joi.date().label("Date of Birth"),
   email: Joi.string()
     .min(5)
     .max(255)

@@ -228,10 +228,10 @@ router.post("/create-user", adminAccess, async (req, res) => {
 /* Deleting the user account. */
 router.delete("/delete", userAccess, async (req, res) => {
   try {
-    const result = await User.findByIdAndDelete(req.body.user._id);
+    await User.findByIdAndDelete(req.body.user._id);
 
     /* Removing the cookie from the browser. */
-    await func.removeCookie(res);
+    await service.removeCookie(res);
   } catch (err) {
     res.json(false);
     console.error(err);

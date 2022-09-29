@@ -159,7 +159,7 @@ const AddUser = () => {
               </Col>
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>User Type</Form.Label>
+                  <Form.Label>User Type*</Form.Label>
                   <Select
                     options={options}
                     value={tempUserType}

@@ -56,11 +56,12 @@ function Profile() {
         return;
       }
 
-      const result = await axios.delete("http://localhost:8000/account/delete");
+      const result = await axios.delete("http://localhost:8000/user/delete");
 
       if (result?.status === 201) {
-        alert(result?.data?.Message);
+        alert("Account deleted successfully");
         navigate("/");
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
