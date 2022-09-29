@@ -2,19 +2,14 @@ const Room = require("../models/roomManagement/room.model")
 exports.getRooms = async (req, res) => {
   try {
 
-    // getting page number from query parameter, or assigning to 0
+    
 
     const pageNo = req.query.pageNo || 1;
-
-    // getting page size from query parameter, or assigning to 10
 
     const itemsPerPage = req.query.pageSize || 10;
 
     const skip = (pageNo - 1) * itemsPerPage;
 
-
-
-    // getting the number of records in the DB
 
     const count = await Room.estimatedDocumentCount();
 
