@@ -88,11 +88,12 @@ const UpdateProfile = () => {
   };
 
   useEffect(() => {
-  if (state?.country === "") {
-    setTempCountry({
-      label: countryList().getLabel(state?.country),
-    });
-  }
+    if (state?.country !== undefined) {
+      setTempCountry({
+        label: countryList().getLabel(state?.country),
+      });
+      setCountry(state?.country);
+    }
   }, [state]);
 
   return (

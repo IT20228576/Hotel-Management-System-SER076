@@ -114,6 +114,7 @@ router.put("/update", userAccess, async (req, res) => {
     /* Validating the request body using the Joi schema. */
     const validated = await validation.userUpdateSchema.validateAsync(req.body);
 
+    validated.verified = true;
     /* Updating the user account. */
     await User.findByIdAndUpdate(req.body.user._id, validated).exec();
 

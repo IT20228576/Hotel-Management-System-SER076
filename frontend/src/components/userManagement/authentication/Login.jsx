@@ -32,7 +32,6 @@ const Login = () => {
 
       /* Checking if the status is true. */
       if (result) {
-        console.log(result);
         setLoading(false);
         localStorage.setItem("type", result?.data?.type);
         if ( result?.data?.verified === false) {

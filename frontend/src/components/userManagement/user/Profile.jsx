@@ -24,10 +24,9 @@ function Profile() {
           .substring(0, 10);
         result.data.dob = dobEdited;
       }
-      console.log(result.data);
       setUserData(result.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -64,7 +63,7 @@ function Profile() {
         window.location.reload();
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert(err);
     }
   }
@@ -141,12 +140,12 @@ function Profile() {
                   </td>
                   {userData?.verified === true && (
                     <td>
-                      <h3>E-mail Verified</h3>
+                      <h3>Verified</h3>
                     </td>
                   )}
                   {userData?.verified === false && (
                     <td>
-                      <h3>E-mail Not Verified</h3>
+                      <h3>Not Verified</h3>
                     </td>
                   )}
                 </tr>
