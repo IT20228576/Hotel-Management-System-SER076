@@ -25,6 +25,7 @@ import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
 import RoomReport from "../roomMangement/RoomReport";
+import UpdateProfile from "../userManagement/user/UpdateProfile";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -47,7 +48,6 @@ function Router() {
 
             {userType === "Admin" && (
               <>
-                <Route path="/profile" element={<Profile />} />
                 <Route exact path="/dashboard" element={<Dashboard />} />
 
                 {/*Reservation Routes for Admin*/}
@@ -81,14 +81,12 @@ function Router() {
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
-                <Route path="/roomReport"  element={<RoomReport />} />
+                <Route path="/roomReport" element={<RoomReport />} />
               </>
             )}
 
             {userType === "Customer" && (
               <>
-                <Route path="/profile" element={<Profile />} />
-
                 {/*Reservation Routes for Customer*/}
                 <Route exact path="/reserve" element={<Reserve />} />
                 <Route
@@ -98,6 +96,17 @@ function Router() {
                 />
               </>
             )}
+
+            {userType === "Customer" || userType === "Admin" ? (
+              <>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/update" element={<UpdateProfile />} />
+                {/*Reservation Routes for Customer*/}
+              </>
+            ) : (
+              ""
+            )}
+
             <Route exact path="*" element={<Home />} />
           </Routes>
           <Footer />

@@ -29,13 +29,6 @@ const userUpdateSchema = Joi.object({
   mobile: Joi.string().length(10).required().label("Mobile"),
   dob: Joi.date().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
-  email: Joi.string()
-    .min(5)
-    .max(255)
-    .required()
-    .email()
-    .rule({ message: "Invalid E-mail address" })
-    .label("E-mail"),
 }).unknown(true);
 
 /* This is a schema for validating the login form. */

@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import countries from "react-select-country-list";
 import "../authentication/style.css";
 import profilePic from "./profilePic.jpeg";
 
 function Profile() {
   const [userData, setUserData] = useState("");
+
+    const navigate = useNavigate();
 
   /**
    * If the user has a date of birth, then create a new date object from the date of birth, convert it to
@@ -25,6 +28,14 @@ function Profile() {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  /**
+   * When the user clicks the update button, navigate to the update page and pass the userData object as
+   * state.
+   */
+  async function updateUser() {
+    navigate("/profile/update", { state: userData });
   }
 
   /* Calling the getData function when the component is mounted. */
@@ -129,7 +140,12 @@ function Profile() {
         )}
 
         <div className="main-center">
-          <button className="btn btn-primary account-button">Edit</button>
+          <button
+            className="btn btn-primary account-button"
+            onClick={updateUser}
+          >
+            Edit
+          </button>
           <button className="btn btn-warning account-button">
             Change Password
           </button>
