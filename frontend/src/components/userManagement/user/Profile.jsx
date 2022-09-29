@@ -8,7 +8,7 @@ import profilePic from "./profilePic.jpeg";
 function Profile() {
   const [userData, setUserData] = useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   /**
    * If the user has a date of birth, then create a new date object from the date of birth, convert it to
@@ -36,6 +36,14 @@ function Profile() {
    */
   async function updateUser() {
     navigate("/profile/update", { state: userData });
+  }
+
+  /**
+   * When the user clicks the change password button, navigate to the change password page and pass the userData object as
+   * state.
+   */
+  async function changePassword() {
+    navigate("/profile/change-password", { state: userData });
   }
 
   /* Calling the getData function when the component is mounted. */
@@ -146,7 +154,10 @@ function Profile() {
           >
             Edit
           </button>
-          <button className="btn btn-warning account-button">
+          <button
+            className="btn btn-warning account-button"
+            onClick={changePassword}
+          >
             Change Password
           </button>
           <button className="btn btn-danger account-button">Delete</button>

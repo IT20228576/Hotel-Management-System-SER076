@@ -45,13 +45,16 @@ const loginSchema = Joi.object({
 
 /* This is a schema for validating the change password form. */
 const changePasswordSchema = Joi.object({
-  password: Joi.string().required().label("Password"),
-  passwordVerify: Joi.string().required().label("Password Verify"),
+  password: Joi.string().required().label("Current Password"),
+  passwordVerify: Joi.string()
+    .valid(Joi.ref("password"))
+    .required()
+    .label("Confirm Current Password"),
   newPassword: passwordComplexity().required().label("New Password"),
   newPasswordVerify: passwordComplexity()
     .valid(Joi.ref("newPassword"))
     .required()
-    .label("New Password Verify"),
+    .label("Confirm New Password"),
 }).unknown(true);
 
 /* A schema for validating the admin registration form. */

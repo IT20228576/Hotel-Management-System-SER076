@@ -26,6 +26,7 @@ import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
 import RoomReport from "../roomMangement/RoomReport";
 import UpdateProfile from "../userManagement/user/UpdateProfile";
+import ChangePassword from "../userManagement/user/ChangePassword";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -101,7 +102,7 @@ function Router() {
               <>
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/update" element={<UpdateProfile />} />
-                {/*Reservation Routes for Customer*/}
+                <Route path="/profile/change-password" element={<ChangePassword />} />
               </>
             ) : (
               ""
