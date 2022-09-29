@@ -155,9 +155,9 @@ router.put("/changepassword", userAccess, async (req, res) => {
     const passwordHash = await bcrypt.hash(validated.newPassword, salt);
 
     /* Checking the type of the user and updating the password of the user. */
-      await User.findByIdAndUpdate(validated.user._id, {
-        passwordHash: passwordHash,
-      }).exec();
+    await User.findByIdAndUpdate(validated.user._id, {
+      passwordHash: passwordHash,
+    }).exec();
 
     /* Removing the cookie from the browser. */
     await service.removeCookie(res);
@@ -212,7 +212,6 @@ router.post("/create-user", adminAccess, async (req, res) => {
 
     /* Sending a response to the client. */
     res.status(201).send({ Message: "Successfully created a new user" });
-
   } catch (err) {
     if (err.isJoi === true) {
       console.error(err);
@@ -221,6 +220,22 @@ router.post("/create-user", adminAccess, async (req, res) => {
       console.error(err);
       res.status(500).send(err);
     }
+  }
+});
+
+//loggedin user can access
+//delete loggedin account
+/* Deleting the user account. */
+router.delete("/delete", userAccess, async (req, res) => {
+  try {
+    const result = await User.findByIdAndDelete(req.body.user._id);
+
+    /* Removing the cookie from the browser. */
+    await func.removeCookie(res);
+  } catch (err) {
+    res.json(false);
+    console.error(err);
+    res.status(500).send();
   }
 });
 
