@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import countries from "react-select-country-list";
 import "../authentication/style.css";
+import profilePic from "./profilePic.jpeg";
 
 function Profile() {
   const [userData, setUserData] = useState("");
@@ -41,10 +42,15 @@ function Profile() {
                 {userData.firstName} {userData.lastName}
               </h1>
               <hr />
+              <img
+                alt="ProfilePicture"
+                className="profilePic"
+                src={profilePic}
+              />
+              <hr />
             </div>
             <table className="table table-bordered">
               <tbody>
-              
                 <tr key={1}>
                   <td>
                     <h3>E-mail</h3>

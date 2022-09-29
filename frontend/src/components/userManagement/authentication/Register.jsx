@@ -15,6 +15,7 @@ const Register = () => {
   const [country, setCountry] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const options = useMemo(() => countryList().getData(), []);
 
@@ -27,6 +28,9 @@ const Register = () => {
   const register = async (e) => {
     e.preventDefault();
     try {
+      /* Setting the loading state to true. */
+      setLoading(true);
+
       /* Creating an object with the same name as the variables. */
       const RegisterData = {
         firstName,
@@ -50,6 +54,7 @@ const Register = () => {
       type and status from local storage. It will then navigate to the login page and reload the
       page. */
       if (result?.status === 201) {
+        setLoading(false);
         alert("Verification Email Sent successfully");
         /* Removing the type and status from local storage. */
         localStorage.removeItem("type");
@@ -58,14 +63,15 @@ const Register = () => {
         window.location.reload();
       }
     } catch (err) {
+      setLoading(false);
       console.error(err?.response?.data?.errorMessage);
       alert(err?.response?.data?.errorMessage);
     }
   };
 
-/**
- * When the user clicks the reset button, clear all the form fields.
- */
+  /**
+   * When the user clicks the reset button, clear all the form fields.
+   */
   const resetForm = (e) => {
     setFirstName("");
     setLastName("");
@@ -77,10 +83,10 @@ const Register = () => {
     setPasswordVerify("");
   };
 
-/**
- * When the user selects a country, set the country to the value of the selected country and set the
- * temporary country to the selected country.
- */
+  /**
+   * When the user selects a country, set the country to the value of the selected country and set the
+   * temporary country to the selected country.
+   */
   const countryHandler = (e) => {
     setCountry(e.value);
     setTempCountry(e);
@@ -214,7 +220,18 @@ const Register = () => {
                   type="submit"
                   style={{ width: "70%", margin: "5px" }}
                 >
-                  Submit
+                  {loading ? (
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      <span className="sr-only">Registering...</span>
+                    </>
+                  ) : (
+                    "Register"
+                  )}
                 </Button>
               </Col>
             </Row>

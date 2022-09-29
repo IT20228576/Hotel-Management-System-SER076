@@ -17,7 +17,7 @@ function Footer() {
                 +94 2729 729 <br /> Call us it's toll-free
               </div>
               <div className="col">
-                Customer Support Online reservation assistance
+                Customer Support Online Reservation Assistance.
               </div>
             </div>
           </div>
