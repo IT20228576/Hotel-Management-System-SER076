@@ -61,18 +61,18 @@ function Reserve() {
         amount: amount,
         paymentMethod: paymentMethod,
         note: note,
-      };
-      console.log(resObj, "resObj");
+      };     
       navigate("/reserve/confirm", { state: resObj });
     }
   }
 
+  // getting the current user's information by calling the API implemented by IT20228576
   async function getUserInfo() {
     try {
       const result = await axios.get("http://localhost:8000/user/profile");
       setUserInfo(result.data);
     } catch (err) {
-      console.log(err);
+      alert(err.message);
     }
   }
 
@@ -85,6 +85,11 @@ function Reserve() {
       setMobile(userInfo.mobile);
       setEmail(userInfo.email);
     }
+
+    setRoomType("Twin Delux Room");
+    setRoom("Twin room");
+    setAmount(38000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   

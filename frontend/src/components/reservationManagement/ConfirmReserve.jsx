@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -14,6 +14,7 @@ import moment from "moment";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import PrintIcon from "@mui/icons-material/Print";
 import { useReactToPrint } from "react-to-print";
+import axios from "axios";
 
 function ConfirmReserve() {
   const { state } = useLocation();
@@ -21,6 +22,7 @@ function ConfirmReserve() {
   const [lastName, setLastName] = useState(state.lastName);
   const [mobile, setMobile] = useState(state.mobile);
   const [email, setEmail] = useState(state.email);
+  const [roomType, setRoomType] = useState(state.roomType);
   const [room, setRoom] = useState(state.room);
   const [checkinDate, setCheckinDate] = useState(state.checkinDate);
   const [checkinTime, setCheckinTime] = useState(
@@ -30,11 +32,18 @@ function ConfirmReserve() {
   const [checkoutTime, setCheckoutTime] = useState(
     moment(state.checkoutTime, "hh:mm a").format("hh:mm a")
   );
+  const [adults, setAdults] = useState(state.adults);
+  const [children, setChildren] = useState(state.children);
   const [numberOfRooms, setNumberOfRooms] = useState(state.numberOfRooms);
   const [amount, setAmount] = useState(state.amount);
-  const [tax, setTax] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState(state.paymentMethod);
+  const [note, setNote] = useState(state.note);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [refNumber, setRefNumber] = useState("");
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const componentRef = useRef();
+  const tax = 5;
+  const taxAmount = amount * (tax / 100);
   const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
@@ -42,15 +51,73 @@ function ConfirmReserve() {
     documentTitle: "Reservation-Confirmation-Report",
   });
 
+  const handleConfirm = async () => {
+    let resObj = {
+      firstName: firstName,
+      lastName: lastName,
+      mobile: mobile,
+      email: email,
+      roomType: roomType,
+      room: room,
+      checkinDate: checkinDate,
+      checkinTime: checkinTime,
+      checkoutDate: checkoutDate,
+      checkoutTime: checkoutTime,
+      adults: adults,
+      children: children,
+      numberOfRooms: numberOfRooms,
+      amount: totalAmount,
+      paymentMethod: paymentMethod,
+      note: note,
+    };
+
+    await axios
+      .post("http://localhost:8000/reservations/confirm", resObj)
+      .then((response) => {
+        if (response.status === 201) {
+          alert(response.data.message);
+          setIsConfirmed(true);
+          setRefNumber(response.data.data.referenceNumber);
+        } else if (response.status === 500) {
+          alert("Sorry! Couldn't Confirm the Reservation.");
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  useEffect(() => {
+    setTotalAmount(amount + taxAmount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [taxAmount]);
+
   return (
-    <div className="container" ref={componentRef}>
+    <div className="container">
       <Container className="d-flex justify-content-center mt-5">
-        <Card style={{ width: "100rem" }}>
-          <Card.Header className="d-flex justify-content-between">
-            <h2>Confirm Reservation</h2>
+        <Row
+          style={{
+            marginLeft: "auto",
+            height: "20px",
+            width: "50px",
+          }}
+        >
+          {isConfirmed ? (
             <Button variant="secondary" onClick={handlePrint}>
               <PrintIcon />
             </Button>
+          ) : (
+            ""
+          )}
+        </Row>
+      </Container>
+      <Container
+        className="d-flex justify-content-center mt-5"
+        ref={componentRef}
+      >
+        <Card style={{ width: "100rem" }}>
+          <Card.Header className="d-flex justify-content-between">
+            <h2>Confirm Reservation</h2>
           </Card.Header>
           <Card.Body>
             <Row>
@@ -83,14 +150,20 @@ function ConfirmReserve() {
                 </Row>
               </Col>
               <Col>
-                <Card.Subtitle as="h5" className="mt-2">
+                <Card.Subtitle
+                  as="h5"
+                  className="d-flex justify-content-between mt-2"
+                >
                   Summary
+                  <span style={{ color: "#00B5E2" }}>
+                    {isConfirmed ? "#" + refNumber : ""}
+                  </span>
                 </Card.Subtitle>
                 <Table striped bordered hover>
                   <tbody>
                     <tr>
                       <th>Price</th>
-                      <td>{amount}</td>
+                      <td>$ {amount}</td>
                     </tr>
                     <tr>
                       <th>Room</th>
@@ -101,37 +174,40 @@ function ConfirmReserve() {
                       <td>{numberOfRooms}</td>
                     </tr>
                     <tr>
-                      <th>Tax (0.0%)</th>
-                      <td>{tax}</td>
+                      <th>Tax {tax}%</th>
+                      <td>$ {taxAmount}</td>
                     </tr>
                     <tr>
                       <th>Total Price</th>
-                      <td>{totalAmount}</td>
+                      <td>$ {totalAmount}</td>
                     </tr>
                   </tbody>
                 </Table>
               </Col>
             </Row>
-
-            <Row className="text-center mt-5">
-              <Col>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={() => navigate("/reserve")}
-                >
-                  Cancel
-                </Button>
-              </Col>
-              <Col>
-                <Button variant="primary" size="lg">
-                  Confirm
-                </Button>
-              </Col>
-            </Row>
           </Card.Body>
         </Card>
       </Container>
+      {isConfirmed ? (
+        ""
+      ) : (
+        <Row className="text-center mt-5 mb-5">
+          <Col>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => navigate("/reserve")}
+            >
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button variant="primary" size="lg" onClick={handleConfirm}>
+              Confirm
+            </Button>
+          </Col>
+        </Row>
+      )}
     </div>
   );
 }
