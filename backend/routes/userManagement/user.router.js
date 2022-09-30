@@ -82,7 +82,6 @@ router.get("/", adminAccess, async (req, res) => {
   try {
     /* Destructuring the query parameters. */
     let { page, size, search, filter } = req.query;
-    console.log(page, size, search, filter);
     /* Checking if the page and size query parameters are not present, then it is setting the default
     values. */
     if (!page) {
@@ -278,6 +277,30 @@ router.delete("/delete/:id", adminAccess, async (req, res) => {
     res.json(false);
     console.error(err);
     res.status(500).send();
+  }
+});
+
+/* The above code is a route that is used to update an admin. */
+router.put("/update/admin", adminAccess, async (req, res) => {
+  try {
+    /* Validating the request body using the Joi schema. */
+    const validated = await validation.userUpdateSchema.validateAsync(req.body);
+
+    /* Calling the function updateAdmin from functions.util.js and passing the validated id and validated
+object. */
+    await User.findByIdAndUpdate(validated.id, validated);
+
+    /* Sending a response to the client. */
+    res.status(201).send({ Message: "Successfully updated" });
+  } catch (err) {
+    if (err.isJoi === true) {
+      console.error(err);
+      return res.status(422).send({ errorMessage: err.details[0].message });
+    } else {
+      res.json(false);
+      console.error(err);
+      res.status(500).send(err);
+    }
   }
 });
 

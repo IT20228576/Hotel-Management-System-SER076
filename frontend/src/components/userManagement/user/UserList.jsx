@@ -95,7 +95,9 @@ const UserList = () => {
    * state.
    */
   async function updateUser(data) {
-    navigate("/profile/update", { state: data });
+    data.dob = data.dob.substring(0, 10);
+      navigate("/users/update", { state: data });
+      console.log(data);
   }
 
   /**
@@ -103,7 +105,6 @@ const UserList = () => {
    */
   const deleteUser = async (data) => {
     try {
-      console.log(data._id);
       if (!window.confirm("Are you sure you wish to delete this account?")) {
         return;
       }

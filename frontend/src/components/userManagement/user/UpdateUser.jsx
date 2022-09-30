@@ -5,7 +5,7 @@ import Select from "react-select";
 import countryList from "react-select-country-list";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-const UpdateProfile = () => {
+const UpdateUser = () => {
   const { state } = useLocation();
 
   const [firstName, setFirstName] = useState(state?.firstName);
@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const [dob, setDob] = useState(state?.dob);
   const [mobile, setMobile] = useState(state?.mobile);
   const [tempCountry, setTempCountry] = useState("");
+  const id = state?._id;
 
   const [country, setCountry] = useState();
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ const UpdateProfile = () => {
 
       /* Creating an object with the same name as the variables. */
       const updateData = {
+        id,
         firstName,
         lastName,
         dob,
@@ -43,7 +45,7 @@ const UpdateProfile = () => {
 
       /* Sending a post request to the server with the user's details. */
       const result = await axios.put(
-        "http://localhost:8000/user/update",
+        "http://localhost:8000/user/update/admin",
         updateData
       );
 
@@ -55,7 +57,7 @@ const UpdateProfile = () => {
         setLoading(false);
         alert(result?.data?.Message);
         /* Reloading the page. */
-        navigate("/profile");
+        navigate("/users");
         window.location.reload();
       }
     } catch (err) {
@@ -99,7 +101,7 @@ const UpdateProfile = () => {
   return (
     <div className="main">
       <div className="sub-main">
-        <h1>Update</h1>
+        <h1>Update User</h1>
         <hr />
         <form onSubmit={update} border="dark">
           <Container>
@@ -220,4 +222,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default UpdateUser;
