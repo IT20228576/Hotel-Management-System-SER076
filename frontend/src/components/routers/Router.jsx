@@ -24,6 +24,8 @@ import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
+import AvailableEventsForCustomer from "../eventManagement/AvailableEventsForCustomer";
+import EventForCustomer from "../eventManagement/EventForCustomer";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -41,6 +43,8 @@ function Router() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
+                <Route exact path="/EventForCustomer/:id" element={<ViewEvent />} />
               </>
             )}
 
@@ -76,6 +80,9 @@ function Router() {
                 <Route exact path="/edit/:id" element={<UpdateEvent />} />
                 <Route exact path="/view/:id" element={<ViewEvent />} />
                 <Route path="/eventreport" element={<EventReport />} />
+                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
+                <Route path="/EventForCustomer" element={<EventForCustomer />} />
+                <Route exact path="/EventForCustomer/:id" element={<EventForCustomer />} />
                 {/*Rooms Routes*/}
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
