@@ -30,6 +30,7 @@ import ChangePassword from "../userManagement/user/ChangePassword";
 import AddUser from "../userManagement/user/AddUser";
 import UserList from "../userManagement/user/UserList";
 import UpdateUser from "../userManagement/user/UpdateUser";
+import UserReport from "../userManagement/user/UserReport";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -55,9 +56,10 @@ function Router() {
                 <Route exact path="/dashboard" element={<Dashboard />} />
 
                 {/*User Routes for Admin*/}
-                <Route path="/add-user" element={<AddUser />} />
+                <Route path="/users/add" element={<AddUser />} />
                 <Route path="/users" element={<UserList />} />
                 <Route path="/users/update" element={<UpdateUser />} />
+                <Route path="/users/report" element={<UserReport />} />
 
                 {/*Reservation Routes for Admin*/}
                 <Route

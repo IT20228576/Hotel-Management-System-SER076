@@ -16,7 +16,7 @@ const AddUser = () => {
 
   const options = [
     { value: "Admin", label: "Admin" },
-    { value: "Customer", label: "Customer" }
+    { value: "Customer", label: "Customer" },
   ];
 
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const AddUser = () => {
         setLoading(false);
         alert(result?.data?.Message);
         /* Reloading the page. */
-        navigate("/add-user");
+        navigate("/users/add");
         window.location.reload();
       }
     } catch (err) {

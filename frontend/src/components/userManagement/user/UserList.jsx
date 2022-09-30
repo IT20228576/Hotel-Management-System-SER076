@@ -26,8 +26,6 @@ const UserList = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  let items = [];
-
   const navigate = useNavigate();
 
   function userList() {
@@ -80,24 +78,13 @@ const UserList = () => {
     handleShow();
   }
 
-  /* This is the code for the previous button. */
-  if (currentPage > 1) {
-    items.push(
-      <Pagination.Prev
-        key="Prev"
-        onClick={() => setCurrentPage(currentPage - 1)}
-      />
-    );
-  }
-
   /**
    * When the user clicks the update button, navigate to the update page and pass the user object as
    * state.
    */
   async function updateUser(data) {
     data.dob = data.dob.substring(0, 10);
-      navigate("/users/update", { state: data });
-      console.log(data);
+    navigate("/users/update", { state: data });
   }
 
   /**
@@ -183,7 +170,7 @@ const UserList = () => {
         <div className="head-left">
           <h1>Users</h1>
           <a
-            href="/add-user"
+            href="/users/add"
             style={{ marginLeft: "40px", marginRight: "20px" }}
           >
             <button
@@ -194,7 +181,7 @@ const UserList = () => {
             </button>
           </a>
           <h1 style={{ color: "gray" }}>|</h1>
-          <a href="/user-report" style={{ marginInline: "20px" }}>
+          <a href="/users/report" style={{ marginInline: "20px" }}>
             <button
               className="btn btn-outline-primary"
               style={{ width: "120px", height: "50px" }}

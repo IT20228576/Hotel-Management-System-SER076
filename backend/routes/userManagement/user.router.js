@@ -304,4 +304,39 @@ object. */
   }
 });
 
+/* This is a route handler for the /report route. It is used to report all the users. */
+router.post("/report", adminAccess, async (req, res) => {
+  try {
+    /* Destructuring the query parameters. */
+    const filter = req.body;
+    console.log(filter);
+    let users = [];
+    let query = {};
+    let total;
+    if (filter.userType === "Admin") {
+      query.userType = "Admin";
+    } else if (filter.userType === "Customer") {
+      query.userType = "Customer";
+    }
+    if (filter.country !== "") {
+      query.country = filter.country;
+    }
+    if (filter.joinedFrom !== "" && filter.joinedTo !== "") {
+      query.createdAt = {
+        $gte: new Date(filter.joinedFrom),
+        $lt: new Date(filter.joinedTo),
+      };
+    }
+    console.log(query);
+
+    users = await User.find(query);
+
+    /* Sending the users object to the client. */
+    res.json({ users: users, total: total });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
 module.exports = router;
