@@ -99,22 +99,24 @@ const UserList = () => {
   }
 
   /**
-   * When the user clicks the delete button, delete the user's account.
+   * When the Admin clicks the delete button, delete the user account.
    */
   const deleteUser = async (data) => {
-      try {
-        console.log(data._id);
+    try {
+      console.log(data._id);
       if (!window.confirm("Are you sure you wish to delete this account?")) {
         return;
       }
 
-     // const result = await axios.delete("http://localhost:8000/user/delete");
+      const result = await axios.delete(
+        "http://localhost:8000/user/delete/" + data._id
+      );
 
-    //   if (result?.status === 201) {
-    //     alert("Account deleted successfully");
-    //     navigate("/");
-    //     window.location.reload();
-    //   }
+      if (result?.status === 201) {
+        alert("Account deleted successfully");
+        navigate("/users");
+        window.location.reload();
+      }
     } catch (err) {
       console.error(err);
       alert(err);

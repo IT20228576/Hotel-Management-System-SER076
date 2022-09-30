@@ -265,4 +265,20 @@ router.delete("/delete", userAccess, async (req, res) => {
   }
 });
 
+//Admin user can access
+//delete user account
+/* Deleting the user account. */
+router.delete("/delete/:id", adminAccess, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+
+    /* Sending a response to the client. */
+    res.status(201).send({ Message: "Successfully deleted" });
+  } catch (err) {
+    res.json(false);
+    console.error(err);
+    res.status(500).send();
+  }
+});
+
 module.exports = router;
