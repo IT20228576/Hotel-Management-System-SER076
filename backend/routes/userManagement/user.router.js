@@ -81,8 +81,8 @@ router.get("/profile", userAccess, async (req, res) => {
 router.get("/", adminAccess, async (req, res) => {
   try {
     /* Destructuring the query parameters. */
-    let { page, size } = req.query;
-
+    let { page, size, search, filter } = req.query;
+    console.log(page, size, search, filter);
     /* Checking if the page and size query parameters are not present, then it is setting the default
     values. */
     if (!page) {
@@ -91,17 +91,42 @@ router.get("/", adminAccess, async (req, res) => {
     if (!size) {
       size = 10;
     }
-    /* Finding all the admins in the database. */
-    const users = await User.find()
-      .skip((page - 1) * size)
-      .limit(size)
-      .exec();
-    /* count total users in the database. */
-    let total = await User.countDocuments();
-    total = parseInt(total / size + 1);
+    let users = [];
+    let total;
+    let totalPage = 1;
+    if (search !== undefined && search !== "") {
+      if (filter !== undefined && filter !== "Both") {
+        /* Finding all the admins in the database. */
+        users = await User.find({
+          firstName: { $regex: search, $options: "i" },
+          userType: filter,
+        });
+      } else {
+        /* Finding all the admins in the database. */
+        users = await User.find({
+          firstName: { $regex: search, $options: "i" },
+        });
+      }
+      total = users.length;
+    } else if (filter !== undefined && filter !== "Both") {
+      /* Finding all the admins in the database. */
+      users = await User.find({
+        userType: filter,
+      });
+      total = users.length;
+    } else {
+      /* Finding all the admins in the database. */
+      users = await User.find()
+        .skip((page - 1) * size)
+        .limit(size)
+        .exec();
 
+      /* count total users in the database. */
+      total = await User.countDocuments();
+      totalPage = parseInt(total / size + 1);
+    }
     /* Sending the users object to the client. */
-    res.json({ users: users, total: total });
+    res.json({ users: users, total: total, totalPage: totalPage });
   } catch (err) {
     console.error(err);
     res.status(500).send();

@@ -153,6 +153,29 @@ td {
   display: flex;
   padding-top: 10px;
 }
+.head-left {
+  text-align: center;
+  justify-content: left;
+  display: inline-flex;
+  padding-top: 10px;
+}
+.head-right {
+  text-align: center;
+  float: right;
+  display: inline-flex;
+  padding-top: 10px;
+}
+
+.search-input {
+  text-align: center;
+  width: 400px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50px;
+  box-shadow: inset 0px 0px 5px 0px rgb(202, 197, 197);
+  border: none;
+  outline: none;
+}
 
 .profilePic {
   height: 300px;

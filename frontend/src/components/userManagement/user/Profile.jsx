@@ -49,7 +49,7 @@ function Profile() {
   /**
    * When the user clicks the delete button, delete the user's account.
    */
-  async function deletePassword() {
+  async function deleteUser() {
     try {
       if (!window.confirm("Are you sure you wish to delete this account?")) {
         return;
@@ -113,7 +113,7 @@ function Profile() {
                     <h3>Date of birth</h3>
                   </td>
                   <td>
-                    <h3>{userData?.dob}</h3>
+                    <h3>{userData?.dob?.toString()?.substring(0, 10)}</h3>
                   </td>
                 </tr>
                 <tr key={4}>
@@ -186,7 +186,7 @@ function Profile() {
           </button>
           <button
             className="btn btn-danger account-button"
-            onClick={deletePassword}
+            onClick={deleteUser}
           >
             Delete
           </button>

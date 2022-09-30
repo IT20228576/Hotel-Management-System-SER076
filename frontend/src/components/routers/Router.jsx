@@ -28,6 +28,7 @@ import RoomReport from "../roomMangement/RoomReport";
 import UpdateProfile from "../userManagement/user/UpdateProfile";
 import ChangePassword from "../userManagement/user/ChangePassword";
 import AddUser from "../userManagement/user/AddUser";
+import UserList from "../userManagement/user/UserList";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -54,6 +55,7 @@ function Router() {
 
                 {/*User Routes for Admin*/}
                 <Route path="/add-user" element={<AddUser />} />
+                <Route path="/users" element={<UserList />} />
 
                 {/*Reservation Routes for Admin*/}
                 <Route
