@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import TimePicker from "react-time-picker";
-import Clock from "react-clock";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function AddReservation() {
@@ -14,9 +12,9 @@ function AddReservation() {
   const [roomType, setRoomType] = useState("");
   const [room, setRoom] = useState("");
   const [checkinDate, setCheckinDate] = useState("");
-  const [checkinTime, setCheckinTime] = useState("09:00");
+  const [checkinTime, setCheckinTime] = useState("");
   const [checkoutDate, setCheckoutDate] = useState("");
-  const [checkoutTime, setCheckoutTime] = useState("09:00");
+  const [checkoutTime, setCheckoutTime] = useState("");
   const [adults, setAdults] = useState("");
   const [children, setChildren] = useState("");
   const [numberOfRooms, setNumberOfRooms] = useState(1);
@@ -31,7 +29,22 @@ function AddReservation() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (mobile.length > 12 || mobile.length < 10) {
+    if (
+      firstName === "" &&
+      lastName === "" &&
+      mobile === "" &&
+      email === "" &&
+      roomType === "" &&
+      room === "" &&
+      checkinDate === "" &&
+      checkinTime === "" &&
+      checkoutDate === "" &&
+      checkoutTime === "" &&
+      adults === "" &&     
+      paymentMethod === ""        
+    ) {
+      alert("Please Enter All the Mandatory Fields");
+    } else if (mobile.length > 12 || mobile.length < 10) {
       alert("Please Enter a valid Phone Number");
     } else {
       let resObj = {
@@ -63,7 +76,7 @@ function AddReservation() {
           }
         })
         .catch((error) => {
-          console.log(error.response);
+          alert(error.response.message);
         });
     }
   }
@@ -72,7 +85,7 @@ function AddReservation() {
     axios
       .get("http://localhost:8000/api/room/get")
       .then((res) => setRoomInfo(res.data))
-      .catch((error) => console.log(error.response));
+      .catch((error) => alert("Couldn't Fetch Room Details"));
     getRoomTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -103,9 +116,6 @@ function AddReservation() {
   };
 
   const handleRoomPrice = (name, roomsNum) => {
-    console.log(name, "name");
-    console.log(roomsNum, "roomsNum");
-
     for (let i = 0; i < roomInfo.length; i++) {
       if (roomInfo[i].roomName === name) {
         let roomAmount =
@@ -176,14 +186,15 @@ function AddReservation() {
                   >
                     <option></option>;
                     {roomTypeLOV.map((item, index) => {
-                      return <option value={item}>{item}</option>;
+                      return <option key={index} value={item}>{item}</option>;
                     })}
                   </Form.Select>
                 </Form.Group>
+
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Check-in Date and Time *</Form.Label>
+                      <Form.Label>Check-in Date *</Form.Label>
                       <Form.Control
                         required
                         type="date"
@@ -192,14 +203,16 @@ function AddReservation() {
                       />
                     </Form.Group>
                   </Col>
-                  <Col className="d-flex justify-content-between align-items-center">
-                    <TimePicker
-                      disableClock={true}
-                      onChange={(value) => {
-                        setCheckinTime(value);
-                      }}
-                    />
-                    <Clock size={100} value={checkinTime} />
+                  <Col className="mb-3">
+                    <Form.Group className="mb-3">
+                      <Form.Label>Check-in Time *</Form.Label>
+                      <Form.Control
+                        required
+                        type="time"
+                        placeholder="Check-in Time"
+                        onChange={(e) => setCheckinTime(e.target.value)}
+                      />
+                    </Form.Group>
                   </Col>
                 </Row>
 
@@ -227,7 +240,7 @@ function AddReservation() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label>Amount *</Form.Label>
+                  <Form.Label>Amount ($) *</Form.Label>
                   <Form.Control
                     required
                     name="amount"
@@ -279,7 +292,7 @@ function AddReservation() {
                   >
                     <option></option>;
                     {roomLOV.map((item, index) => {
-                      return <option value={item}>{item}</option>;
+                      return <option key={index} value={item}>{item}</option>;
                     })}
                   </Form.Select>
                 </Form.Group>
@@ -287,7 +300,7 @@ function AddReservation() {
                 <Row>
                   <Col>
                     <Form.Group className="mb-3">
-                      <Form.Label>Check-out Date and Time *</Form.Label>
+                      <Form.Label>Check-out Date *</Form.Label>
                       <Form.Control
                         required
                         type="date"
@@ -296,13 +309,16 @@ function AddReservation() {
                       />
                     </Form.Group>
                   </Col>
-                  <Col className="d-flex justify-content-between align-items-center">
-                    <TimePicker
-                      disableClock={true}
-                      closeClock={true}
-                      onChange={(value) => setCheckoutTime(value)}
-                    />
-                    <Clock size={100} value={checkoutTime} />
+                  <Col>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Check-out Time *</Form.Label>
+                      <Form.Control
+                        required
+                        type="time"
+                        placeholder="Check-out Time"
+                        onChange={(e) => setCheckoutTime(e.target.value)}
+                      />
+                    </Form.Group>
                   </Col>
                 </Row>
 

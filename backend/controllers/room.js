@@ -1,11 +1,47 @@
 const Room = require("../models/roomManagement/room.model")
 exports.getRooms = async (req, res) => {
-    try {
-      let rooms = await Room.find({}, { __v: 0 });
-      res.json(rooms);
-    } catch (err){
-      res.status(400).json({ error: err });
-    }
+  try {
+
+    
+
+    const pageNo = req.query.pageNo || 1;
+
+    const itemsPerPage = req.query.pageSize || 10;
+
+    const skip = (pageNo - 1) * itemsPerPage;
+
+
+    const count = await Room.estimatedDocumentCount();
+
+
+
+    const pageCount = Math.ceil(count / itemsPerPage);
+
+    const details = await Room.find({})
+
+      .sort({ createdAt: -1 })
+
+      .skip(skip)
+
+      .limit(itemsPerPage);
+
+
+
+    return res.status(200).json({
+
+      pagination: { count, pageCount },
+
+      data: details,
+
+      message: "Fetched All Successfully",
+
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({ message: error });
+
+  }
 
 };
 exports.addRoom = async (req, res) => {
@@ -60,4 +96,40 @@ exports.deleteRoom = async (req, res) => {
     res.status(400).json({ message: error });
   }
 };
+
+exports.searchRoom = async(req, res)=>{
+
+  try {
+
+    const details = await Room.find({
+
+      $or: [
+
+        {
+
+          roomName: { $regex: req.params.searchTerm },
+
+        },
+
+
+
+      ],
+
+    });
+
+
+
+    return res.status(200).json({
+
+      data: details,
+
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({ message: error });
+
+  }
+
+}
 

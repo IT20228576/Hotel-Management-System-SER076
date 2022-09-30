@@ -7,7 +7,8 @@ import PrintIcon from "@mui/icons-material/Print";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Logo from "../eventManagement/Images/Logo.png";
 
-function ReservationReport() {
+function RoomReport() {
+  const [rooms, setRooms] = useState([]);
   const [details, setDetails] = useState([]);
   const componentRef = useRef();
   const navigate = useNavigate();
@@ -17,20 +18,19 @@ function ReservationReport() {
     documentTitle: "Reservations-Report",
   });
 
-  const handleBack = () => {
-    navigate("/reservations");
-  };
+    const handleBack = () => {
+      navigate("/viewRooms");
+    };
 
   async function getAllData() {
     try {
-      await axios
-        .get("http://localhost:8000/reservations/getAll")
-        .then((res) => {
-          if (res.status === 200) {
-            setDetails(res.data.data);
-          }
-        });
-    } catch (error) {     
+      await axios.get("http://localhost:8000/api/room/get").then((res) => {
+        if (res.status === 200) {
+          setRooms(res.data.data);
+        }
+      });
+    } catch (error) {
+      console.error(error);
       alert(error);
     }
   }
@@ -39,14 +39,14 @@ function ReservationReport() {
     getAllData();
   }, []);
 
-  var dataList = details.map((item, index) => {
+  var dataList = rooms.map((room, index) => {
     return (
       <tr key={index}>
-        <td>{item.referenceNumber}</td>
-        <td>{item.firstName + " " + item.lastName}</td>
-        <td>{item.mobile}</td>
-        <td>{item.checkinDate.substring(0, 10)}</td>
-        <td>{item.checkoutDate.substring(0, 10)}</td>
+        <td>{room._id}</td>
+        <td>{room.roomName}</td>
+        <td>{room.roomType}</td>
+        <td>{room.roomPrice}</td>
+        <td>{room.roomNumber}</td>
       </tr>
     );
   });
@@ -91,7 +91,7 @@ function ReservationReport() {
                   >
                     <b>CISP HOTEL</b>
                   </h1>
-                  <h4 style={{ color: "#ffdb4d" }}>Reservations Report</h4>
+                  <h4 style={{ color: "#ffdb4d" }}>Room Report</h4>
                 </div>
 
                 <div style={{ float: "left", width: "25%" }}>
@@ -143,4 +143,4 @@ function ReservationReport() {
   );
 }
 
-export default ReservationReport;
+export default RoomReport;
