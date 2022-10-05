@@ -17,6 +17,7 @@ import axios from "axios";
 function ViewAllAvailableRoom(){
  
   const[roomList,setRoomList]=useState([]);
+  const navigate = useNavigate();
 
     useEffect(()=>{
 
@@ -28,6 +29,7 @@ function ViewAllAvailableRoom(){
          })
        }
        getRooms();
+  
 
         },[]);
 
@@ -46,7 +48,11 @@ function ViewAllAvailableRoom(){
               <center><h4 className="card-title">{data.roomName}</h4></center>
              <center><img width="200" height="200" src={require(`../image/${data.image}`)} /></center>
               <div className="card-body">
-                 <center><a href='' className="btn btn-secondary">Find More Details</a>&nbsp;
+                 <center><button onClick={()=>navigate('/roomDetailsView',{
+                  state:{
+                    id: data._id
+                  }
+                 })} className="btn btn-secondary">Find More Details</button>&nbsp;
                  <a href='' className="btn btn-secondary">Reserve</a></center>
                  </div>
               </div>
