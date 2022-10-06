@@ -29,6 +29,8 @@ import AvailableEventsForCustomer from "../eventManagement/AvailableEventsForCus
 import EventForCustomer from "../eventManagement/EventForCustomer";
 
 import RoomReport from "../roomMangement/RoomReport";
+import ViewAllAvailableRoom from "../roomMangement/ViewAllAvailableRoom";
+import RoomDetailsView from "../roomMangement/RoomDetailsView";
 
 
 function Router() {
@@ -92,6 +94,11 @@ function Router() {
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
                 <Route path="/roomReport"  element={<RoomReport />} />
+                <Route path="/viewAllAvailableRoom"  element={<ViewAllAvailableRoom />} />
+                <Route path="/roomDetailsView/:id"  element={<RoomDetailsView />} />
+
+                
+                
               </>
             )}
 
