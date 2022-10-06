@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { Container, Button } from 'react-bootstrap'
-import room from '../image/r1.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +44,9 @@ const RoomDetailsView = () => {
           <div> <p>Room Price: {details.roomPrice}</p></div>
           <div> <p>Description: {details.description}</p></div>
         </div>
-        <div><img src={room} style={{width:"30rem"}}/></div>
+        
+        <div><img src={typeof(details.image)!== 'undefined'? require(`../image/${details.image}`):'Error'} style={{width:"30rem"}}/></div>
+
       </div>
       </div>
       <div style={{display:"flex", gap:"5rem", height:"4rem", width:"100%", justifyContent: "center", marginTop:"3rem"}}>

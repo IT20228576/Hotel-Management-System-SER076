@@ -114,7 +114,7 @@ exports.getRoom=async(req,res) =>{
 exports.editRoom = async (req, res) => {
   try {
     var room = await Room.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
+      $set: req.body
     });
 
     res.status(201).json({ message: "sucess" });
