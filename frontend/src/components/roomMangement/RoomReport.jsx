@@ -119,16 +119,16 @@ function RoomReport() {
                         <b>Reference Number</b>
                       </th>
                       <th scope="col">
-                        <b>Name</b>
+                        <b>Room Name</b>
                       </th>
                       <th scope="col">
-                        <b>Phone Number</b>
+                        <b>Room Type</b>
                       </th>
                       <th scope="col">
-                        <b>Check-in</b>
+                        <b>Room Price</b>
                       </th>
                       <th scope="col">
-                        <b>Check-out</b>
+                        <b>Room Number</b>
                       </th>
                     </tr>
                   </thead>
