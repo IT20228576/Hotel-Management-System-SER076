@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {addRoom,editRoom, getRooms,getRoom, getSingleRoom, deleteRoom,searchRoom} = require("../../controllers/room")
+const {addRoom,editRoom, getRooms,getRoom, getSingleRoom, deleteRoom,searchRoom, RoomSelected} = require("../../controllers/room")
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
@@ -32,5 +32,6 @@ router.route("/room/update/:id").put(editRoom);
 router.route("/room/getAll").get(getRoom);
 router.route("/room/delete/:id").delete(deleteRoom);
 router.route("/room/search/:searchTerm").get(searchRoom);
+router.get("/select-room/:roomId", RoomSelected);
 module.exports=router;
 

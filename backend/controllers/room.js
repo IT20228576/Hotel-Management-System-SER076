@@ -169,3 +169,17 @@ exports.searchRoom = async(req, res)=>{
 
 }
 
+// return a selected room
+exports.RoomSelected = async (req, res) => {
+  const {roomId}  = req.params;
+  if(roomId){
+    Room.findOne({_id: roomId}).exec((error, details) => {
+      if(error) return res.status(400).json({error});
+      if(details){
+        res.status(201).json({details})
+      }
+    });
+  }else{
+    return res.status(400).json({error: "Params required"});
+  }
+};

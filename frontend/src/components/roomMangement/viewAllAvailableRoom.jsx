@@ -48,7 +48,7 @@ function ViewAllAvailableRoom(){
               <center><h4 className="card-title">{data.roomName}</h4></center>
              <center><img width="200" height="200" src={require(`../image/${data.image}`)} /></center>
               <div className="card-body">
-                 <center><button onClick={()=>navigate('/roomDetailsView',{
+                 <center><button onClick={()=>navigate(`/roomDetailsView/${data._id}`,{
                   state:{
                     id: data._id
                   }
