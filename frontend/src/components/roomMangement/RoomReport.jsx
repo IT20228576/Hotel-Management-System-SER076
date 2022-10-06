@@ -116,7 +116,7 @@ function RoomReport() {
                   <thead style={{ background: "#b38600", color: "#ffffe6" }}>
                     <tr>
                       <th scope="col">
-                        <b>Reference Number</b>
+                        <b>Room ID</b>
                       </th>
                       <th scope="col">
                         <b>Room Name</b>
