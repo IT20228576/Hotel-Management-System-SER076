@@ -11,29 +11,63 @@ import {
 
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddRoom() {
-  const [image, setImage] = useState("");
+  /*const [image, setImage] = useState("");
   function handleChange(event) {
     const { name, value } = event.target;
     setRoom({ ...room, [name]: value });
-  }
+  }*/
+
+  const history = useNavigate();
 
   const [room, setRoom] = useState({
     roomName: "",
     roomNumber: "",
-    imageURL: "",
+    image: "",
     roomPrice: "",
     roomType: "",
     description: "",
   
   });
 
-  async function hadleSubmit(e) {
+  const sendRoom=(e)=>{
+    e.preventDefault();
+    const data =new FormData();
+    data.append('roomName',room.roomName);
+    data.append('roomNumber',room.roomNumber);
+    data.append('image',room.image);
+    data.append('roomPrice',room.roomPrice);
+    data.append('roomType',room.roomType);
+    data.append('description',room.description);
+    
+    
+    axios.post("http://localhost:8000/api/room/create", data).then(()=>{
+
+      alert("Room is added");
+
+      if(data){
+        return history('/ViewAllAvailableRoom');
+      }
+      }).catch((err)=>{
+        alert(err);
+      })
+    }
+    const handleChange = (e) => {
+      setRoom({...room, [e.target.name]: e.target.value});
+  }
+
+  const handlePhoto = (e) => {
+      setRoom({...room, image: e.target.files[0]});
+  }
+
+
+  /*async function hadleSubmit(e) {
 
     
     e.preventDefault();
-    //console.log(room);
+    console.log(room);
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "roommangment");
@@ -60,14 +94,14 @@ function AddRoom() {
       })
       .catch((err) => console.log(err));
    
-  }
+  }*/
 
   return (
     <div>
       <h1 style={{margin:"2%" }}>Add Room</h1>
       <hr></hr>
       <Container>
-        <form className="formCard" border="dark" onSubmit={hadleSubmit}>
+        <form className="formCard" border="dark" onSubmit={sendRoom} encType="multipart/form-data">
           <Row className="justify-content-md-center">
             <Col>
               <Form.Group className="mb-3">
@@ -75,7 +109,7 @@ function AddRoom() {
                 <Form.Control
                   name="roomName"
                   placeholder="Room Name"
-                  onChange={handleChange}
+                  value={room.roomName} onChange={handleChange}
                 />
               </Form.Group>
 
@@ -84,7 +118,7 @@ function AddRoom() {
                 <Form.Control
                   name="roomNumber"
                   placeholder="Room Number"
-                  onChange={handleChange}
+                  value={room.roomNumber} onChange={handleChange}
                 />
               </Form.Group>
 
@@ -95,7 +129,7 @@ function AddRoom() {
                   accept="image/*"
                   name="image"
                   placeholder="Image"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={handlePhoto}
                 />
               </Form.Group>
 
@@ -105,7 +139,7 @@ function AddRoom() {
                   name="roomPrice"
                   placeholder="Room Price"
                   type="number"
-                  onChange={handleChange}
+                  value={room.roomPrice} onChange={handleChange}
                 />
               </Form.Group>
               <Button variant="secondary" size="lg" style={{ width: "70%", float: "right" }}>
@@ -118,7 +152,7 @@ function AddRoom() {
                 <Form.Label>Room Type</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
-                  onChange={handleChange}
+                  value={room.roomType} onChange={handleChange}
                   name="roomType"
                 >
                   <option>Room Type</option>
@@ -135,7 +169,7 @@ function AddRoom() {
                   placeholder="Description"
                   as="textarea"
                   rows={8}
-                  onChange={handleChange}
+                  value={room.description} onChange={handleChange}
                 />
               </Form.Group>
               <Button

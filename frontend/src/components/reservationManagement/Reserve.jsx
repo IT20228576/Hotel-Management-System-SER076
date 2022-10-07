@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Button, Form, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NotificationModel from "./layout/NotificationModel";
 
 function Reserve() {
   const [userInfo, setUserInfo] = useState([]);
-  const [roomInfo, setRoomInfo] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  const [roomType, setRoomType] = useState("");
-  const [room, setRoom] = useState("");
   const [checkinDate, setCheckinDate] = useState("");
   const [checkinTime, setCheckinTime] = useState("");
   const [checkoutDate, setCheckoutDate] = useState("");
   const [checkoutTime, setCheckoutTime] = useState("");
   const [adults, setAdults] = useState("");
   const [children, setChildren] = useState("");
-  const [numberOfRooms, setNumberOfRooms] = useState(1);
+  const [numberOfRooms, setNumberOfRooms] = useState("");
   const [amount, setAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [note, setNote] = useState("");
   const [message, setMessage] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -36,8 +34,6 @@ function Reserve() {
       lastName === "" &&
       mobile === "" &&
       email === "" &&
-      roomType === "" &&
-      room === "" &&
       checkinDate === "" &&
       checkinTime === "" &&
       checkoutDate === "" &&
@@ -52,8 +48,8 @@ function Reserve() {
         lastName: lastName,
         mobile: mobile,
         email: email,
-        roomType: roomType,
-        room: room,
+        roomType: state.roomType,
+        room: state.roomName,
         checkinDate: checkinDate,
         checkinTime: checkinTime,
         checkoutDate: checkoutDate,
@@ -65,7 +61,8 @@ function Reserve() {
         paymentMethod: paymentMethod,
         note: note,
       };
-      navigate("/reserve/confirm", { state: resObj });
+      console.log(resObj, "resObj");
+      // navigate("/reserve/confirm", { state: resObj });
     }
   }
 
@@ -88,11 +85,6 @@ function Reserve() {
       setMobile(userInfo.mobile);
       setEmail(userInfo.email);
     }
-
-    setRoomType("Twin Delux Room");
-    setRoom("Twin room");
-    setAmount(38000);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -106,25 +98,18 @@ function Reserve() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
-  const handleRoomPrice = (name, roomsNum) => {
-    for (let i = 0; i < roomInfo.length; i++) {
-      if (roomInfo[i].roomName === name) {
-        let roomAmount =
-          roomsNum === "" || roomsNum === 0
-            ? roomInfo[i].roomPrice
-            : roomInfo[i].roomPrice * roomsNum;
-        setAmount(roomAmount);
-      }
-    }
+  const handleRoomPrice = (roomPrice, roomsNum) => {
+    const finalAmount = roomPrice * (roomsNum ? roomsNum : 1);
+    setAmount(finalAmount);
   };
 
   const handleBack = () => {
-    navigate("/reservations");
+    navigate(-1);
   };
 
   const checkAvailability = async () => {
     let detailObj = {
-      room: room,
+      room: state.roomName,
       checkinDate: checkinDate,
       checkoutDate: checkoutDate,
     };
@@ -132,7 +117,7 @@ function Reserve() {
       "http://localhost:8000/reservations/checkAvailability",
       detailObj
     );
-    
+
     setMessage(resultData.data.message);
     setModalOpen(true);
   };
@@ -148,10 +133,12 @@ function Reserve() {
           <Button className="btn btn-light ms-2" onClick={handleBack}>
             <ArrowBackIcon />
           </Button>
-          <h1 style={{ margin: "2%" }}>Reserve</h1>
+          <h1 style={{ margin: "2%" }}>{state.roomName}</h1>
         </div>
         <h5>
-          <i>Your reservation will be verified prior to your arrival.</i>
+          <i style={{ margin: "2%" }}>
+            Your reservation will be verified prior to your arrival.
+          </i>
         </h5>
         <hr />
         <Container>
@@ -206,12 +193,11 @@ function Reserve() {
                       placeholder="Rooms"
                       type="number"
                       min="1"
-                      value={numberOfRooms}
                       onChange={(e) => {
                         // eslint-disable-next-line no-lone-blocks
                         {
                           setNumberOfRooms(e.target.value);
-                          handleRoomPrice(room, e.target.value);
+                          handleRoomPrice(state.roomPrice, e.target.value);
                         }
                       }}
                     />
@@ -233,7 +219,7 @@ function Reserve() {
                     </Form.Group>
                   </Col>
                   <Col>
-                    <Form.Group className="m3">
+                    <Form.Group className="m-3">
                       <Form.Check
                         type="radio"
                         label="Card"
