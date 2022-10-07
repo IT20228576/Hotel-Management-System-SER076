@@ -3,6 +3,7 @@ import { Col, Row, Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import NotificationModel from "./layout/NotificationModel";
 
 function Reserve() {
   const [userInfo, setUserInfo] = useState([]);
@@ -23,6 +24,8 @@ function Reserve() {
   const [amount, setAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [note, setNote] = useState("");
+  const [message, setMessage] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -61,7 +64,7 @@ function Reserve() {
         amount: amount,
         paymentMethod: paymentMethod,
         note: note,
-      };     
+      };
       navigate("/reserve/confirm", { state: resObj });
     }
   }
@@ -92,7 +95,7 @@ function Reserve() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   useEffect(() => {
     if (userInfo) {
       setFirstName(userInfo.firstName);
@@ -118,6 +121,26 @@ function Reserve() {
   const handleBack = () => {
     navigate("/reservations");
   };
+
+  const checkAvailability = async () => {
+    let detailObj = {
+      room: room,
+      checkinDate: checkinDate,
+      checkoutDate: checkoutDate,
+    };
+    const resultData = await axios.get(
+      "http://localhost:8000/reservations/checkAvailability",
+      detailObj
+    );
+    
+    setMessage(resultData.data.message);
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="container">
       <div className="container-fluid p-3">
@@ -291,10 +314,21 @@ function Reserve() {
               </Col>
               <Col>
                 <Button
+                  variant="success"
+                  size="lg"
+                  style={{ width: "60%", float: "right", margin: "5px" }}
+                  onClick={checkAvailability}
+                  title="Enter Check-in and check-out dates"
+                >
+                  Check Availability
+                </Button>
+              </Col>
+              <Col>
+                <Button
                   variant="primary"
                   size="lg"
                   type="submit"
-                  style={{ width: "70%", float: "left", margin: "5px" }}
+                  style={{ width: "70%", float: "right", margin: "5px" }}
                 >
                   Submit
                 </Button>
@@ -303,6 +337,14 @@ function Reserve() {
           </form>
         </Container>
       </div>
+      {modalOpen === true ? (
+        <NotificationModel
+          handleModalClose={handleModalClose}
+          message={message}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

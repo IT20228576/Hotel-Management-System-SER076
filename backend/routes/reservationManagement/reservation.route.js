@@ -2,7 +2,7 @@ const express = require("express");
 const Reservations = require("../../models/reservationManagement/reservation.model");
 const router = express.Router();
 // importing the sentEmail function implemented by IT20228576
-const {sentEmail} = require("../../utils/userManagement/email.util");
+const { sentEmail } = require("../../utils/userManagement/email.util");
 
 /* Function Generate a New Reference Number */
 const ReferenceNumberGenerator = async () => {
@@ -101,18 +101,17 @@ router.delete("/delete/:id", async (req, res) => {
 /* Search a Reservation */
 router.get("/search/:searchTerm", async (req, res) => {
   try {
-
     // using "$options: 'i'" for case insensitive search
     const details = await Reservations.find({
       $or: [
         {
-          referenceNumber: { $regex: req.params.searchTerm, $options : 'i' },
+          referenceNumber: { $regex: req.params.searchTerm, $options: "i" },
         },
         {
-          firstName: { $regex: req.params.searchTerm, $options : 'i'},
+          firstName: { $regex: req.params.searchTerm, $options: "i" },
         },
         {
-          lastName: { $regex: req.params.searchTerm, $options : 'i' },
+          lastName: { $regex: req.params.searchTerm, $options: "i" },
         },
       ],
     });
@@ -175,6 +174,33 @@ router.post("/confirm", async (req, res) => {
     return res
       .status(201)
       .json({ data: result, message: "Reservation Confirmed Successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
+/* Check Availability of a room */
+router.get("/checkAvailability", async (req, res) => {
+  try {
+    const roomName = req.body.room;
+    const checkIn = req.body.checkinDate;
+    const checkOut = req.body.checkoutDate;
+
+    // finding details that matches the room, check-in date and check-out date
+    const details = await Reservations.find({
+      room: roomName,
+      checkinDate: checkIn,
+      checkoutDate: checkOut,
+    });
+    
+    if (details.length !== 0) {
+      return res.status(200).json({
+        message: "Sorry, This Room is Currently Unavailable",
+      });
+    }
+    return res.status(200).json({
+      message: "This Room is Available",
+    });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
