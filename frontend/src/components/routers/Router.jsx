@@ -138,7 +138,6 @@ function Router() {
                   path="/reserve/confirm"
                   element={<ConfirmReserve />}
                 />
-
                 {/*Room Routes for Customer*/}
                 <Route
                   path="/viewAllAvailableRoom"

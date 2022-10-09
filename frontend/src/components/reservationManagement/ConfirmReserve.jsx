@@ -45,6 +45,7 @@ function ConfirmReserve() {
   const tax = 5;
   const taxAmount = amount * (tax / 100);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -76,8 +77,10 @@ function ConfirmReserve() {
       .then((response) => {
         if (response.status === 201) {
           alert(response.data.message);
-          setIsConfirmed(true);
           setRefNumber(response.data.data.referenceNumber);
+          setIsConfirmed(true);
+          localStorage.setItem("confirmStatus", response.data.confirmation);
+          localStorage.setItem("refNumber", response.data.data.referenceNumber);
         } else if (response.status === 500) {
           alert("Sorry! Couldn't Confirm the Reservation.");
         }
@@ -86,6 +89,24 @@ function ConfirmReserve() {
         alert(error.message);
       });
   };
+
+  useEffect(() => {
+    if (
+      window.performance.getEntriesByType("navigation")[0].type !== "reload"
+    ) {
+      localStorage.removeItem("confirmStatus");
+      localStorage.removeItem("refNumber");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
+  useEffect(() => {
+    if (localStorage.getItem("confirmStatus") === "Confirmed") {
+      setIsConfirmed(true);
+      setRefNumber(localStorage.getItem("refNumber"));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setTotalAmount(amount + taxAmount);
@@ -141,10 +162,10 @@ function ConfirmReserve() {
                     Dates
                   </Card.Subtitle>
                   <ListGroup className="list-group-flush border">
-                    <ListGroup.Item style={{ fontSize: "18px" }}>
-                      Check-in: {checkinDate} {checkinTime}
+                    <ListGroup.Item style={{ fontSize: "16px" }}>
+                      <b>Check-in:</b> {checkinDate} {checkinTime}
                       <KeyboardArrowRightIcon />
-                      Check-out: {checkoutDate} {checkoutTime}
+                      <b>Check-out:</b> {checkoutDate} {checkoutTime}
                     </ListGroup.Item>
                   </ListGroup>
                 </Row>

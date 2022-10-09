@@ -173,7 +173,7 @@ router.post("/confirm", async (req, res) => {
 
     return res
       .status(201)
-      .json({ data: result, message: "Reservation Confirmed Successfully" });
+      .json({ data: result, message: "Reservation Confirmed Successfully", confirmation: "Confirmed" });
   } catch (error) {
     return res.status(500).json({ message: error });
   }

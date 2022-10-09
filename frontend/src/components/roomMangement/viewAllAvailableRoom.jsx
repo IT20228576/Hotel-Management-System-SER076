@@ -55,7 +55,7 @@ function ViewAllAvailableRoom(){
                     id: data._id
                   }
                  })} className="btn btn-secondary">Find More Details</button>&nbsp;
-                 {userType !== null ? (<button className="btn btn-secondary" onClick={()=>navigate("/reserve", { state: data })}>Reserve</button>):("")}
+                 {userType === "Customer" ? (<button className="btn btn-secondary" onClick={()=>navigate("/reserve", { state: data })}>Reserve</button>):("")}
                 </center>
                  </div>
               </div>

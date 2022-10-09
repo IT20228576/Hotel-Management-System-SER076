@@ -53,7 +53,7 @@ const RoomDetailsView = () => {
       </div>
       <div style={{display:"flex", gap:"5rem", height:"4rem", width:"100%", justifyContent: "center", marginTop:"3rem"}}>
       <Button style={{width:"10rem"}} onClick={()=>navigate(-1)}>Back</Button>
-      {userType !== null ? (<Button style={{width:"10rem"}} onClick={()=>navigate("/reserve", {state: details})}>Reserve</Button>):("")}
+      {userType === "Customer" ? (<Button style={{width:"10rem"}} onClick={()=>navigate("/reserve", {state: details})}>Reserve</Button>):("")}
       </div>
       
     </Container>

@@ -61,8 +61,7 @@ function Reserve() {
         paymentMethod: paymentMethod,
         note: note,
       };
-      console.log(resObj, "resObj");
-      // navigate("/reserve/confirm", { state: resObj });
+      navigate("/reserve/confirm", { state: resObj });
     }
   }
 
@@ -302,7 +301,7 @@ function Reserve() {
                 <Button
                   variant="success"
                   size="lg"
-                  style={{ width: "60%", float: "right", margin: "5px" }}
+                  style={{ width: "70%", float: "right", margin: "5px" }}
                   onClick={checkAvailability}
                   title="Enter Check-in and check-out dates"
                 >

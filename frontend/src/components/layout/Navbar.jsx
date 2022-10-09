@@ -30,7 +30,7 @@ function Navbar() {
               <a href="/">Home | </a>
             </li>
             <li>
-              <a href="viewAllAvailableRoom">Rooms | </a>
+              <a href="/viewAllAvailableRoom">Rooms | </a>
             </li>
             <li>
               <a href="/AvailableEventsForCustomer">Events | </a>
