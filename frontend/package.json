@@ -24,7 +24,8 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
     "react-select-country-list": "^2.2.3",
-    "react-to-print": "^2.14.7"
+    "react-to-print": "^2.14.7",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

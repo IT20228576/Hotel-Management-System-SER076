@@ -24,14 +24,11 @@ import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
-
 import AvailableEventsForCustomer from "../eventManagement/AvailableEventsForCustomer";
 import EventForCustomer from "../eventManagement/EventForCustomer";
-
 import RoomReport from "../roomMangement/RoomReport";
-import ViewAllAvailableRoom from "../roomMangement/ViewAllAvailableRoom";
+import ViewAllAvailableRoom from "../roomMangement/viewAllAvailableRoom";
 import RoomDetailsView from "../roomMangement/RoomDetailsView";
-
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -49,8 +46,23 @@ function Router() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
-                <Route exact path="/EventForCustomer/:id" element={<ViewEvent />} />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<ViewEvent />}
+                />
+                <Route
+                  path="/viewAllAvailableRoom"
+                  element={<ViewAllAvailableRoom />}
+                />
+                <Route
+                  path="/roomDetailsView/:id"
+                  element={<RoomDetailsView />}
+                />
               </>
             )}
 
@@ -86,19 +98,32 @@ function Router() {
                 <Route exact path="/edit/:id" element={<UpdateEvent />} />
                 <Route exact path="/view/:id" element={<ViewEvent />} />
                 <Route path="/eventreport" element={<EventReport />} />
-                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
-                <Route path="/EventForCustomer" element={<EventForCustomer />} />
-                <Route exact path="/EventForCustomer/:id" element={<EventForCustomer />} />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  path="/EventForCustomer"
+                  element={<EventForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
+                />
                 {/*Rooms Routes*/}
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
-                <Route path="/roomReport"  element={<RoomReport />} />
-                <Route path="/viewAllAvailableRoom"  element={<ViewAllAvailableRoom />} />
-                <Route path="/roomDetailsView/:id"  element={<RoomDetailsView />} />
-
-                
-                
+                <Route path="/roomReport" element={<RoomReport />} />
+                <Route
+                  path="/viewAllAvailableRoom"
+                  element={<ViewAllAvailableRoom />}
+                />
+                <Route
+                  path="/roomDetailsView/:id"
+                  element={<RoomDetailsView />}
+                />
               </>
             )}
 
@@ -112,6 +137,15 @@ function Router() {
                   exact
                   path="/reserve/confirm"
                   element={<ConfirmReserve />}
+                />
+                {/*Room Routes for Customer*/}
+                <Route
+                  path="/viewAllAvailableRoom"
+                  element={<ViewAllAvailableRoom />}
+                />
+                <Route
+                  path="/roomDetailsView/:id"
+                  element={<RoomDetailsView />}
                 />
               </>
             )}

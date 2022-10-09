@@ -1,6 +1,8 @@
 const express = require("express");
 const Reservations = require("../../models/reservationManagement/reservation.model");
 const router = express.Router();
+// importing the sentEmail function implemented by IT20228576
+const { sentEmail } = require("../../utils/userManagement/email.util");
 
 /* Function Generate a New Reference Number */
 const ReferenceNumberGenerator = async () => {
@@ -63,7 +65,9 @@ router.get("/getAll", async (req, res) => {
     // getting the number of records in the DB
     const count = await Reservations.estimatedDocumentCount();
 
+    // rounding off the value to the nearest integer greater than or equal to a given number
     const pageCount = Math.ceil(count / itemsPerPage);
+
     const details = await Reservations.find({})
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -97,16 +101,17 @@ router.delete("/delete/:id", async (req, res) => {
 /* Search a Reservation */
 router.get("/search/:searchTerm", async (req, res) => {
   try {
+    // using "$options: 'i'" for case insensitive search
     const details = await Reservations.find({
       $or: [
         {
-          referenceNumber: { $regex: req.params.searchTerm },
+          referenceNumber: { $regex: req.params.searchTerm, $options: "i" },
         },
         {
-          firstName: { $regex: req.params.searchTerm },
+          firstName: { $regex: req.params.searchTerm, $options: "i" },
         },
         {
-          lastName: { $regex: req.params.searchTerm },
+          lastName: { $regex: req.params.searchTerm, $options: "i" },
         },
       ],
     });
@@ -133,6 +138,68 @@ router.put("/update/:id", async (req, res) => {
     return res.status(200).json({
       message: "Reservation Updated Successfully",
       data: details,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
+/* Confirm Reservation */
+router.post("/confirm", async (req, res) => {
+  try {
+    // assign the data coming from the req body to separate variable
+    const oldData = req.body;
+
+    // get newly generated reference number
+    const data = await ReferenceNumberGenerator();
+
+    // assign req body data with reference number to be one object
+    const newResponse = Object.assign(oldData, data);
+
+    const newReservation = new Reservations(newResponse);
+    const result = await newReservation.save();
+
+    // parameters for the sentEmail function
+    const emailAddress = result.email;
+    const emailSubject = "Reservation Confirmation - CISP Hotel";
+    const emailBody = `Dear ${
+      result.firstName + " " + result.lastName
+    },\nYour Reservation is Confirmed and the Reference Number is: ${
+      result.referenceNumber
+    }.\n\nThank you.\nCISP Hotel.`;
+
+    // sending the reservation confirmation email to the customer
+    await sentEmail(emailAddress, emailSubject, emailBody);
+
+    return res
+      .status(201)
+      .json({ data: result, message: "Reservation Confirmed Successfully", confirmation: "Confirmed" });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+
+/* Check Availability of a room */
+router.get("/checkAvailability", async (req, res) => {
+  try {
+    const roomName = req.body.room;
+    const checkIn = req.body.checkinDate;
+    const checkOut = req.body.checkoutDate;
+
+    // finding details that matches the room, check-in date and check-out date
+    const details = await Reservations.find({
+      room: roomName,
+      checkinDate: checkIn,
+      checkoutDate: checkOut,
+    });
+    
+    if (details.length !== 0) {
+      return res.status(200).json({
+        message: "Sorry, This Room is Currently Unavailable",
+      });
+    }
+    return res.status(200).json({
+      message: "This Room is Available",
     });
   } catch (error) {
     return res.status(500).json({ message: error });

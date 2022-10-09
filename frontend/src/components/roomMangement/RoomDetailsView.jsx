@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { Container, Button } from 'react-bootstrap'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from "../userManagement/context/UserContext";
 
 const RoomDetailsView = () => {
 
@@ -20,6 +21,7 @@ const RoomDetailsView = () => {
   };
 
   const {id} = useParams();
+  const { userType } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -45,13 +47,14 @@ const RoomDetailsView = () => {
           <div> <p>Description: {details.description}</p></div>
         </div>
         
-        <div><img src={typeof(details.image)!== 'undefined'? require(`../image/${details.image}`):'Error'} style={{width:"30rem"}}/></div>
+        <div><img src={typeof(details.image)!== 'undefined'? require(`../image/${details.image}`):'Error'} style={{width:"30rem"}} alt="single-room"/></div>
 
       </div>
       </div>
       <div style={{display:"flex", gap:"5rem", height:"4rem", width:"100%", justifyContent: "center", marginTop:"3rem"}}>
       <Button style={{width:"10rem"}} onClick={()=>navigate(-1)}>Back</Button>
-      <Button style={{width:"10rem"}}>Reserve</Button></div>
+      {userType === "Customer" ? (<Button style={{width:"10rem"}} onClick={()=>navigate("/reserve", {state: details})}>Reserve</Button>):("")}
+      </div>
       
     </Container>
   )
