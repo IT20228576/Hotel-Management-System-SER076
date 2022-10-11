@@ -69,7 +69,7 @@ information. */
     const result = await checkToken(req);
 
     /* Checking if the user is an admin. */
-    if (!result || result.userType !== "admin") {
+    if (!result || result.userType !== "Admin") {
       return res.status(401).json({ errorMessage: "Unauthorized" });
     }
 
@@ -97,7 +97,7 @@ information. */
     const result = await checkToken(req);
 
     /* Checking if the user is a Customer. */
-    if (!result || result.userType !== "customer") {
+    if (!result || result.userType !== "Customer") {
       return res.status(401).json({ errorMessage: "Unauthorized" });
     }
 

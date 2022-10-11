@@ -29,13 +29,6 @@ const userUpdateSchema = Joi.object({
   mobile: Joi.string().length(10).required().label("Mobile"),
   dob: Joi.date().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
-  email: Joi.string()
-    .min(5)
-    .max(255)
-    .required()
-    .email()
-    .rule({ message: "Invalid E-mail address" })
-    .label("E-mail"),
 }).unknown(true);
 
 /* This is a schema for validating the login form. */
@@ -47,18 +40,38 @@ const loginSchema = Joi.object({
     .email()
     .rule({ message: "Invalid E-mail address" })
     .label("E-mail"),
-  password: passwordComplexity().required().label("Password"),
+  password: Joi.string().required().label("Password"),
 });
 
 /* This is a schema for validating the change password form. */
 const changePasswordSchema = Joi.object({
-  password: passwordComplexity().required().label("Password"),
-  passwordVerify: passwordComplexity().required().label("Password Verify"),
+  password: Joi.string().required().label("Current Password"),
+  passwordVerify: Joi.string()
+    .valid(Joi.ref("password"))
+    .required()
+    .label("Confirm Current Password"),
   newPassword: passwordComplexity().required().label("New Password"),
   newPasswordVerify: passwordComplexity()
     .valid(Joi.ref("newPassword"))
     .required()
-    .label("New Password Verify"),
+    .label("Confirm New Password"),
+}).unknown(true);
+
+/* A schema for validating the admin registration form. */
+const createUserSchema = Joi.object({
+  firstName: Joi.string().min(2).max(30).required().label("First Name"),
+  lastName: Joi.string().min(2).max(30).required().label("Last Name"),
+  email: Joi.string()
+    .min(5)
+    .max(255)
+    .required()
+    .email()
+    .rule({ message: "Invalid E-mail address" })
+    .label("E-mail"),
+  userType: Joi.string()
+    .valid("Customer", "Admin")
+    .required()
+    .label("User Type"),
 }).unknown(true);
 
 module.exports = {
@@ -66,4 +79,5 @@ module.exports = {
   userUpdateSchema,
   loginSchema,
   changePasswordSchema,
+  createUserSchema
 };
