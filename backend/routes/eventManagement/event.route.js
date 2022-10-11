@@ -25,7 +25,6 @@ router.post("/event/new", async (req, res) => {
 
         await addevent.save();
         res.status(201).json(addevent);
-        console.log(addevent);
 
     } catch (error) {
         res.status(422).json(error);
@@ -48,7 +47,7 @@ router.get("/event/view", async (req, res) => {
             .limit(itemsPerPage);
 
         res.status(201).json({ pagination: { count, pageCount }, geteventdata })
-        console.log(geteventdata)
+
     } catch (error) {
         return res.status(422).json(error);
     }
@@ -62,7 +61,6 @@ router.get("/event/vew/:id", async (req, res) => {
         const { id } = req.params;
 
         const eventindividual = await events.findById({ _id: id });
-        console.log(eventindividual);
         res.status(201).json(eventindividual)
 
     } catch (error) {
@@ -86,7 +84,6 @@ router.patch("/event/update/:id", async (req, res) => {
             new: true
         });
 
-        console.log(updatedevent);
         res.status(201).json(updatedevent);
 
     } catch (error) {
@@ -100,7 +97,6 @@ router.delete("/event/delete/:id", async (req, res) => {
         const { id } = req.params;
 
         const deletevent = await events.findByIdAndDelete({ _id: id })
-        console.log(deletevent);
         res.status(201).json(deletevent);
 
     } catch (error) {
