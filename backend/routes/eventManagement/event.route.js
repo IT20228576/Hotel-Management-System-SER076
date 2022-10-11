@@ -57,7 +57,6 @@ router.get("/event/view", async (req, res) => {
 
 router.get("/event/vew/:id", async (req, res) => {
     try {
-        console.log(req.params);
         const { id } = req.params;
 
         const eventindividual = await events.findById({ _id: id });
