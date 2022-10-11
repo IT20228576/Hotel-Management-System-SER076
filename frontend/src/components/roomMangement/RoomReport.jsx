@@ -18,9 +18,9 @@ function RoomReport() {
     documentTitle: "Reservations-Report",
   });
 
-    const handleBack = () => {
-      navigate("/viewRooms");
-    };
+  const handleBack = () => {
+    navigate("/viewRooms");
+  };
 
   async function getAllData() {
     try {

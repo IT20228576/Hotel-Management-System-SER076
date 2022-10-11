@@ -29,37 +29,37 @@ function AddRoom() {
     roomPrice: "",
     roomType: "",
     description: "",
-  
+
   });
 
-  const sendRoom=(e)=>{
+  const sendRoom = (e) => {
     e.preventDefault();
-    const data =new FormData();
-    data.append('roomName',room.roomName);
-    data.append('roomNumber',room.roomNumber);
-    data.append('image',room.image);
-    data.append('roomPrice',room.roomPrice);
-    data.append('roomType',room.roomType);
-    data.append('description',room.description);
-    
-    
-    axios.post("http://localhost:8000/api/room/create", data).then(()=>{
+    const data = new FormData();
+    data.append('roomName', room.roomName);
+    data.append('roomNumber', room.roomNumber);
+    data.append('image', room.image);
+    data.append('roomPrice', room.roomPrice);
+    data.append('roomType', room.roomType);
+    data.append('description', room.description);
+
+
+    axios.post("http://localhost:8000/api/room/create", data).then(() => {
 
       alert("Room is added");
 
-      if(data){
+      if (data) {
         return history('/ViewAllAvailableRoom');
       }
-      }).catch((err)=>{
-        alert(err);
-      })
-    }
-    const handleChange = (e) => {
-      setRoom({...room, [e.target.name]: e.target.value});
+    }).catch((err) => {
+      alert(err);
+    })
+  }
+  const handleChange = (e) => {
+    setRoom({ ...room, [e.target.name]: e.target.value });
   }
 
   const handlePhoto = (e) => {
-      setRoom({...room, image: e.target.files[0]});
+    setRoom({ ...room, image: e.target.files[0] });
   }
 
 
@@ -98,7 +98,7 @@ function AddRoom() {
 
   return (
     <div>
-      <h1 style={{margin:"2%" }}>Add Room</h1>
+      <h1 style={{ margin: "2%" }}>Add Room</h1>
       <hr></hr>
       <Container>
         <form className="formCard" border="dark" onSubmit={sendRoom} encType="multipart/form-data">
@@ -176,7 +176,7 @@ function AddRoom() {
                 variant="primary"
                 size="lg"
                 type="submit"
-                style={{ width: "70%", float:"left", margin:"5px"}}
+                style={{ width: "70%", float: "left", margin: "5px" }}
               >
                 Submit
               </Button>
