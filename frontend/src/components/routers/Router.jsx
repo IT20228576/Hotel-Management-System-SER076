@@ -57,6 +57,10 @@ function Router() {
                   element={<ViewAllAvailableRoom />}
                 />
                 <Route
+                  path="/roomDetailsView"
+                  element={<RoomDetailsView />}
+                />
+                <Route
                   path="/roomDetailsView/:id"
                   element={<RoomDetailsView />}
                 />
