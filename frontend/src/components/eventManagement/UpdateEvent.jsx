@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import { updatedata } from './context/ContextProvider'
 import { Col, Row, Button, Form, Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 
 const UpdateEvent = () => {
@@ -129,9 +130,9 @@ const UpdateEvent = () => {
     </Form.Select>
               </Form.Group>
 
-              <Button variant="secondary" size="lg"  style={{width:"100%"}}>
-                Reset
-              </Button>
+              <NavLink to={`/view`}><Button variant="secondary" size="lg"  style={{width:"100%"}}>
+                Back
+              </Button></NavLink>
               </Col>
 
               <Col>

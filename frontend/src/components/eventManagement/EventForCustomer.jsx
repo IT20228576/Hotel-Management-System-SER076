@@ -65,7 +65,7 @@ const EventForCustomer = () => {
 <p>{geteventdata.EventStatus}</p>
 <p>{geteventdata.EventLocation}</p> 
 <p>{geteventdata.EventDescription}</p>
-<NavLink to={`/AvailableEventsForCustomer`}><Button style={{marginLeft:"100px", width:"340px", marginTop:"43px"}}>Back</Button></NavLink>
+<NavLink to={`/AvailableEventsForCustomer`}><Button variant="secondary" style={{marginLeft:"100px", width:"340px", marginTop:"43px"}}>Back</Button></NavLink>
 </div>
 
 <div style={{float: "left", width: "100px"}}>
