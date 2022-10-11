@@ -53,15 +53,6 @@ function Router() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route
-                  path="/AvailableEventsForCustomer"
-                  element={<AvailableEventsForCustomer />}
-                />
-                <Route
-                  exact
-                  path="/EventForCustomer/:id"
-                  element={<ViewEvent />}
-                />
-                <Route
                   path="/viewAllAvailableRoom"
                   element={<ViewAllAvailableRoom />}
                 />
@@ -109,19 +100,7 @@ function Router() {
                 <Route exact path="/edit/:id" element={<UpdateEvent />} />
                 <Route exact path="/view/:id" element={<ViewEvent />} />
                 <Route path="/eventreport" element={<EventReport />} />
-                <Route
-                  path="/AvailableEventsForCustomer"
-                  element={<AvailableEventsForCustomer />}
-                />
-                <Route
-                  path="/EventForCustomer"
-                  element={<EventForCustomer />}
-                />
-                <Route
-                  exact
-                  path="/EventForCustomer/:id"
-                  element={<EventForCustomer />}
-                />
+                
                 {/*Rooms Routes*/}
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
@@ -147,6 +126,16 @@ function Router() {
                 <Route
                   path="/roomDetailsView/:id"
                   element={<RoomDetailsView />}
+                />
+                {/* Event Routes for Customer */}
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
                 />
               </>
             )}

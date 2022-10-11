@@ -27,7 +27,7 @@ const EventReport = () => {
     if (res.status === 422 || !data) {
       console.log("error ");
     } else {
-      setEventdata(data);
+      setEventdata(data.geteventdata);
       console.log("get data");
     }
   };
@@ -132,7 +132,7 @@ const EventReport = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {geteventdata.filter((element) => {
+                    {geteventdata.length > 0 ? geteventdata.filter((element) => {
                         if (searchTerm === "") {
                           return element;
                         } else if (
@@ -165,7 +165,21 @@ const EventReport = () => {
                             </tr>
                           </>
                         );
-                      })}
+                      }): (
+                        <div
+                          className="notify"
+                          style={{
+                            position: "relative",
+                            left: "60%",
+                            right: "40%",
+                            top: "30%",
+                            bottom: "50%",
+                            fontSize: "40px",
+                            fontWeight: "bold",
+                          }}>
+                          No Result Found
+                        </div>
+                        )}
                   </tbody>
                 </table>
               </div>
