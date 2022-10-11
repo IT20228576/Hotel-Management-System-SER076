@@ -114,9 +114,6 @@ const Login = () => {
           </div>
         </form>
         <hr />
-        <div className="main-center">
-          <button className="forgot-button">Forgot Password?</button>
-        </div>
       </div>
     </div>
   );
