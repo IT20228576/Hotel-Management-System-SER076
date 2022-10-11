@@ -33,11 +33,19 @@ const Login = () => {
       /* Checking if the status is true. */
       if (result) {
         setLoading(false);
-        /* Setting the local storage with the type and status. */
         localStorage.setItem("type", result?.data?.type);
-        /* Reloading the page. */
-        navigate("/");
-        window.location.reload();
+        if ( result?.data?.verified === false) {
+          /* Setting the local storage with the type and status. */
+          /* Reloading the page. */
+          alert("Please Update Your Profile");
+          navigate("/profile");
+          window.location.reload();
+        } else {
+          /* Setting the local storage with the type and status. */
+          /* Reloading the page. */
+          navigate("/");
+          window.location.reload();
+        }
       }
     } catch (err) {
       setLoading(false);

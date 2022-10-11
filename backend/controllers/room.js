@@ -1,4 +1,29 @@
 const Room = require("../models/roomManagement/room.model")
+const bcrypt=require("bcrypt");
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
+let path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
+  },
+  filename: function(req, file, cb) {   
+      cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if(allowedFileTypes.includes(file.mimetype)) {
+      cb(null, true);
+  } else {
+      cb(null, false);
+  }
+}
+
+let upload = multer({ storage, fileFilter });
+
 exports.getRooms = async (req, res) => {
   try {
 
@@ -50,10 +75,11 @@ exports.addRoom = async (req, res) => {
     const newRoom = new Room({
       roomName: req.body.roomName,
       roomNumber: req.body.roomNumber,
-      imageURL: req.body.imageURL,
+      image: req.file.filename,
       roomPrice: req.body.roomPrice,
       roomType: req.body.roomType,
       description: req.body.description,
+
     });
 
     let room = await newRoom.save();
@@ -75,10 +101,20 @@ exports.getSingleRoom = async(req,res) => {
     
   };
 
+exports.getRoom=async(req,res) =>{
+  try{
+   Room.find().then((Rooms)=>{
+      res.json(Rooms);
+  })
+}catch(error){
+  res.status(400).json({ message: error });
+}
+}
+
 exports.editRoom = async (req, res) => {
   try {
     var room = await Room.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
+      $set: req.body
     });
 
     res.status(201).json({ message: "sucess" });
@@ -133,3 +169,17 @@ exports.searchRoom = async(req, res)=>{
 
 }
 
+// return a selected room
+exports.RoomSelected = async (req, res) => {
+  const {roomId}  = req.params;
+  if(roomId){
+    Room.findOne({_id: roomId}).exec((error, details) => {
+      if(error) return res.status(400).json({error});
+      if(details){
+        res.status(201).json({details})
+      }
+    });
+  }else{
+    return res.status(400).json({error: "Params required"});
+  }
+};

@@ -24,12 +24,17 @@ import Reserve from "../reservationManagement/Reserve";
 import ConfirmReserve from "../reservationManagement/ConfirmReserve";
 import Footer from "../layout/Footer";
 import Dashboard from "../layout/Dashboard";
-
 import AvailableEventsForCustomer from "../eventManagement/AvailableEventsForCustomer";
 import EventForCustomer from "../eventManagement/EventForCustomer";
-
 import RoomReport from "../roomMangement/RoomReport";
-
+import UpdateProfile from "../userManagement/user/UpdateProfile";
+import ChangePassword from "../userManagement/user/ChangePassword";
+import AddUser from "../userManagement/user/AddUser";
+import UserList from "../userManagement/user/UserList";
+import UpdateUser from "../userManagement/user/UpdateUser";
+import UserReport from "../userManagement/user/UserReport";
+import ViewAllAvailableRoom from "../roomMangement/viewAllAvailableRoom";
+import RoomDetailsView from "../roomMangement/RoomDetailsView";
 
 function Router() {
   /* Getting the userType from the AuthContext. */
@@ -47,15 +52,35 @@ function Router() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
-                <Route exact path="/EventForCustomer/:id" element={<ViewEvent />} />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<ViewEvent />}
+                />
+                <Route
+                  path="/viewAllAvailableRoom"
+                  element={<ViewAllAvailableRoom />}
+                />
+                <Route
+                  path="/roomDetailsView/:id"
+                  element={<RoomDetailsView />}
+                />
               </>
             )}
 
             {userType === "Admin" && (
               <>
-                <Route path="/profile" element={<Profile />} />
                 <Route exact path="/dashboard" element={<Dashboard />} />
+
+                {/*User Routes for Admin*/}
+                <Route path="/users/add" element={<AddUser />} />
+                <Route path="/users" element={<UserList />} />
+                <Route path="/users/update" element={<UpdateUser />} />
+                <Route path="/users/report" element={<UserReport />} />
 
                 {/*Reservation Routes for Admin*/}
                 <Route
@@ -84,21 +109,29 @@ function Router() {
                 <Route exact path="/edit/:id" element={<UpdateEvent />} />
                 <Route exact path="/view/:id" element={<ViewEvent />} />
                 <Route path="/eventreport" element={<EventReport />} />
-                <Route path="/AvailableEventsForCustomer" element={<AvailableEventsForCustomer />} />
-                <Route path="/EventForCustomer" element={<EventForCustomer />} />
-                <Route exact path="/EventForCustomer/:id" element={<EventForCustomer />} />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  path="/EventForCustomer"
+                  element={<EventForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
+                />
                 {/*Rooms Routes*/}
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
-                <Route path="/roomReport"  element={<RoomReport />} />
+                <Route path="/roomReport" element={<RoomReport />} />
               </>
             )}
 
             {userType === "Customer" && (
               <>
-                <Route path="/profile" element={<Profile />} />
-
                 {/*Reservation Routes for Customer*/}
                 <Route exact path="/reserve" element={<Reserve />} />
                 <Route
@@ -106,8 +139,31 @@ function Router() {
                   path="/reserve/confirm"
                   element={<ConfirmReserve />}
                 />
+                {/*Room Routes for Customer*/}
+                <Route
+                  path="/viewAllAvailableRoom"
+                  element={<ViewAllAvailableRoom />}
+                />
+                <Route
+                  path="/roomDetailsView/:id"
+                  element={<RoomDetailsView />}
+                />
               </>
             )}
+
+            {userType === "Customer" || userType === "Admin" ? (
+              <>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/update" element={<UpdateProfile />} />
+                <Route
+                  path="/profile/change-password"
+                  element={<ChangePassword />}
+                />
+              </>
+            ) : (
+              ""
+            )}
+
             <Route exact path="*" element={<Home />} />
           </Routes>
           <Footer />

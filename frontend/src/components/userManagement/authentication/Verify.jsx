@@ -18,12 +18,9 @@ function Verify() {
     async function verifyUrl() {
       try {
         const url = `http://localhost:8000/verify/${param.id}/${param.token}`;
-          const result = await axios.get(url);
+        await axios.get(url);
           
-          console.log(result.status);
-
         setIsVerify(true);
-        console.log("Verified");
         window.alert("Successfully Verified!");
         navigate("/");
       } catch (err) {
