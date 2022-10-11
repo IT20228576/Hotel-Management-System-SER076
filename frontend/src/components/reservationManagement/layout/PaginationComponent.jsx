@@ -10,7 +10,6 @@ function PaginationComponent({
   pageCount,
 }) {
 
-  const minPageNoLimit = 0;
   const maxPageNoLimit = 3;
   let items = [];
 
@@ -22,7 +21,7 @@ function PaginationComponent({
   }
 
   for (let page = 1; page <= pageCount; page++) {
-    if (page < maxPageNoLimit + 1 && page > minPageNoLimit) {
+    if (page < maxPageNoLimit + 1) {
       items.push(
         <Pagination.Item
           id={page}
