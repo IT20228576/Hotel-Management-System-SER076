@@ -3,12 +3,24 @@ import { useParams } from 'react-router-dom';
 import { Modal, Button, Table } from "react-bootstrap";
 import img7 from '../eventManagement/Images/image7.jpeg';
 import "../layout/Styles/PopUpStyles.css";
+import PaginationComponent from "./layout/PaginationComponent";
+import { useNavigate } from "react-router-dom";
 
 
 const ViewEvent = () => {
 
     const [geteventdata, setEventdata] = useState([]);
     console.log(geteventdata);
+
+    const [pageNo, setPageNo] = useState(1);
+
+  const [pageCount, setPageCount] = useState(0);
+
+  const [totalCount, setTotalCount] = useState(0);
+
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [rooms, setRooms] = useState([]); 
+  let navigate = useNavigate();
 
     const { id } = useParams("");
     console.log(id);
@@ -37,7 +49,7 @@ const ViewEvent = () => {
 
     useEffect(() => {
         getdata();
-    })
+    }, [])
 
     return (
         <div className="container mt-3" style={{marginLeft:"100px"}}>

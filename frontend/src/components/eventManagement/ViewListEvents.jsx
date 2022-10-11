@@ -6,10 +6,13 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
+import PaginationComponent from "./layout/PaginationComponent";
+import { useNavigate } from "react-router-dom";
 
 const ViewListEvents = () => {
   const [geteventdata, setEventdata] = useState([]);
   console.log(geteventdata);
+  
 
   const { setDLTdata } = useContext(deldata);
   const [searchTerm, setSearchTerm] = useState("");

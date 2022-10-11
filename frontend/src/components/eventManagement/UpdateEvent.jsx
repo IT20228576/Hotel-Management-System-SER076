@@ -69,7 +69,7 @@ const UpdateEvent = () => {
 
     useEffect(() => {
         getdata();
-    });
+    }, []);
 
     const updateevent = async(e)=>{
         e.preventDefault();

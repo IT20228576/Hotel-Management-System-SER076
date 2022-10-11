@@ -5,27 +5,9 @@ const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'EventImageUploads');
-    },
-    filename: function(req, file, cb) {   
-        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
 
-const fileFilter = (req, file, cb) => {
-    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if(allowedFileTypes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
 
-let upload = multer({ storage, fileFilter });
-
-router.post("/event/new",upload.single('EventImage'),async(req,res)=>{
+router.post("/event/new",async(req,res)=>{
 
     const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation,EventDescription,EventImage} = req.body;
 
@@ -54,6 +36,7 @@ router.post("/event/new",upload.single('EventImage'),async(req,res)=>{
 
 router.get("/event/view",async(req,res)=>{
     try {
+        
         const eventdata = await events.find();
         res.status(201).json(eventdata)
         console.log(eventdata);
@@ -80,7 +63,7 @@ router.get("/event/vew/:id",async(req,res)=>{
 
 // update event data
 
-router.patch("/event/update/:id",upload.single('EventImage'),async(req,res)=>{
+router.patch("/event/update/:id",async(req,res)=>{
 
     const {EventName,EventType,EventDate,ClientName,EventStartTime,EventEndTime,NoOfParticipants,EventStatus,EventLocation} = req.body;
     if(!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation){
