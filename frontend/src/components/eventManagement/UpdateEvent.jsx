@@ -35,16 +35,6 @@ const UpdateEvent = () => {
         })
     }
 
-  //   const handlePhoto = (e) => {
-  //     console.log(e.target.files[0].filename);
-  //       setINP((preval) => {
-  //           return {
-  //               ...preval,
-  //               EventImage: e.target.files[0],
-  //           }
-  //       })
-  // }
-
     const { id } = useParams("");
     console.log(id);
 
@@ -69,6 +59,7 @@ const UpdateEvent = () => {
 
     useEffect(() => {
         getdata();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const updateevent = async(e)=>{

@@ -40,17 +40,6 @@ const AddEvent = () => {
         })
     }
 
-  //   const handlePhoto = (e) => {
-
-  //     console.log(e.target.files[0].filename);
-  //       setINP((preval) => {
-  //           return {
-  //               ...preval,
-  //               EventImage: e.target.files[0],
-  //           }
-  //       })
-  // }
-
     const addinpdata = async (e) => {
         e.preventDefault();
 

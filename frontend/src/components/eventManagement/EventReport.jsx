@@ -46,9 +46,6 @@ const EventReport = () => {
       <div
         style={{ marginTop: "15px", marginBottom: "-56px", marginLeft: "70px" }}
       >
-        {/* <Button variant="primary" onClick={handlePrint}>
-          Download
-        </Button> */}
         <Button className="btn btn-secondary ms-2" onClick={handlePrint}>
           <PrintIcon />
         </Button>

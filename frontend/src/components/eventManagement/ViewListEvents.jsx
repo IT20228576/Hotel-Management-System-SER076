@@ -6,8 +6,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
-import PaginationComponent from "./layout/PaginationComponent";
-import { useNavigate } from "react-router-dom";
+// import PaginationComponent from "./layout/PaginationComponent";
+// import { useNavigate } from "react-router-dom";
 
 const ViewListEvents = () => {
   const [geteventdata, setEventdata] = useState([]);
@@ -73,7 +73,7 @@ const ViewListEvents = () => {
             >
               <h1
                 className="navbar-brand"
-                style={{ marginRight: "100px", marginLeft: "100px" }}
+                style={{ marginRight: "100px", marginLeft: "100px", fontSize:"40px"  }}
               >
                 Events
               </h1>

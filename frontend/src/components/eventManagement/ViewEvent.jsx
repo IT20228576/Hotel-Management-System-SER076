@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Modal, Button, Table } from "react-bootstrap";
 import img7 from '../eventManagement/Images/image7.jpeg';
 import "../layout/Styles/PopUpStyles.css";
-import PaginationComponent from "./layout/PaginationComponent";
-import { useNavigate } from "react-router-dom";
 
 
 const ViewEvent = () => {
@@ -12,20 +10,8 @@ const ViewEvent = () => {
     const [geteventdata, setEventdata] = useState([]);
     console.log(geteventdata);
 
-    const [pageNo, setPageNo] = useState(1);
-
-  const [pageCount, setPageCount] = useState(0);
-
-  const [totalCount, setTotalCount] = useState(0);
-
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [rooms, setRooms] = useState([]); 
-  let navigate = useNavigate();
-
     const { id } = useParams("");
     console.log(id);
-
-    // const history = useNavigate();
 
     const getdata = async () => {
         const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
@@ -49,6 +35,7 @@ const ViewEvent = () => {
 
     useEffect(() => {
         getdata();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
