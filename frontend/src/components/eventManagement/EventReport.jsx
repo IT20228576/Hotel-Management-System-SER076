@@ -133,19 +133,19 @@ const EventReport = () => {
                   </thead>
                   <tbody>
                     {geteventdata.length > 0 ? geteventdata.filter((element) => {
-                        if (searchTerm === "") {
-                          return element;
-                        } else if (
-                          element.EventDate.toLowerCase().includes(
-                            searchTerm.toLowerCase()
-                          )
-                        ) {
-                          return element;
-                        }else{
-                        
+                      if (searchTerm === "") {
+                        return element;
+                      } else if (
+                        element.EventDate.toLowerCase().includes(
+                          searchTerm.toLowerCase()
+                        )
+                      ) {
+                        return element;
+                      } else {
+
                         return false;
-                        }
-                      })
+                      }
+                    })
                       .map((element, id) => {
                         return (
                           <>
@@ -165,21 +165,21 @@ const EventReport = () => {
                             </tr>
                           </>
                         );
-                      }): (
-                        <div
-                          className="notify"
-                          style={{
-                            position: "relative",
-                            left: "60%",
-                            right: "40%",
-                            top: "30%",
-                            bottom: "50%",
-                            fontSize: "40px",
-                            fontWeight: "bold",
-                          }}>
-                          No Result Found
-                        </div>
-                        )}
+                      }) : (
+                      <div
+                        className="notify"
+                        style={{
+                          position: "relative",
+                          left: "60%",
+                          right: "40%",
+                          top: "30%",
+                          bottom: "50%",
+                          fontSize: "40px",
+                          fontWeight: "bold",
+                        }}>
+                        No Result Found
+                      </div>
+                    )}
                   </tbody>
                 </table>
               </div>

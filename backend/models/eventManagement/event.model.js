@@ -23,7 +23,7 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     EventEndTime: {
-        type: String,   
+        type: String,
         required: true
     },
     NoOfParticipants: {
@@ -31,32 +31,32 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
 
-    EventStatus:{
+    EventStatus: {
 
-        type:String,
-        required:true
-        },
+        type: String,
+        required: true
+    },
 
-        EventLocation:{
+    EventLocation: {
 
-            type:String,
-            required:true
-            },
+        type: String,
+        required: true
+    },
 
-            EventDescription:{
+    EventDescription: {
 
-                type:String,
-                required:true
-                },
+        type: String,
+        required: true
+    },
 
-                EventImage:{
+    EventImage: {
 
-                    type:String,
-                    required:true
-                    }
+        type: String,
+        required: true
+    }
 });
 
-const events = new mongoose.model("events",eventSchema);
+const events = new mongoose.model("events", eventSchema);
 
 
 module.exports = events;
