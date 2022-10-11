@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams,useNavigate } from 'react-router-dom'
+import { useParams,useNavigate, NavLink } from 'react-router-dom'
 import { updatedata } from './context/ContextProvider'
 import { Col, Row, Button, Form, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 
 
 const UpdateEvent = () => {

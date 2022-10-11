@@ -141,8 +141,10 @@ const EventReport = () => {
                           )
                         ) {
                           return element;
-                        }
+                        }else{
+                        
                         return false;
+                        }
                       })
                       .map((element, id) => {
                         return (

@@ -37,11 +37,31 @@ router.post("/event/new",async(req,res)=>{
 router.get("/event/view",async(req,res)=>{
     try {
         
-        const eventdata = await events.find();
-        res.status(201).json(eventdata)
-        console.log(eventdata);
+
+
+        // getting page number from query parameter, or assigning to 0
+    const pageNo = req.query.pageNo || 1;
+    // getting page size from query parameter, or assigning to 10
+    const itemsPerPage = req.query.pageSize || 10;
+    const skip = (pageNo - 1) * itemsPerPage;
+
+    // getting the number of records in the DB
+    const count = await events.estimatedDocumentCount();
+
+    // rounding off the value to the nearest integer greater than or equal to a given number
+    const pageCount = Math.ceil(count / itemsPerPage);
+
+
+
+        const geteventdata = await events.find()
+        .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(itemsPerPage);
+      
+        res.status(201).json({pagination: { count, pageCount },geteventdata})
+        console.log(geteventdata)
     } catch (error) {
-        res.status(422).json(error);
+        return res.status(422).json(error);
     }
 })
 

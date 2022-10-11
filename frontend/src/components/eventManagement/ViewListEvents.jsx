@@ -6,39 +6,46 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
-// import PaginationComponent from "./layout/PaginationComponent";
-// import { useNavigate } from "react-router-dom";
+import PaginationComponent from "./layout/PaginationComponent";
 
 const ViewListEvents = () => {
   const [geteventdata, setEventdata] = useState([]);
   console.log(geteventdata);
+
+  const [pageNo, setPageNo] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   
 
   const { setDLTdata } = useContext(deldata);
   const [searchTerm, setSearchTerm] = useState("");
 
   const getdata = async () => {
-    const res = await fetch("http://localhost:8000/event/view", {
+    
+    const res = await fetch(`http://localhost:8000/event/view?pageNo=${pageNo}&pageSize=${itemsPerPage}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    });
-
+    })
     const data = await res.json();
     console.log(data);
 
     if (res.status === 422 || !data) {
       console.log("error ");
     } else {
-      setEventdata(data);
+      setEventdata(data.geteventdata);
+    setPageCount(data.pagination.pageCount);
+    setTotalCount(data.pagination.count);
       console.log("get data");
     }
   };
 
   useEffect(() => {
     getdata();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNo, pageCount, itemsPerPage]);
 
   const deleteevent = async (id) => {
     const res2 = await fetch(`http://localhost:8000/event/delete/${id}`, {
@@ -131,7 +138,7 @@ const ViewListEvents = () => {
               </tr>
             </thead>
             <tbody>
-              {geteventdata
+              {geteventdata.length > 0 ? (geteventdata
                 .filter((element) => {
                   if (searchTerm === "") {
                     return element;
@@ -150,8 +157,10 @@ const ViewListEvents = () => {
                     )
                   ) {
                     return element;
-                  }
+                  }else{
+                  
                   return false;
+                  }
                 }).map((element, id) => {
                   return (
                     <>
@@ -183,12 +192,35 @@ const ViewListEvents = () => {
                       </tr>
                     </>
                   );
-                })}
+                })) : (
+                  <div
+                    className="notify"
+                    style={{
+                      position: "relative",
+                      left: "60%",
+                      right: "40%",
+                      top: "30%",
+                      bottom: "50%",
+                      fontSize: "40px",
+                      fontWeight: "bold",
+                    }}>
+                    No Result Found
+                  </div>
+                )}
             </tbody>
           </table>
         </div>
       </div>
+      
       </div>
+      <PaginationComponent
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        itemsPerPage={itemsPerPage}
+        setItemsPerPage={setItemsPerPage}
+        totalCount={totalCount}
+        pageCount={pageCount}
+      />
     </>
   );
 };

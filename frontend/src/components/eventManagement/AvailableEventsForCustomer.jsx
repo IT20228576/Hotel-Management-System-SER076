@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-// import { deldata } from "./context/ContextProvider";
 import { Button, Card } from "react-bootstrap";
 import img4 from "../eventManagement/Images/eventimage4.jpg";
 
@@ -8,7 +7,6 @@ const AvailableEventsForCustomer = () => {
   const [geteventdata, setEventdata] = useState([]);
   console.log(geteventdata);
 
-  // const { setDLTdata } = useContext(deldata);
   const [searchTerm, setSearchTerm] = useState("");
 
   const getdata = async () => {
@@ -94,8 +92,10 @@ const AvailableEventsForCustomer = () => {
                     )
                   ) {
                     return element;
-                  }
+                  }else{
+                  
                   return false;
+                  }
                 }).map((element, id) => {
                   return (
                     <>

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import img7 from '../eventManagement/Images/eventimage4.jpg';
 import "../layout/Styles/PopUpStyles.css";
 import { Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 
 
 const EventForCustomer = () => {
