@@ -54,6 +54,24 @@ const Login = () => {
     }
   };
 
+  async function forgotPassword() {
+    try {
+      let email = window.prompt("Please Enter Your Email Address")
+      if (email === null) {
+        return
+      } else {
+        console.log("Please Enter Your Email Address", email);
+        const result = await axios.post("http://localhost:8000/forgot-password", {email});
+        if (result?.status === 201) {
+          alert("Check Your Email For New Password")
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    }
+  }
+
   return (
     <div className="main">
       <div className="sub-main">
@@ -114,6 +132,11 @@ const Login = () => {
           </div>
         </form>
         <hr />
+        <div className="main-center">
+          <button className="forgot-button" onClick={forgotPassword}>
+            Forgot Password?
+          </button>
+        </div>
       </div>
     </div>
   );
