@@ -104,7 +104,17 @@ function Router() {
                 <Route exact path="/edit/:id" element={<UpdateEvent />} />
                 <Route exact path="/view/:id" element={<ViewEvent />} />
                 <Route path="/eventreport" element={<EventReport />} />
-                
+
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
+                />
+
                 {/*Rooms Routes*/}
                 <Route path="/addRoom" element={<AddRoom />} />
                 <Route path="/viewRooms" element={<ViewRooms />} />

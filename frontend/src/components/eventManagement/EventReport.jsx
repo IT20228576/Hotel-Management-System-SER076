@@ -10,7 +10,7 @@ const EventReport = () => {
   const componentRef = useRef();
 
   const [geteventdata, setEventdata] = useState([]);
-  console.log(geteventdata);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const getdata = async () => {
@@ -22,7 +22,7 @@ const EventReport = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    
 
     if (res.status === 422 || !data) {
       console.log("error ");

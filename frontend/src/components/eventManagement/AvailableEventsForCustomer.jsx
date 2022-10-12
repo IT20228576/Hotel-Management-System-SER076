@@ -5,7 +5,7 @@ import img4 from "../eventManagement/Images/eventimage4.jpg";
 
 const AvailableEventsForCustomer = () => {
   const [geteventdata, setEventdata] = useState([]);
-  console.log(geteventdata);
+  
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -18,7 +18,7 @@ const AvailableEventsForCustomer = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    
 
     if (res.status === 422 || !data) {
       console.log("error ");
