@@ -82,9 +82,9 @@ async function sendVeri(email, name, id, token) {
  */
 async function sendPassword(email, password) {
   try {
-    const body = `Verify your email address by login using this credentials. \n\nE-mail : ${email} \nPassword : ${password} \n\nLink : http://localhost:3000/`;
+    const body = `Your Password Reset Successfully. Please use new credentials to login. \n\nE-mail : ${email} \nPassword : ${password} \n\nLink : http://localhost:3000/`;
     /* Sending an email to the user with a link to verify their email address. */
-    return await sentEmail(email, "Email Verification", body);
+    return await sentEmail(email, "Password Reset", body);
 
   } catch (error) {
     console.error(error);

@@ -83,7 +83,7 @@ function AddReservation() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/room/get")
+      .get("http://localhost:8000/api/room/getAll")
       .then((res) => setRoomInfo(res.data))
       .catch((error) => alert("Couldn't Fetch Room Details"));
     getRoomTypes();

@@ -171,36 +171,35 @@ router.post("/confirm", async (req, res) => {
     // sending the reservation confirmation email to the customer
     await sentEmail(emailAddress, emailSubject, emailBody);
 
-    return res
-      .status(201)
-      .json({ data: result, message: "Reservation Confirmed Successfully", confirmation: "Confirmed" });
+    return res.status(201).json({
+      data: result,
+      message: "Reservation Confirmed Successfully",
+      confirmation: "Confirmed",
+    });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
 });
 
 /* Check Availability of a room */
-router.get("/checkAvailability", async (req, res) => {
+router.get("/checkAvailability/:room/:checkin/:checkout", async (req, res) => {
   try {
-    const roomName = req.body.room;
-    const checkIn = req.body.checkinDate;
-    const checkOut = req.body.checkoutDate;
+    const roomName = req.params.room;
+    const checkIn = req.params.checkin;
+    const checkOut = req.params.checkout;
 
     // finding details that matches the room, check-in date and check-out date
     const details = await Reservations.find({
       room: roomName,
-      checkinDate: checkIn,
-      checkoutDate: checkOut,
+      $or: [{ checkinDate: checkIn }, { checkoutDate: checkOut }],
     });
-    
+
     if (details.length !== 0) {
+      const messageBody = `Sorry! This Room is Currently Unavailable on Selected Date`;
       return res.status(200).json({
-        message: "Sorry, This Room is Currently Unavailable",
+        message: messageBody,
       });
     }
-    return res.status(200).json({
-      message: "This Room is Available",
-    });
   } catch (error) {
     return res.status(500).json({ message: error });
   }

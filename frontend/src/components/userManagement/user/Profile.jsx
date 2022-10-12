@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import countries from "react-select-country-list";
 import "../authentication/style.css";
-import profilePic from "./profilePic.jpeg";
 
 function Profile() {
   const [userData, setUserData] = useState("");
@@ -82,12 +81,6 @@ function Profile() {
               <h1>
                 {userData?.firstName} {userData?.lastName}
               </h1>
-              <hr />
-              <img
-                alt="ProfilePicture"
-                className="profilePic"
-                src={profilePic}
-              />
               <hr />
             </div>
             <table className="table table-bordered">
