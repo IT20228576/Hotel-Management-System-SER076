@@ -64,6 +64,15 @@ function Router() {
                   path="/roomDetailsView/:id"
                   element={<RoomDetailsView />}
                 />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
+                />
               </>
             )}
 
