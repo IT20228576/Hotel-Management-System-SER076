@@ -91,7 +91,7 @@ function UpdateReservation() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/room/get")
-      .then((res) => setRoomInfo(res.data))
+      .then((res) => setRoomInfo(res.data.data))
       .catch((error) => alert("Couldn't Fetch Room Details"));
     getRoomTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
