@@ -97,6 +97,13 @@ function Reserve() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
+  useEffect(() => {
+    if (checkinDate !== "" && checkoutDate !== "") {
+      checkAvailability();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkinDate, checkoutDate]);
+
   const handleRoomPrice = (roomPrice, roomsNum) => {
     const finalAmount = roomPrice * (roomsNum ? roomsNum : 1);
     setAmount(finalAmount);
@@ -107,18 +114,18 @@ function Reserve() {
   };
 
   const checkAvailability = async () => {
-    let detailObj = {
-      room: state.roomName,
-      checkinDate: checkinDate,
-      checkoutDate: checkoutDate,
-    };
+    const room = state.roomName;
+    const checkin = checkinDate;
+    const checkout = checkoutDate;
+
     const resultData = await axios.get(
-      "http://localhost:8000/reservations/checkAvailability",
-      detailObj
+      `http://localhost:8000/reservations/checkAvailability/${room}/${checkin}/${checkout}`
     );
 
-    setMessage(resultData.data.message);
-    setModalOpen(true);
+    if (resultData) {
+      setMessage(resultData.data.message);
+      setModalOpen(true);
+    }
   };
 
   const handleModalClose = () => {
@@ -295,17 +302,6 @@ function Reserve() {
                   style={{ width: "70%", float: "right", margin: "5px" }}
                 >
                   Reset
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  variant="success"
-                  size="lg"
-                  style={{ width: "70%", float: "right", margin: "5px" }}
-                  onClick={checkAvailability}
-                  title="Enter Check-in and check-out dates"
-                >
-                  Check Availability
                 </Button>
               </Col>
               <Col>
