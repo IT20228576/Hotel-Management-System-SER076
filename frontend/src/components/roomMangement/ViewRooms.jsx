@@ -54,7 +54,7 @@ function ViewRooms() {
 
     } catch (error) {
 
-      console.error(error);
+
 
       alert(error);
 
@@ -102,7 +102,7 @@ function ViewRooms() {
 
     } catch (error) {
 
-      console.error(error);
+
 
       alert(error);
 
@@ -116,7 +116,7 @@ function ViewRooms() {
         await axios
           .delete(`http://localhost:8000/api/room/delete/${room._id}`)
           .then((res) => {
-            console.log(res);
+
             if (res.status === 201) {
               alert("Deleted successfully....");
               getRooms();
@@ -124,7 +124,7 @@ function ViewRooms() {
           });
       }
     } catch (error) {
-      console.error(error);
+
       alert(error);
     }
   }

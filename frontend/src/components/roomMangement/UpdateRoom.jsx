@@ -16,13 +16,13 @@ function UpdateRoom(props) {
 
   const [roomToUpdate, setRoomToUpdate] = useState([]);
   const [image, setImage] = useState("");
-  //const [url, setUrl] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/room/getOne/" + localStorage.getItem("updateid"))
       .then((res) => setRoomToUpdate(res.data))
-      //.then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+
+      .catch((err) => { alert(err) });
   }, []);
 
   const [room, setRoom] = useState({
@@ -49,7 +49,7 @@ function UpdateRoom(props) {
     data.append("file", image);
     data.append("upload_preset", "roommangment");
     data.append("cloud_name", "dottqi9rk");
-    // data.append("quality", "q_auto");
+
 
 
     fetch("https://api.cloudinary.com/v1_1/dottqi9rk/image/upload/", {
@@ -59,11 +59,9 @@ function UpdateRoom(props) {
       .then((resp) => resp.json())
       .then((data) => {
         setTimeout(() => {
-          //console.log(data.url);
-          //setUrl(data.url);
-          //console.log(data.url);
+
           setRoom((room.imageURL = data.url));
-          console.log(room);
+
 
           axios
             .put(
@@ -71,15 +69,15 @@ function UpdateRoom(props) {
               room
             )
             .then(function (response) {
-              console.log(response);
+              alert("updated successfully");
               window.location.reload();
             })
             .catch(function (error) {
-              console.log(error.response);
+              alert(error.response);
             });
         }, 2000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => { alert(err) });
   }
 
 

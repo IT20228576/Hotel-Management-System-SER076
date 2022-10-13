@@ -14,11 +14,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function AddRoom() {
-  /*const [image, setImage] = useState("");
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setRoom({ ...room, [name]: value });
-  }*/
+
 
   const history = useNavigate();
 
@@ -61,40 +57,6 @@ function AddRoom() {
   const handlePhoto = (e) => {
     setRoom({ ...room, image: e.target.files[0] });
   }
-
-
-  /*async function hadleSubmit(e) {
-
-    
-    e.preventDefault();
-    console.log(room);
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "roommangment");
-    data.append("cloud_name", "dottqi9rk");
-    fetch("https://api.cloudinary.com/v1_1/dottqi9rk/image/upload/", {
-      method: "post",
-      body: data,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setTimeout(() => {
-          setRoom((room.imageURL = data.url));
-
-          axios
-          .post("http://localhost:8000/api/room/create", room)
-          .then(function (response) {
-            console.log(response);
-            window.location.reload();
-          })
-          .catch(function (error) {
-            console.log(error.response);
-          });
-        }, 2000);
-      })
-      .catch((err) => console.log(err));
-   
-  }*/
 
   return (
     <div>
