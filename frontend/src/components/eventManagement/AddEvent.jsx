@@ -2,97 +2,86 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { adddata } from './context/ContextProvider';
 import {
-    Col,
-    Row,
-    Button,
-    Form,
-    Container,
-  } from "react-bootstrap";
+  Col,
+  Row,
+  Button,
+  Form,
+  Container,
+} from "react-bootstrap";
 
 const AddEvent = () => {
 
-    const { setUdata } = useContext(adddata);
+  const { setUdata } = useContext(adddata);
 
-    const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-    const [inpval, setINP] = useState({
-        EventName: "",
-        EventType: "",
-        EventDate: "",
-        ClientName: "",
-        EventStartTime: "",
-        EventEndTime: "",
-        NoOfParticipants: "",
-        EventStatus: "",
-        EventLocation: "",
-        EventDescription: "",
-        EventImage: ""
+  const [inpval, setINP] = useState({
+    EventName: "",
+    EventType: "",
+    EventDate: "",
+    ClientName: "",
+    EventStartTime: "",
+    EventEndTime: "",
+    NoOfParticipants: "",
+    EventStatus: "",
+    EventLocation: "",
+    EventDescription: "",
+    EventImage: ""
+  })
+
+  const setdata = (e) => {
+    
+    const { name, value } = e.target;
+    setINP((preval) => {
+      return {
+        ...preval,
+        [name]: value,
+      }
     })
+  }
 
-    const setdata = (e) => {
-        console.log(e.target.value);
-        const { name, value } = e.target;
-        setINP((preval) => {
-            return {
-                ...preval,
-                [name]: value,
-            }
-        })
+  const addinpdata = async (e) => {
+    e.preventDefault();
+
+    const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
+
+    const res = await fetch("http://localhost:8000/event/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
+      })
+    });
+
+    const data = await res.json();
+    
+
+    if (res.status === 422 || !data) {
+      console.log("Please enter all mandatory inputs")
+      alert("Please enter all mandatory inputs")
+      return 0;
+    } else if (NoOfParticipants > 100) {
+      alert("Maximum no of participants are 100")
+      return 0;
+    } else {
+      alert("Add Event Details Successfully");
+      navigate("/view")
+      setUdata(data)
+      console.log("data added");
     }
+  }
 
-  //   const handlePhoto = (e) => {
-
-  //     console.log(e.target.files[0].filename);
-  //       setINP((preval) => {
-  //           return {
-  //               ...preval,
-  //               EventImage: e.target.files[0],
-  //           }
-  //       })
-  // }
-
-    const addinpdata = async (e) => {
-        e.preventDefault();
-
-        const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
-
-        const res = await fetch("http://localhost:8000/event/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
-            })
-        });
-
-        const data = await res.json();
-        console.log(data);
-
-        if (res.status === 422 || !data) {
-            console.log("Please enter all mandatory inputs")
-            alert("Please enter all mandatory inputs")
-            return 0;
-        }else if(NoOfParticipants>100){
-alert("Maximum no of participants are 100")
-return 0;
-        } else {
-          alert("Add Event Details Successfully");
-            navigate("/view")
-            setUdata(data)
-            console.log("data added");
-        }
-    }
-
-    return (
-        <div style={{marginLeft:"100px", marginTop:"10px", marginBottom:"100px"}}>
-        <Container>
-        <h1 style={{margin:"2%" }}>Add New Event</h1>
-      <hr></hr>
-            <form className="formCard" border="dark">
-            <Row className="justify-content-md-center">
+  return (
+    <div style={{ marginLeft: "100px", marginTop: "10px", marginBottom: "100px" }}>
+      <Container>
+        <h1 style={{ margin: "2%" }}>Add New Event</h1>
+        <hr></hr>
+        <form className="formCard" border="dark">
+          <Row className="justify-content-md-center">
             <Col>
-            <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
                 <Form.Label>Event Name *</Form.Label>
                 <Form.Control
                   placeholder="Event Name"
@@ -112,7 +101,7 @@ return 0;
               <Form.Group className="mb-3">
                 <Form.Label>Event Start Time *</Form.Label>
                 <Form.Control
-                type='time'
+                  type='time'
                   placeholder="Event Start Date"
                   value={inpval.EventStartTime} onChange={setdata} name="EventStartTime"
                 />
@@ -129,31 +118,31 @@ return 0;
               <Form.Group className="mb-3">
                 <Form.Label>Event Location *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventLocation} onChange={setdata} name="EventLocation">
-                <option>Event Location</option>
-      <option>Hall 01</option>
-      <option>Hall 02</option>
-      <option>Meeting Room 01</option>
-      <option>Meetng Room 02</option>
-      <option>Outdoor</option>
-    </Form.Select>
+                  <option>Event Location</option>
+                  <option>Hall 01</option>
+                  <option>Hall 02</option>
+                  <option>Meeting Room 01</option>
+                  <option>Meetng Room 02</option>
+                  <option>Outdoor</option>
+                </Form.Select>
               </Form.Group>
 
-              <a href="/event/new"><Button variant="secondary" size="lg" style={{ width: "70%", float: "right", margin:"5px" }}>
+              <a href="/event/new"><Button variant="secondary" size="lg" style={{ width: "70%", float: "right", margin: "5px" }}>
                 Reset
               </Button></a>
-              </Col>
+            </Col>
 
-              <Col>
-            <Form.Group className="mb-3">
+            <Col>
+              <Form.Group className="mb-3">
                 <Form.Label>Event Type *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventType} onChange={setdata} name="EventType">
-                <option>Event Type</option>
-      <option>Wedding</option>
-      <option>Meeting</option>
-      <option>Award Ceremony</option>
-      <option>Birthday Party</option>
-      <option>Batch Party</option>
-    </Form.Select>
+                  <option>Event Type</option>
+                  <option>Wedding</option>
+                  <option>Meeting</option>
+                  <option>Award Ceremony</option>
+                  <option>Birthday Party</option>
+                  <option>Batch Party</option>
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -176,12 +165,12 @@ return 0;
               <Form.Group className="mb-3">
                 <Form.Label>Event Status *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventStatus} onChange={setdata} name="EventStatus">
-                <option>Event Status</option>
-      <option>Available</option>
-      <option>Not Available</option>
-      <option>Postponed</option>
-      <option>Cancelled</option>
-    </Form.Select>
+                  <option>Event Status</option>
+                  <option>Available</option>
+                  <option>Not Available</option>
+                  <option>Postponed</option>
+                  <option>Cancelled</option>
+                </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3">
@@ -196,27 +185,27 @@ return 0;
                 variant="primary"
                 size="lg"
                 type="submit"
-                style={{ width: "70%", float:"left", margin:"5px"}}
+                style={{ width: "70%", float: "left", margin: "5px" }}
                 onClick={addinpdata}
               >
                 Submit
               </Button>
             </Col>
-            
+
             <Col>
-            <Form.Group className="mb-3" style={{marginTop: "140px"}}>
+              <Form.Group className="mb-3" style={{ marginTop: "140px" }}>
                 <Form.Label>Event Image</Form.Label>
                 <Form.Control
                   placeholder="Event Image"
-                  type= 'file'
+                  type='file'
                   onChange={setdata} name="EventImage"
                 />
               </Form.Group>
             </Col>
           </Row>
-            </form>
-            </Container>
-        </div>
-    )
+        </form>
+      </Container>
+    </div>
+  )
 }
 export default AddEvent;

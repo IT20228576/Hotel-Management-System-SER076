@@ -6,6 +6,7 @@ const email = require("../../utils/userManagement/email.util");
 const service = require("../../utils/userManagement/service.util");
 const validation = require("../../utils/userManagement/validation.util");
 const User = require("../../models/userManagement/user.model");
+const crypto = require("crypto");
 
 /* The above code is a login route. It is checking if the user is verified or not. If the user is not
 verified, it is sending a verification email to the user. */
@@ -23,18 +24,10 @@ router.post("/login", async (req, res) => {
 
     /* This is checking if the user is verified or not. If the user is not verified, it is sending a
 verification email to the user. */
-    if (
-      user.verified === false &&
-      user.adminCreated === false
-    ) {
+    if (user.verified === false && user.adminCreated === false) {
       const verifyToken = await service.getVerifyToken(user._id);
 
-      await email.sendVeri(
-        user.email,
-        user.name,
-        user._id,
-        verifyToken.token
-      );
+      await email.sendVeri(user.email, user.name, user._id, verifyToken.token);
 
       return res.status(401).json({
         errorMessage:
@@ -63,13 +56,13 @@ correct, it is sending an error message to the user. */
 
     // send the token in a HTTP-only cookie
     var expiryTime = new Date(Number(new Date()) + 6 * 60 * 60 * 1000); //after 6 hours cookie will be expire
-    res
+    return res
       .cookie("token", token, {
         expires: expiryTime,
         secure: true,
         sameSite: "none",
       })
-      .send({ type: user.userType });
+      .send({ type: user.userType, verified: user.verified });
   } catch (err) {
     if (err.isJoi === true) {
       console.error(err);
@@ -86,7 +79,6 @@ router.get("/logout", async (req, res) => {
   /* Removing the cookie from the browser. */
   await service.removeCookie(res);
 });
-
 
 /* This is a route for verifying the email. It is checking if the user is present in the database or
 not. If the user is not present in the database, it is sending an error message to the user. If the
@@ -117,16 +109,58 @@ database, it is sending an error message to the user. */
 
     /* This is updating the verified field of the user to true. */
 
-      await User.findByIdAndUpdate(user._id, {
-        verified: true,
-      }).exec();
+    await User.findByIdAndUpdate(user._id, {
+      verified: true,
+    }).exec();
 
     /* Removing the token from the database. */
-      await token.remove();
-      return res.status(200).json({ errorMessage: "Successfully Verified!" });
+    await token.remove();
+    return res.status(200).json({ errorMessage: "Successfully Verified!" });
   } catch (err) {
     console.error(err);
     res.status(500).send();
+  }
+});
+
+router.post("/forgot-password", async (req, res) => {
+  try {
+    /* Validating the request body. */
+    const validated = await validation.forgotPasswordSchema.validateAsync(
+      req.body
+    );
+
+    /* Finding the user by email. */
+    const user = await User.findOne({ email: validated.email });
+
+    if (!user) {
+      return res.status(401).json({ errorMessage: "Wrong email." });
+    }
+
+    /* Generating a random string of length 10. */
+    const oneTimePassword = crypto.randomBytes(10).toString("hex");
+
+    // hash the password
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(oneTimePassword, salt);
+
+    /* Updating the user account. */
+    await User.findByIdAndUpdate(user._id, {
+      passwordHash: hashedPassword,
+    }).exec();
+
+    /* Sending an verification email to the user. */
+    await email.sendPassword(user.email, oneTimePassword);
+
+    /* Sending a response to the client. */
+    res.status(201).send({ Message: "Check your emails" });
+  } catch (err) {
+    if (err.isJoi === true) {
+      console.error(err);
+      return res.status(422).send({ errorMessage: err.details[0].message });
+    } else {
+      console.error(err);
+      res.status(500).send(err);
+    }
   }
 });
 

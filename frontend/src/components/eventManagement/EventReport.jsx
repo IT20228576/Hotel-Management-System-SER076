@@ -10,7 +10,7 @@ const EventReport = () => {
   const componentRef = useRef();
 
   const [geteventdata, setEventdata] = useState([]);
-  console.log(geteventdata);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const getdata = async () => {
@@ -22,12 +22,12 @@ const EventReport = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    
 
     if (res.status === 422 || !data) {
       console.log("error ");
     } else {
-      setEventdata(data);
+      setEventdata(data.geteventdata);
       console.log("get data");
     }
   };
@@ -46,9 +46,6 @@ const EventReport = () => {
       <div
         style={{ marginTop: "15px", marginBottom: "-56px", marginLeft: "70px" }}
       >
-        {/* <Button variant="primary" onClick={handlePrint}>
-          Download
-        </Button> */}
         <Button className="btn btn-secondary ms-2" onClick={handlePrint}>
           <PrintIcon />
         </Button>
@@ -135,18 +132,20 @@ const EventReport = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {geteventdata.filter((element) => {
-                        if (searchTerm === "") {
-                          return element;
-                        } else if (
-                          element.EventDate.toLowerCase().includes(
-                            searchTerm.toLowerCase()
-                          )
-                        ) {
-                          return element;
-                        }
+                    {geteventdata.length > 0 ? geteventdata.filter((element) => {
+                      if (searchTerm === "") {
+                        return element;
+                      } else if (
+                        element.EventDate.toLowerCase().includes(
+                          searchTerm.toLowerCase()
+                        )
+                      ) {
+                        return element;
+                      } else {
+
                         return false;
-                      })
+                      }
+                    })
                       .map((element, id) => {
                         return (
                           <>
@@ -166,7 +165,21 @@ const EventReport = () => {
                             </tr>
                           </>
                         );
-                      })}
+                      }) : (
+                      <div
+                        className="notify"
+                        style={{
+                          position: "relative",
+                          left: "60%",
+                          right: "40%",
+                          top: "30%",
+                          bottom: "50%",
+                          fontSize: "40px",
+                          fontWeight: "bold",
+                        }}>
+                        No Result Found
+                      </div>
+                    )}
                   </tbody>
                 </table>
               </div>

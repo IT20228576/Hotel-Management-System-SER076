@@ -34,6 +34,7 @@ async function getVerifyToken(id) {
 async function removeCookie(res) {
   try {
     res
+      .status(201)
       .cookie("token", "", {
         httpOnly: true,
         expires: new Date(0),

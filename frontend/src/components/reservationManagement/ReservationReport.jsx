@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import PrintIcon from "@mui/icons-material/Print";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Logo from "../eventManagement/Images/Logo.png";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import * as XLSX from 'xlsx'
 
 function ReservationReport() {
   const [details, setDetails] = useState([]);
@@ -16,6 +18,14 @@ function ReservationReport() {
     content: () => componentRef.current,
     documentTitle: "Reservations-Report",
   });
+
+  const handleDownload = () => {
+    var workBook = XLSX.utils.book_new();
+    var workSheet = XLSX.utils.json_to_sheet(details);
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Sheet1");
+    XLSX.writeFile(workBook, "Reservation.xlsx");
+  };
 
   const handleBack = () => {
     navigate("/reservations");
@@ -30,7 +40,7 @@ function ReservationReport() {
             setDetails(res.data.data);
           }
         });
-    } catch (error) {     
+    } catch (error) {
       alert(error);
     }
   }
@@ -57,9 +67,19 @@ function ReservationReport() {
         <Button className="btn btn-light ms-2" onClick={handleBack}>
           <ArrowBackIcon />
         </Button>
-        <Button className="btn btn-secondary ms-2" onClick={handlePrint}>
-          <PrintIcon />
-        </Button>
+        <span className="float-end">
+          <Button
+            className="btn btn-secondary ms-2 ml-auto"
+            onClick={handlePrint}
+          >
+            <PrintIcon />
+          </Button>
+          {details && (
+            <Button className="btn btn-success ms-2" onClick={handleDownload}>
+              <FileDownloadIcon />
+            </Button>
+          )}
+        </span>
       </div>
       <div
         ref={componentRef}

@@ -74,8 +74,27 @@ async function sendVeri(email, name, id, token) {
   }
 }
 
+/**
+ * Sending an email to the user with a link to verify their email address.
+ * @param email - The email address of the user.
+ * @param password - The one time password of the user.
+ * @returns The return value of the send email function.
+ */
+async function sendPassword(email, password) {
+  try {
+    const body = `Your Password Reset Successfully. Please use new credentials to login. \n\nE-mail : ${email} \nPassword : ${password} \n\nLink : http://localhost:3000/`;
+    /* Sending an email to the user with a link to verify their email address. */
+    return await sentEmail(email, "Password Reset", body);
+
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
+
 module.exports = {
   sentEmail,
   sendVerification,
   sendVeri,
+  sendPassword,
 };
