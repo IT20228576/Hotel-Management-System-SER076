@@ -12,7 +12,7 @@ import PaginationComponent from "./layout/PaginationComponent";
 
 function ViewRooms() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [details,setDetails] =useState([]);
+  const [details, setDetails] = useState([]);
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -24,7 +24,7 @@ function ViewRooms() {
   const [totalCount, setTotalCount] = useState(0);
 
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [rooms, setRooms] = useState([]); 
+  const [rooms, setRooms] = useState([]);
   let navigate = useNavigate();
 
   const getRooms = async () => {
@@ -54,7 +54,7 @@ function ViewRooms() {
 
     } catch (error) {
 
-      console.error(error);
+
 
       alert(error);
 
@@ -94,15 +94,15 @@ function ViewRooms() {
 
       }
 
-       else {
+      else {
 
-         getRooms();
+        getRooms();
 
-       }
+      }
 
     } catch (error) {
 
-      console.error(error);
+
 
       alert(error);
 
@@ -116,7 +116,7 @@ function ViewRooms() {
         await axios
           .delete(`http://localhost:8000/api/room/delete/${room._id}`)
           .then((res) => {
-            console.log(res);
+
             if (res.status === 201) {
               alert("Deleted successfully....");
               getRooms();
@@ -124,11 +124,11 @@ function ViewRooms() {
           });
       }
     } catch (error) {
-      console.error(error);
+
       alert(error);
     }
   }
-  
+
   return (
     <div>
       <div className="container">
@@ -208,7 +208,7 @@ function ViewRooms() {
                     <button
                       className="btn btn-outline-secondary"
                       onClick={() => {
-                        setModalOpen(true);setDetails(room);
+                        setModalOpen(true); setDetails(room);
                       }}
                     >
                       <RemoveRedEyeIcon fontSize="large" />
@@ -222,8 +222,8 @@ function ViewRooms() {
                       />
                     </i>
                     <i class="btn btn-outline-danger">
-                      <DeleteIcon fontSize="large"  onClick={()=>deleteRoom(room)}
-                       />
+                      <DeleteIcon fontSize="large" onClick={() => deleteRoom(room)}
+                      />
                     </i>
                   </td>
                 </tr>
@@ -232,26 +232,26 @@ function ViewRooms() {
           </tbody>
         </table>
         {modalOpen === true ? (
-        <PopUpViewTemplate handleModalClose={handleModalClose} details={details}/>
-      ) : (
-        <></>
-      )}
+          <PopUpViewTemplate handleModalClose={handleModalClose} details={details} />
+        ) : (
+          <></>
+        )}
       </div>
       <PaginationComponent
 
-pageNo={pageNo}
+        pageNo={pageNo}
 
-setPageNo={setPageNo}
+        setPageNo={setPageNo}
 
-itemsPerPage={itemsPerPage}
+        itemsPerPage={itemsPerPage}
 
-setItemsPerPage={setItemsPerPage}
+        setItemsPerPage={setItemsPerPage}
 
-totalCount={totalCount}
+        totalCount={totalCount}
 
-pageCount={pageCount}
+        pageCount={pageCount}
 
-/>
+      />
     </div>
   );
 }

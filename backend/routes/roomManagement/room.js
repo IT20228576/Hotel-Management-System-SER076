@@ -1,37 +1,37 @@
 const express = require("express");
 const router = express.Router();
-const {addRoom,editRoom, getRooms,getRoom, getSingleRoom, deleteRoom,searchRoom, RoomSelected} = require("../../controllers/room")
+const { addRoom, editRoom, getRooms, getRoom, getSingleRoom, deleteRoom, searchRoom, RoomSelected } = require("../../controllers/room")
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
     },
-    filename: function(req, file, cb) {   
+    filename: function (req, file, cb) {
         cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
     }
-  });
-  
-  const fileFilter = (req, file, cb) => {
+});
+
+const fileFilter = (req, file, cb) => {
     const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if(allowedFileTypes.includes(file.mimetype)) {
+    if (allowedFileTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
         cb(null, false);
     }
-  }
-  
-  let upload = multer({ storage, fileFilter });
+}
+
+let upload = multer({ storage, fileFilter });
 
 router.route("/room/get").get(getRooms);
 router.route("/room/getOne/:id").get(getSingleRoom);
-router.route("/room/create").post (upload.single('image') ,addRoom);
+router.route("/room/create").post(upload.single('image'), addRoom);
 router.route("/room/update/:id").put(editRoom);
 router.route("/room/getAll").get(getRoom);
 router.route("/room/delete/:id").delete(deleteRoom);
 router.route("/room/search/:searchTerm").get(searchRoom);
 router.get("/select-room/:roomId", RoomSelected);
-module.exports=router;
+module.exports = router;
 

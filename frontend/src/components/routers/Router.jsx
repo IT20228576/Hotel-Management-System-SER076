@@ -33,7 +33,7 @@ import AddUser from "../userManagement/user/AddUser";
 import UserList from "../userManagement/user/UserList";
 import UpdateUser from "../userManagement/user/UpdateUser";
 import UserReport from "../userManagement/user/UserReport";
-import ViewAllAvailableRoom from "../roomMangement/viewAllAvailableRoom";
+import ViewAllAvailableRoom from "../roomMangement/ViewAllAvailableRoom";
 import RoomDetailsView from "../roomMangement/RoomDetailsView";
 
 function Router() {
@@ -63,6 +63,15 @@ function Router() {
                 <Route
                   path="/roomDetailsView/:id"
                   element={<RoomDetailsView />}
+                />
+                <Route
+                  path="/AvailableEventsForCustomer"
+                  element={<AvailableEventsForCustomer />}
+                />
+                <Route
+                  exact
+                  path="/EventForCustomer/:id"
+                  element={<EventForCustomer />}
                 />
               </>
             )}

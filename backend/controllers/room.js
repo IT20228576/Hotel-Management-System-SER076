@@ -1,24 +1,23 @@
 const Room = require("../models/roomManagement/room.model")
-const bcrypt=require("bcrypt");
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-      cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
+  destination: function (req, file, cb) {
+    cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
   },
-  filename: function(req, file, cb) {   
-      cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+  filename: function (req, file, cb) {
+    cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
   }
 });
 
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-  if(allowedFileTypes.includes(file.mimetype)) {
-      cb(null, true);
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
   } else {
-      cb(null, false);
+    cb(null, false);
   }
 }
 
@@ -27,7 +26,7 @@ let upload = multer({ storage, fileFilter });
 exports.getRooms = async (req, res) => {
   try {
 
-    
+
 
     const pageNo = req.query.pageNo || 1;
 
@@ -70,7 +69,7 @@ exports.getRooms = async (req, res) => {
 
 };
 exports.addRoom = async (req, res) => {
-    console.log("test");
+
   try {
     const newRoom = new Room({
       roomName: req.body.roomName,
@@ -90,25 +89,25 @@ exports.addRoom = async (req, res) => {
   }
 };
 
-exports.getSingleRoom = async(req,res) => {
-    const roomid = req.params.id;
-    try {
-      let rooms = await Room.findOne({_id: roomid});
-      res.json(rooms);
-    } catch(err) {
-      res.status(400).json({ error: err });
-    }
-    
-  };
+exports.getSingleRoom = async (req, res) => {
+  const roomid = req.params.id;
+  try {
+    let rooms = await Room.findOne({ _id: roomid });
+    res.json(rooms);
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
 
-exports.getRoom=async(req,res) =>{
-  try{
-   Room.find().then((Rooms)=>{
+};
+
+exports.getRoom = async (req, res) => {
+  try {
+    Room.find().then((Rooms) => {
       res.json(Rooms);
-  })
-}catch(error){
-  res.status(400).json({ message: error });
-}
+    })
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
 }
 
 exports.editRoom = async (req, res) => {
@@ -133,7 +132,7 @@ exports.deleteRoom = async (req, res) => {
   }
 };
 
-exports.searchRoom = async(req, res)=>{
+exports.searchRoom = async (req, res) => {
 
   try {
 
@@ -171,15 +170,15 @@ exports.searchRoom = async(req, res)=>{
 
 // return a selected room
 exports.RoomSelected = async (req, res) => {
-  const {roomId}  = req.params;
-  if(roomId){
-    Room.findOne({_id: roomId}).exec((error, details) => {
-      if(error) return res.status(400).json({error});
-      if(details){
-        res.status(201).json({details})
+  const { roomId } = req.params;
+  if (roomId) {
+    Room.findOne({ _id: roomId }).exec((error, details) => {
+      if (error) return res.status(400).json({ error });
+      if (details) {
+        res.status(201).json({ details })
       }
     });
-  }else{
-    return res.status(400).json({error: "Params required"});
+  } else {
+    return res.status(400).json({ error: "Params required" });
   }
 };

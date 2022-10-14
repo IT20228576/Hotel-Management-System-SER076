@@ -16,13 +16,13 @@ function UpdateRoom(props) {
 
   const [roomToUpdate, setRoomToUpdate] = useState([]);
   const [image, setImage] = useState("");
-  //const [url, setUrl] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/room/getOne/" + localStorage.getItem("updateid"))
       .then((res) => setRoomToUpdate(res.data))
-      //.then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+
+      .catch((err) => { alert(err) });
   }, []);
 
   const [room, setRoom] = useState({
@@ -40,18 +40,18 @@ function UpdateRoom(props) {
   }
 
 
- 
+
   async function handleEdit(e) {
     e.preventDefault();
-   
+
     const data = new FormData();
 
     data.append("file", image);
     data.append("upload_preset", "roommangment");
     data.append("cloud_name", "dottqi9rk");
-    // data.append("quality", "q_auto");
 
-    
+
+
     fetch("https://api.cloudinary.com/v1_1/dottqi9rk/image/upload/", {
       method: "post",
       body: data,
@@ -59,35 +59,33 @@ function UpdateRoom(props) {
       .then((resp) => resp.json())
       .then((data) => {
         setTimeout(() => {
-          //console.log(data.url);
-          //setUrl(data.url);
-          //console.log(data.url);
+
           setRoom((room.imageURL = data.url));
-          console.log(room);
-          
+
+
           axios
             .put(
-              "http://localhost:8000/api/room/update/" +  localStorage.getItem("updateid"),
+              "http://localhost:8000/api/room/update/" + localStorage.getItem("updateid"),
               room
             )
             .then(function (response) {
-              console.log(response);
+              alert("updated successfully");
               window.location.reload();
             })
             .catch(function (error) {
-              console.log(error.response);
+              alert(error.response);
             });
         }, 2000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => { alert(err) });
   }
 
 
   return (
     <div>
-     
+
       <Container>
-        <form className="formCard" border="dark" onSubmit={handleEdit}  style={{ margin: "2%"}}>
+        <form className="formCard" border="dark" onSubmit={handleEdit} style={{ margin: "2%" }}>
           <Row className="justify-content-md-center">
             <Col>
               <Form.Group className="mb-3">
@@ -147,7 +145,7 @@ function UpdateRoom(props) {
                   <option>Room Type</option>
                   <option value="King room">King room</option>
                   <option value="Twin room">Twin room</option>
-                  
+
                 </Form.Select>
               </Form.Group>
 
@@ -166,7 +164,7 @@ function UpdateRoom(props) {
                 variant="primary"
                 size="lg"
                 type="submit"
-                style={{ width: "70%", float:"left", margin:"5px"}}
+                style={{ width: "70%", float: "left", margin: "5px" }}
               >
                 Submit
               </Button>
