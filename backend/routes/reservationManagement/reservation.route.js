@@ -56,7 +56,7 @@ router.post("/add", async (req, res) => {
 /* Get All Reservation Details */
 router.get("/getAll", async (req, res) => {
   try {
-    // getting page number from query parameter, or assigning to 0
+    // getting page number from query parameter, or assigning to 1
     const pageNo = req.query.pageNo || 1;
     // getting page size from query parameter, or assigning to 10
     const itemsPerPage = req.query.pageSize || 10;

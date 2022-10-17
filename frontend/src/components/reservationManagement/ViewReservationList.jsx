@@ -32,7 +32,7 @@ function ViewReservationList() {
             setTotalCount(res.data.pagination.count);
           }
         });
-    } catch (error) {      
+    } catch (error) {
       alert(error);
     }
   }
@@ -47,14 +47,14 @@ function ViewReservationList() {
       if (window.confirm("This Reservation Will Be Deleted!")) {
         await axios
           .delete(`http://localhost:8000/reservations/delete/${detail._id}`)
-          .then((res) => {           
+          .then((res) => {
             if (res.status === 200) {
               alert(res.data.message);
               getAllData();
             }
           });
       }
-    } catch (error) {     
+    } catch (error) {
       alert(error);
     }
   }
@@ -77,12 +77,12 @@ function ViewReservationList() {
       } else {
         getAllData();
       }
-    } catch (error) {      
+    } catch (error) {
       alert(error);
     }
   };
 
-  function updateReservation(detail) {   
+  function updateReservation(detail) {
     navigate("/reservations/update", { state: detail });
   }
 
@@ -129,20 +129,24 @@ function ViewReservationList() {
         );
       })
     ) : (
-      <div
-        className="notify"
-        style={{
-          position: "relative",
-          left: "60%",
-          right: "40%",
-          top: "30%",
-          bottom: "50%",
-          fontSize: "40px",
-          fontWeight: "bold",
-        }}
-      >
-        No Result Found
-      </div>
+      <tr>
+        <td>
+          <div
+            className="notify"
+            style={{
+              position: "relative",
+              left: "60%",
+              right: "40%",
+              top: "30%",
+              bottom: "50%",
+              fontSize: "40px",
+              fontWeight: "bold",
+            }}
+          >
+            No Result Found
+          </div>
+        </td>
+      </tr>
     );
 
   return (
