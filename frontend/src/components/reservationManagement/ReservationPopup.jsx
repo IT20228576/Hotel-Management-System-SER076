@@ -104,14 +104,14 @@ function ReservationPopup(props) {
           <td style={{ backgroundColor: "#D3D3D3" }}>
             <b>Check-in Date and Time</b>
           </td>
-          <td>{item.checkinDate.substring(0, 10) + " - " + item.checkinTime}</td>
+          <td>{item?.checkinDate?.substring(0, 10) + " - " + item.checkinTime}</td>
         </tr>
         <tr>
           <td style={{ backgroundColor: "#D3D3D3" }}>
             <b>Check-out Date and Time</b>
           </td>
           <td>
-            {item.checkoutDate.substring(0, 10) + " - " + item.checkoutTime}
+            {item?.checkoutDate?.substring(0, 10) + " - " + item.checkoutTime}
           </td>
         </tr>
         <tr>
