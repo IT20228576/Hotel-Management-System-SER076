@@ -21,7 +21,7 @@ function PopUpView(props) {
     setroomDetails(datalist);
   }, [details]);
 
-  var listData = roomDetails.map((item, index) => {
+  var listData = roomDetails.map((item) => {
     return (
       <tbody key={item._id}>
         <tr>

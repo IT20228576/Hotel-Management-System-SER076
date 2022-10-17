@@ -12,7 +12,7 @@ import {
 
 import axios from "axios";
 
-function UpdateRoom(props) {
+function UpdateRoom(_props) {
 
   const [roomToUpdate, setRoomToUpdate] = useState([]);
   const [image, setImage] = useState("");
@@ -68,7 +68,7 @@ function UpdateRoom(props) {
               "http://localhost:8000/api/room/update/" + localStorage.getItem("updateid"),
               room
             )
-            .then(function (response) {
+            .then(function (_response) {
               alert("updated successfully");
               window.location.reload();
             })

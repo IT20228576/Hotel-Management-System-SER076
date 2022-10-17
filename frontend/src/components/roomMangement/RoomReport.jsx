@@ -9,7 +9,6 @@ import Logo from "../eventManagement/Images/Logo.png";
 
 function RoomReport() {
   const [rooms, setRooms] = useState([]);
-  const [details, setDetails] = useState([]);
   const componentRef = useRef();
   const navigate = useNavigate();
 

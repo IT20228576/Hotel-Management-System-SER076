@@ -5,8 +5,8 @@ const RoomSchema = new mongoose.Schema(
     roomName: { type: String, required: true },
     roomNumber: { type: String, required: true },
     image: { type: String, required: true },
-    roomPrice: { type: Number },
-    roomType: { type: String },
+    roomPrice: { type: Number,required: true },
+    roomType: { type: String,required: true },
     description: { type: String, required: true },
   },
   {
