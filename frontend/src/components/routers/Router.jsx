@@ -128,6 +128,8 @@ function Router() {
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
                 <Route path="/roomReport" element={<RoomReport />} />
+                <Route path="/viewAllAvailableRoom" element={<ViewAllAvailableRoom />} />
+                <Route path="/roomDetailsView/:id" element={<RoomDetailsView />} />
               </>
             )}
 
