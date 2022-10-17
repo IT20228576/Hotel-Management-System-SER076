@@ -6,15 +6,15 @@ const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (_req, _file, cb) {
         cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
     },
-    filename: function (req, file, cb) {
+    filename: function (_req, file, cb) {
         cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
     }
 });
 
-const fileFilter = (req, file, cb) => {
+const fileFilter = (_req, file, cb) => {
     const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (allowedFileTypes.includes(file.mimetype)) {
         cb(null, true);
