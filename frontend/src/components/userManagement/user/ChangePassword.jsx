@@ -42,7 +42,7 @@ const ChangePassword = () => {
       then it will alert the user that the registration was successful and then it will remove the
       type and status from local storage. It will then navigate to the login page and reload the
       page. */
-      if (result?.status === 200) {
+      if (result?.status === 201) {
         setLoading(false);
         alert("Password changed successfully");
         /* Reloading the page. */

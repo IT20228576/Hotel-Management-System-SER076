@@ -8,7 +8,9 @@ const UserModal = (props) => {
     <Modal show={true} onHide={handleClose} className="modal-lg">
       <Modal.Header closeButton>
         <Modal.Title>
-          {user?.firstName} {user?.lastName}
+          <h1>
+            {user?.firstName} {user?.lastName}
+          </h1>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
