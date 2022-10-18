@@ -9,7 +9,7 @@ function PaginationComponent({
   totalCount,
   pageCount,
 }) {
-  const maxPageNoLimit = 3;
+
   let items = [];
 
   if (pageNo > 1) {
@@ -20,20 +20,18 @@ function PaginationComponent({
   }
 
   for (let page = 1; page <= pageCount; page++) {
-    if (page < maxPageNoLimit + 1) {
-      items.push(
-        <Pagination.Item
-          key={page}
-          id={page}
-          active={page === pageNo ? true : false}
-          onClick={() => {
-            setPageNo(page);
-          }}
-        >
-          {page}
-        </Pagination.Item>
-      );
-    }
+    items.push(
+      <Pagination.Item
+        key={page}
+        id={page}
+        active={page === pageNo ? true : false}
+        onClick={() => {
+          setPageNo(page);
+        }}
+      >
+        {page}
+      </Pagination.Item>
+    );
   }
 
   if (pageNo < pageCount) {
@@ -44,7 +42,7 @@ function PaginationComponent({
   }
 
   return (
-    <footer className="container mt-5">
+    <footer className="container">
       <div className="d-flex justify-content-between align-items-center">
         <div>No of Total Records: {totalCount}</div>
         <div>
