@@ -8,10 +8,10 @@ import "../layout/Styles/PopUpStyles.css";
 const ViewEvent = () => {
 
   const [geteventdata, setEventdata] = useState([]);
-  console.log(geteventdata);
+ 
 
   const { id } = useParams("");
-  console.log(id);
+  
 
   const getdata = async () => {
     const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
@@ -22,7 +22,7 @@ const ViewEvent = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+
 
     if (res.status === 422 || !data) {
       console.log("error ");

@@ -14,11 +14,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function AddRoom() {
-  /*const [image, setImage] = useState("");
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setRoom({ ...room, [name]: value });
-  }*/
+
 
   const history = useNavigate();
 
@@ -29,76 +25,42 @@ function AddRoom() {
     roomPrice: "",
     roomType: "",
     description: "",
-  
+
   });
 
-  const sendRoom=(e)=>{
+  const sendRoom = (e) => {
     e.preventDefault();
-    const data =new FormData();
-    data.append('roomName',room.roomName);
-    data.append('roomNumber',room.roomNumber);
-    data.append('image',room.image);
-    data.append('roomPrice',room.roomPrice);
-    data.append('roomType',room.roomType);
-    data.append('description',room.description);
-    
-    
-    axios.post("http://localhost:8000/api/room/create", data).then(()=>{
+    const data = new FormData();
+    data.append('roomName', room.roomName);
+    data.append('roomNumber', room.roomNumber);
+    data.append('image', room.image);
+    data.append('roomPrice', room.roomPrice);
+    data.append('roomType', room.roomType);
+    data.append('description', room.description);
+
+
+    axios.post("http://localhost:8000/api/room/create", data).then(() => {
 
       alert("Room is added");
 
-      if(data){
+      if (data) {
         return history('/ViewAllAvailableRoom');
       }
-      }).catch((err)=>{
-        alert(err);
-      })
-    }
-    const handleChange = (e) => {
-      setRoom({...room, [e.target.name]: e.target.value});
+    }).catch((err) => {
+      alert(err);
+    })
+  }
+  const handleChange = (e) => {
+    setRoom({ ...room, [e.target.name]: e.target.value });
   }
 
   const handlePhoto = (e) => {
-      setRoom({...room, image: e.target.files[0]});
+    setRoom({ ...room, image: e.target.files[0] });
   }
-
-
-  /*async function hadleSubmit(e) {
-
-    
-    e.preventDefault();
-    console.log(room);
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "roommangment");
-    data.append("cloud_name", "dottqi9rk");
-    fetch("https://api.cloudinary.com/v1_1/dottqi9rk/image/upload/", {
-      method: "post",
-      body: data,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setTimeout(() => {
-          setRoom((room.imageURL = data.url));
-
-          axios
-          .post("http://localhost:8000/api/room/create", room)
-          .then(function (response) {
-            console.log(response);
-            window.location.reload();
-          })
-          .catch(function (error) {
-            console.log(error.response);
-          });
-        }, 2000);
-      })
-      .catch((err) => console.log(err));
-   
-  }*/
 
   return (
     <div>
-      <h1 style={{margin:"2%" }}>Add Room</h1>
+      <h1 style={{ margin: "2%" }}>Add Room</h1>
       <hr></hr>
       <Container>
         <form className="formCard" border="dark" onSubmit={sendRoom} encType="multipart/form-data">
@@ -176,7 +138,7 @@ function AddRoom() {
                 variant="primary"
                 size="lg"
                 type="submit"
-                style={{ width: "70%", float:"left", margin:"5px"}}
+                style={{ width: "70%", float: "left", margin: "5px" }}
               >
                 Submit
               </Button>

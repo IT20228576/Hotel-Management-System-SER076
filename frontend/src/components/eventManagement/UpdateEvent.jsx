@@ -25,7 +25,7 @@ const UpdateEvent = () => {
   })
 
   const setdata = (e) => {
-    console.log(e.target.value);
+   
     const { name, value } = e.target;
     setINP((preval) => {
       return {
@@ -36,7 +36,6 @@ const UpdateEvent = () => {
   }
 
   const { id } = useParams("");
-  console.log(id);
 
   const getdata = async () => {
     const res = await fetch(`http://localhost:8000/event/vew/${id}`, {
@@ -46,7 +45,7 @@ const UpdateEvent = () => {
       }
     });
     const data = await res.json();
-    console.log(data);
+
 
     if (res.status === 422 || !data) {
       console.log("error ")
@@ -78,7 +77,7 @@ const UpdateEvent = () => {
     });
 
     const data2 = await res2.json();
-    console.log(data2);
+   
 
     if (res2.status === 422 || !data2) {
       alert("fill the data");

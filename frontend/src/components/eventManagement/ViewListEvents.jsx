@@ -6,11 +6,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SummarizeIcon from "@mui/icons-material/Summarize";
-import PaginationComponent from "./layout/PaginationComponent";
+import PaginationComponent from "../reservationManagement/layout/PaginationComponent";
 
 const ViewListEvents = () => {
   const [geteventdata, setEventdata] = useState([]);
-  console.log(geteventdata);
+  
 
   const [pageNo, setPageNo] = useState(1);
   const [pageCount, setPageCount] = useState(0);
@@ -30,7 +30,7 @@ const ViewListEvents = () => {
       },
     })
     const data = await res.json();
-    console.log(data);
+
 
     if (res.status === 422 || !data) {
       console.log("error ");
@@ -56,7 +56,7 @@ const ViewListEvents = () => {
     });
 
     const deletedata = await res2.json();
-    console.log(deletedata);
+    
 
     if (res2.status === 422 || !deletedata) {
       console.log("error");

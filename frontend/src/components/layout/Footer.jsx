@@ -14,7 +14,7 @@ function Footer() {
           <div className="col">
             <div className="row">
               <div className="col border-line">
-                +94 2729 729 <br /> Call us it's toll-free
+                +94 2812 567 <br /> Call us it's toll-free
               </div>
               <div className="col">
                 Customer Support Online Reservation Assistance.

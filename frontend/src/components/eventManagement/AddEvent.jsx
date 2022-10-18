@@ -30,7 +30,7 @@ const AddEvent = () => {
   })
 
   const setdata = (e) => {
-    console.log(e.target.value);
+    
     const { name, value } = e.target;
     setINP((preval) => {
       return {
@@ -56,7 +56,7 @@ const AddEvent = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    
 
     if (res.status === 422 || !data) {
       console.log("Please enter all mandatory inputs")

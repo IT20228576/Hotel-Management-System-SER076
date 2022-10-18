@@ -9,7 +9,6 @@ import Logo from "../eventManagement/Images/Logo.png";
 
 function RoomReport() {
   const [rooms, setRooms] = useState([]);
-  const [details, setDetails] = useState([]);
   const componentRef = useRef();
   const navigate = useNavigate();
 
@@ -18,9 +17,9 @@ function RoomReport() {
     documentTitle: "Reservations-Report",
   });
 
-    const handleBack = () => {
-      navigate("/viewRooms");
-    };
+  const handleBack = () => {
+    navigate("/viewRooms");
+  };
 
   async function getAllData() {
     try {
@@ -30,7 +29,6 @@ function RoomReport() {
         }
       });
     } catch (error) {
-      console.error(error);
       alert(error);
     }
   }
@@ -116,19 +114,19 @@ function RoomReport() {
                   <thead style={{ background: "#b38600", color: "#ffffe6" }}>
                     <tr>
                       <th scope="col">
-                        <b>Reference Number</b>
+                        <b>Room ID</b>
                       </th>
                       <th scope="col">
-                        <b>Name</b>
+                        <b>Room Name</b>
                       </th>
                       <th scope="col">
-                        <b>Phone Number</b>
+                        <b>Room Type</b>
                       </th>
                       <th scope="col">
-                        <b>Check-in</b>
+                        <b>Room Price</b>
                       </th>
                       <th scope="col">
-                        <b>Check-out</b>
+                        <b>Room Number</b>
                       </th>
                     </tr>
                   </thead>
