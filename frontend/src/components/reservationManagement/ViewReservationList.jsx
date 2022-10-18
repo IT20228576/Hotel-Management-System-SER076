@@ -150,89 +150,91 @@ function ViewReservationList() {
     );
 
   return (
-    <div className="container">
-      <div>
+    <>
+      <div className="container" style={{minHeight:"500px"}}>
         <div>
-          <nav className="navbar navbar-expand-lg navbar-light">
-            <h1
-              className="navbar-brand"
-              style={{
-                marginRight: "80px",
-                marginLeft: "80px",
-                fontSize: "32px",
-              }}
-            >
-              Reservations
-            </h1>
-            <a href="/reservations/add" style={{ marginRight: "10px" }}>
-              <button
-                className="btn btn-outline-success my-1 my-sm-0"
-                type="submit"
+          <div>
+            <nav className="navbar navbar-expand-lg navbar-light">
+              <h1
+                className="navbar-brand"
+                style={{
+                  marginRight: "80px",
+                  marginLeft: "80px",
+                  fontSize: "32px",
+                }}
               >
-                <AddCircleIcon /> Add
-              </button>
-            </a>
-            <a href="/reservations/report" style={{ marginRight: "10px" }}>
-              <button
-                className="btn btn-outline-primary my-2 my-sm-0"
-                type="submit"
-              >
-                <SummarizeIcon /> Report
-              </button>
-            </a>
+                Reservations
+              </h1>
+              <a href="/reservations/add" style={{ marginRight: "10px" }}>
+                <button
+                  className="btn btn-outline-success my-1 my-sm-0"
+                  type="submit"
+                >
+                  <AddCircleIcon /> Add
+                </button>
+              </a>
+              <a href="/reservations/report" style={{ marginRight: "10px" }}>
+                <button
+                  className="btn btn-outline-primary my-2 my-sm-0"
+                  type="submit"
+                >
+                  <SummarizeIcon /> Report
+                </button>
+              </a>
 
-            <div>
-              <form className="form-inline my-2 my-lg-0">
-                <input
-                  className="form-control mr-sm-2"
-                  style={{
-                    width: "430px",
-                    marginLeft: "100px",
-                    marginRight: "10px",
-                  }}
-                  placeholder="Search By Reference Number/ First Name/ Last Name"
-                  type="search"
-                  name="searchQuery"
-                  onChange={handleSearch}
-                ></input>
-              </form>
-            </div>
-          </nav>
+              <div>
+                <form className="form-inline my-2 my-lg-0">
+                  <input
+                    className="form-control mr-sm-2"
+                    style={{
+                      width: "430px",
+                      marginLeft: "100px",
+                      marginRight: "10px",
+                    }}
+                    placeholder="Search By Reference Number/ First Name/ Last Name"
+                    type="search"
+                    name="searchQuery"
+                    onChange={handleSearch}
+                  ></input>
+                </form>
+              </div>
+            </nav>
+          </div>
         </div>
+        <table className="table table-hover" style={{ textAlign: "center" }}>
+          <thead>
+            <tr>
+              <th scope="col">
+                <b>Reference Number</b>
+              </th>
+              <th scope="col">
+                <b>Name</b>
+              </th>
+              <th scope="col">
+                <b>Phone Number</b>
+              </th>
+              <th scope="col">
+                <b>Check-in</b>
+              </th>
+              <th scope="col">
+                <b>Check-out</b>
+              </th>
+              <th scope="col">
+                <b>Actions</b>
+              </th>
+            </tr>
+          </thead>
+          <tbody>{dataList}</tbody>
+        </table>
+        {modalOpen === true ? (
+          <ReservationPopup
+            handleModalClose={handleModalClose}
+            reservationInfo={reservationInfo}
+          />
+        ) : (
+          <></>
+        )}
       </div>
-      <table className="table table-hover" style={{ textAlign: "center" }}>
-        <thead>
-          <tr>
-            <th scope="col">
-              <b>Reference Number</b>
-            </th>
-            <th scope="col">
-              <b>Name</b>
-            </th>
-            <th scope="col">
-              <b>Phone Number</b>
-            </th>
-            <th scope="col">
-              <b>Check-in</b>
-            </th>
-            <th scope="col">
-              <b>Check-out</b>
-            </th>
-            <th scope="col">
-              <b>Actions</b>
-            </th>
-          </tr>
-        </thead>
-        <tbody>{dataList}</tbody>
-      </table>
-      {modalOpen === true ? (
-        <ReservationPopup
-          handleModalClose={handleModalClose}
-          reservationInfo={reservationInfo}
-        />
-      ) : (
-        <></>
-      )}
       <PaginationComponent
         pageNo={pageNo}
         setPageNo={setPageNo}
@@ -241,7 +243,7 @@ function ViewReservationList() {
         totalCount={totalCount}
         pageCount={pageCount}
       />
-    </div>
+    </>
   );
 }
 
