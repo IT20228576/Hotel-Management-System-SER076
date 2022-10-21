@@ -44,8 +44,6 @@ const AddEvent = () => {
 
     axios.post("http://localhost:8000/event/new", data).then(()=>{
 
-      // alert("Add Event Details Successfully");
-
       if(data){
         alert("Add Event Details Successfully");
       navigate("/view")
