@@ -33,7 +33,7 @@ import AddUser from "../userManagement/user/AddUser";
 import UserList from "../userManagement/user/UserList";
 import UpdateUser from "../userManagement/user/UpdateUser";
 import UserReport from "../userManagement/user/UserReport";
-import ViewAllAvailableRoom from "../roomMangement/viewAllAvailableRoom";
+import ViewAllAvailableRoom from "../roomMangement/ViewAllAvailableRoom";
 import RoomDetailsView from "../roomMangement/RoomDetailsView";
 
 function Router() {
@@ -128,6 +128,8 @@ function Router() {
                 <Route path="/viewRooms" element={<ViewRooms />} />
                 <Route path="/updateRoom" element={<UpdateRoom />} />
                 <Route path="/roomReport" element={<RoomReport />} />
+                <Route path="/viewAllAvailableRoom" element={<ViewAllAvailableRoom />} />
+                <Route path="/roomDetailsView/:id" element={<RoomDetailsView />} />
               </>
             )}
 

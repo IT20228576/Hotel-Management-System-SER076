@@ -6,22 +6,22 @@ function PopUpView(props) {
   const [roomDetails, setroomDetails] = useState([]);
 
   const { details } = props;
-  
+
 
   useEffect(() => {
     var datalist = [];
     datalist.push({
-    roomName: details.roomName,
-    roomNumber: details.roomNumber,
-    roomType: details.roomType,
-    roomPrice: details.roomPrice,
-    description: details.description
+      roomName: details.roomName,
+      roomNumber: details.roomNumber,
+      roomType: details.roomType,
+      roomPrice: details.roomPrice,
+      description: details.description
     });
 
     setroomDetails(datalist);
   }, [details]);
 
-  var listData = roomDetails.map((item,index) => {
+  var listData = roomDetails.map((item) => {
     return (
       <tbody key={item._id}>
         <tr>
@@ -36,29 +36,29 @@ function PopUpView(props) {
           </td>
           <td>{item.roomNumber}</td>
         </tr>
-        
+
         <tr>
           <td style={{ backgroundColor: "#D3D3D3" }}>
             <b>Room Type</b>
           </td>
           <td>{item.roomType}</td>
         </tr>
-        
+
         <tr>
           <td style={{ backgroundColor: "#D3D3D3" }}>
             <b>Room Price</b>
           </td>
           <td>{item.roomPrice}</td>
         </tr>
-       
-        
+
+
         <tr>
           <td style={{ backgroundColor: "#D3D3D3" }}>
             <b>Description</b>
           </td>
           <td>{item.description}</td>
         </tr>
-        
+
       </tbody>
     );
   });
