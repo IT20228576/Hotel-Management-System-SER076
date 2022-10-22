@@ -29,13 +29,19 @@ const storage = multer.diskStorage({
   
 router.post("/event/new",upload.single('EventImage') , async (req, res) => {
 
-     const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation} = req.body;
+     const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription} = req.body;
 
     if (!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation) {
         res.status(422).json("Please enter all data")
         return 0;
     } else if (NoOfParticipants > 100) {
         res.status(420).json("Maximum Partipants are 100")
+        return 0;
+    }else if (ClientName.length > 20) {
+        res.status(420).json("Client name should be less than 20 characters")
+        return 0;
+    }else if (EventDescription.length > 100) {
+        res.status(420).json("Event description should be less than 100 characters")
         return 0;
     }else{
     try {
@@ -102,12 +108,18 @@ router.get("/event/vew/:id", async (req, res) => {
 
 router.patch("/event/update/:id", async (req, res) => {
 
-    const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation } = req.body;
+    const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription } = req.body;
     if (!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation) {
         res.status(422).json("Please enter all data")
         return 0;
     }else if (NoOfParticipants > 100) {
         res.status(420).json("Maximum Partipants are 100")
+        return 0;
+    }else if (ClientName.length > 20) {
+        res.status(420).json("Client name should be less than 20 characters")
+        return 0;
+    }else if (EventDescription.length > 100) {
+        res.status(420).json("Event description should be less than 100 characters")
         return 0;
     }
     try {

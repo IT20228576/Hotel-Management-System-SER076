@@ -83,6 +83,10 @@ const UpdateEvent = () => {
       alert("Please enter all event details");
     }else if(NoOfParticipants>100){
       alert("Maximum Partipants are 100")
+    }else if(inpval.ClientName.length>20){
+      alert("Client name should be less than 20 characters")
+    }else if(inpval.EventDescription.length>100){
+      alert("Event description should be less than 100 characters")
     } else {
       alert("Update Event Details Successfully")
       navigate("/view")
@@ -168,21 +172,24 @@ const UpdateEvent = () => {
                   <option>Cancelled</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
-                <Form.Label>Event Description</Form.Label>
-                <Form.Control value={inpval.EventDescription} onChange={setdata} name="EventDescription" />
+                <Form.Label>Event Image *</Form.Label>
+                <Form.Control type='file' onChange={setdata} name="EventImage" />
               </Form.Group>
-
               <Button variant="primary" size="lg" type="submit" style={{ width: "100%" }} onClick={updateevent}>
                 Submit
               </Button>
             </Col>
 
             <Col>
-              <Form.Group className="mb-3" style={{ marginTop: "140px" }}>
-                <Form.Label>Event Image</Form.Label>
-                <Form.Control type='file' onChange={setdata} name="EventImage" />
+              <Form.Group className="mb-3">
+                <Form.Label>Event Description *</Form.Label>
+                <Form.Control
+                  placeholder="Event Description"
+                  as="textarea"
+                  rows={8}
+                  value={inpval.EventDescription} onChange={setdata} name="EventDescription"
+                />
               </Form.Group>
             </Col>
           </Row>
