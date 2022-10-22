@@ -5,7 +5,7 @@ let path = require('path');
 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
-    cb(null, 'C:/Users/sathmini/Documents/GitHub/Hotel-Management-System-SER076/frontend/src/components/image');
+    cb(null, '../frontend/src/components/image');
   },
   filename: function (_req, file, cb) {
     cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
