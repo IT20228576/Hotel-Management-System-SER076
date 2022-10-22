@@ -56,7 +56,7 @@ const EventReport = () => {
           <input
             className="form-control mr-sm-2"
             style={{ width: "700px", marginLeft: "300px" }}
-            placeholder="Month no"
+            placeholder="Event Date"
             type="search"
             name="searchQuery"
             onChange={(event) => {

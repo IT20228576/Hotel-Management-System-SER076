@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
-import img4 from "../eventManagement/Images/eventimage4.jpg";
 
 const AvailableEventsForCustomer = () => {
   const [geteventdata, setEventdata] = useState([]);
@@ -103,12 +102,7 @@ const AvailableEventsForCustomer = () => {
                     <Card.Body>
                       <b>E{id + 100 + 1}</b>
                       <p style={{ textAlign: "center" }}><b>{element.EventName}</b>
-                        <img
-                          className="d-block w-100 mx-auto px-1"
-                          src={img4}
-                          alt="First slide"
-                          style={{ width: "400px", height: "200px" }}
-                        />
+                        <img className="d-block w-100 mx-auto px-1" style={{ width: "400px", height: "200px" }} src={require(`../eventManagement/EventImages/${element.EventImage}`)} alt="Event" />
                       </p>
                       <p style={{ textAlign: "left" }}>{element.EventDescription}</p>
                       <NavLink to={`/EventForCustomer/${element._id}`}><Button style={{ marginLeft: "100px" }}>Find More Details</Button></NavLink>

@@ -2,8 +2,20 @@
 
 ## Introduction to the Project
 
-This project is based on a Hotel Management System. The admin may manage every part of the hotel online to a web-based application created for the project. This web application has main functionalities of user, reservation, room and event. In user management, users can login and register to the system and view profile. also admin can generate the user report. In reservation management, user can reserve their booking rooms and it is handle by reservation management. further, staff memeber can generate their reservation report. In room management, staff member can add available rooms for clients and it display to the customers. also, admin can generate the room report. In event management, customers can reserve their events and they can view their available events in the client dashboard. In addition to that, admin can generate event report using this function.
+This project is based on a hotel reservation system. It provides a platform for customers to reserve rooms directly with the hotel online easily and conveniently without having to visit the hotel physically.
 
+There are four main functionalities we identified in this system,
+   1.	User Management
+   2.	Reservation Management
+   3.	Room Management
+   4.	Event Management
+   
+These functionalities are mainly distributed between two primary roles, which are the customer and the hotel administrator.
+
+Customers can view the hotel rooms and as an additional feature, they can also view the events happening in the hotel and participate in them if needed. To reserve a room, a customer must be a registered customer in the hotel. After registering, they can log in by entering their account credentials. 
+Once a customer selects a room that he/she prefers, they can make a reservation. When reserving a room, he can even make multiple reservations as long as the dates won’t clash. After a successful reservation, the customer will receive an email with the reservation details. 
+
+The hotel administrators are capable of handling all four main functionalities of the system. They can add, update, and delete customers/admins, the information about rooms, reservations, and events. The system can also be used to generate meaningful reports for the convenience of the hotel management.
 
 ## Technologies and Tools
 

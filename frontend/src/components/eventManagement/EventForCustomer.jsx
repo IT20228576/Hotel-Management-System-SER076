@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, NavLink } from 'react-router-dom';
-import img7 from '../eventManagement/Images/eventimage4.jpg';
 import "../layout/Styles/PopUpStyles.css";
 import { Button } from "react-bootstrap";
 
@@ -39,19 +38,19 @@ const EventForCustomer = () => {
     }, [])
 
     return (
-        <div className="container mt-3" style={{ marginLeft: "100px", height: "650px" }}>
+        <div className="container mt-3" style={{ height: "650px" }}>
             <h1 style={{ textAlign: "center" }}><b>{geteventdata.EventName}</b></h1><br></br>
             <div style={{ float: "left", width: "200px", marginLeft: "100px" }}>
-                <p><b>EventID</b></p>
-                <p><b>EventType</b></p>
-                <p><b>EventDate</b></p>
-                <p><b>ClientName</b></p>
-                <p><b>EventStartTime</b></p>
-                <p><b>EventEndTime</b></p>
-                <p><b>NoOfParticipants</b></p>
-                <p><b>EventStatus</b></p>
-                <p><b>EventLocation</b></p>
-                <p><b>EventDescription</b></p>
+                <p><b>Event ID</b></p>
+                <p><b>Event Type</b></p>
+                <p><b>Event Date</b></p>
+                <p><b>Client Name</b></p>
+                <p><b>Event Start Time</b></p>
+                <p><b>Event End Time</b></p>
+                <p><b>No Of Participants</b></p>
+                <p><b>Event Status</b></p>
+                <p><b>Event Location</b></p>
+                <p><b>Event Description</b></p>
             </div>
 
             <div style={{ float: "left", width: "400px" }}>
@@ -69,7 +68,7 @@ const EventForCustomer = () => {
             </div>
 
             <div style={{ float: "left", width: "100px" }}>
-                <img style={{ width: "400px", height: "300px", margin: "auto" }} src={img7} alt='' />
+                <img src={typeof (geteventdata.EventImage) !== 'undefined' ? require(`../eventManagement/EventImages/${geteventdata.EventImage}`) : 'Error'} style={{ width: "400px", height: "300px", margin: "auto" }} alt="Event" />
             </div>
         </div>
     )

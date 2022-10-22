@@ -6,10 +6,30 @@ const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, '../frontend/src/components/eventManagement/EventImages');
+    },
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+  
+  const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+  }
+  
+  let upload = multer({ storage, fileFilter });
 
-router.post("/event/new", async (req, res) => {
+  
+router.post("/event/new",upload.single('EventImage') , async (req, res) => {
 
-    const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription, EventImage } = req.body;
+     const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription} = req.body;
 
     if (!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation) {
         res.status(422).json("Please enter all data")
@@ -17,10 +37,26 @@ router.post("/event/new", async (req, res) => {
     } else if (NoOfParticipants > 100) {
         res.status(420).json("Maximum Partipants are 100")
         return 0;
-    }
+    }else if (ClientName.length > 20) {
+        res.status(420).json("Client name should be less than 20 characters")
+        return 0;
+    }else if (EventDescription.length > 100) {
+        res.status(420).json("Event description should be less than 100 characters")
+        return 0;
+    }else{
     try {
         const addevent = new events({
-            EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription, EventImage
+            EventName: req.body.EventName,
+             EventType: req.body.EventType,
+              EventDate: req.body.EventDate,
+               ClientName: req.body.ClientName,
+                EventStartTime: req.body.EventStartTime,
+                 EventEndTime: req.body.EventEndTime,
+                  NoOfParticipants: req.body.NoOfParticipants,
+                   EventStatus: req.body.EventStatus,
+                    EventLocation: req.body.EventLocation,
+                     EventDescription: req.body.EventDescription,
+                      EventImage: req.file.filename
         });
 
         await addevent.save();
@@ -29,6 +65,7 @@ router.post("/event/new", async (req, res) => {
     } catch (error) {
         res.status(422).json(error);
     }
+}
 })
 
 // get event data
@@ -71,9 +108,18 @@ router.get("/event/vew/:id", async (req, res) => {
 
 router.patch("/event/update/:id", async (req, res) => {
 
-    const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation } = req.body;
+    const { EventName, EventType, EventDate, ClientName, EventStartTime, EventEndTime, NoOfParticipants, EventStatus, EventLocation, EventDescription } = req.body;
     if (!EventName || !EventType || !EventDate || !ClientName || !EventStartTime || !EventEndTime || !NoOfParticipants || !EventStatus || !EventLocation) {
         res.status(422).json("Please enter all data")
+        return 0;
+    }else if (NoOfParticipants > 100) {
+        res.status(420).json("Maximum Partipants are 100")
+        return 0;
+    }else if (ClientName.length > 20) {
+        res.status(420).json("Client name should be less than 20 characters")
+        return 0;
+    }else if (EventDescription.length > 100) {
+        res.status(420).json("Event description should be less than 100 characters")
         return 0;
     }
     try {

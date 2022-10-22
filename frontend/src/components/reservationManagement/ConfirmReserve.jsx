@@ -217,7 +217,7 @@ function ConfirmReserve() {
             <Button
               variant="secondary"
               size="lg"
-              onClick={() => navigate("/reserve")}
+              onClick={() => navigate(-1)}
             >
               Cancel
             </Button>
