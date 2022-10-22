@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { Modal, Button, Table } from "react-bootstrap";
-import img7 from '../eventManagement/Images/eventimage4.jpg';
 import "../layout/Styles/PopUpStyles.css";
 
 const ViewEvent = () => {
