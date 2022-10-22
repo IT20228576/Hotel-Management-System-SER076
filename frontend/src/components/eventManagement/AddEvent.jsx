@@ -49,11 +49,15 @@ const AddEvent = () => {
       navigate("/view")
       }
       }).catch((err)=>{
-        if (!inpval.EventName || !inpval.EventType || !inpval.EventDate || !inpval.ClientName || !inpval.EventStartTime || !inpval.EventEndTime || !inpval.NoOfParticipants || !inpval.EventStatus || !inpval.EventLocation) {
+        if (!inpval.EventName || !inpval.EventType || !inpval.EventDate || !inpval.ClientName || !inpval.EventStartTime || !inpval.EventEndTime || !inpval.NoOfParticipants || !inpval.EventStatus || !inpval.EventLocation || !inpval.EventDescription || !inpval.EventImage) {
           alert("Please enter all event details")
           return 0;
       }else if(inpval.NoOfParticipants>100){
           alert("Maximum Partipants are 100")
+        }else if(inpval.ClientName.length>20){
+          alert("Client name should be less than 20 characters")
+        }else if(inpval.EventDescription.length>100){
+          alert("Event description should be less than 100 characters")
         }
       })
     }
@@ -164,14 +168,15 @@ const AddEvent = () => {
                   <option>Cancelled</option>
                 </Form.Select>
               </Form.Group>
-
               <Form.Group className="mb-3">
-                <Form.Label>Event Description</Form.Label>
+                <Form.Label>Event Image *</Form.Label>
                 <Form.Control
-                  placeholder="Event Description"
-                  value={inpval.EventDescription} onChange={setdata} name="EventDescription"
+                  placeholder="Event Image"
+                  type='file'
+                  accept="image/*"
+                  onChange={handlePhoto} name="EventImage"
                 />
-              </Form.Group>
+                </Form.Group>
 
               <Button
                 variant="primary"
@@ -185,14 +190,13 @@ const AddEvent = () => {
             </Col>
 
             <Col>
-              <Form.Group className="mb-3" style={{ marginTop: "140px" }}>
-                <Form.Label>Event Image</Form.Label>
+              <Form.Group className="mb-3">
+                <Form.Label>Event Description *</Form.Label>
                 <Form.Control
-                  placeholder="Event Image"
-                  type='file'
-                  accept="image/*"
-                  // value={inpval.EventImage}
-                  onChange={handlePhoto} name="EventImage"
+                  placeholder="Event Description"
+                  as="textarea"
+                  rows={8}
+                  value={inpval.EventDescription} onChange={setdata} name="EventDescription"
                 />
               </Form.Group>
             </Col>
