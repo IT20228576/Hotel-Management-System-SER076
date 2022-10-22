@@ -80,6 +80,7 @@ function AddRoom() {
                 <Form.Control
                   name="roomNumber"
                   placeholder="Room Number"
+                  maxLength="10"
                   value={room.roomNumber} onChange={handleChange}
                 />
               </Form.Group>
