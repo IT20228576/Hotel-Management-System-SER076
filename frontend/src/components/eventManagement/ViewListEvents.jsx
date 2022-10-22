@@ -70,7 +70,7 @@ const ViewListEvents = () => {
 
   return (
     <>
-      <div style={{ marginLeft: "100px"}} className="container">
+      <div className="container">
         <div className="mt-5">
           <div>
             <div>

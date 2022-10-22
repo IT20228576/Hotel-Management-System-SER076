@@ -47,7 +47,7 @@ const ViewEvent = () => {
         <a href='/view'><Modal.Header closeButton></Modal.Header></a>
         <Modal.Title style={{ textAlign: "center" }}>{geteventdata.EventName}</Modal.Title>
         <br></br>
-        <img style={{ width: "400px", height: "300px", margin: "auto" }} src={img7} alt='' />
+        <img src={typeof (geteventdata.EventImage) !== 'undefined' ? require(`../eventManagement/EventImages/${geteventdata.EventImage}`) : 'Error'} style={{ width: "400px", height: "300px", margin: "auto" }} alt="Event" />
         <Modal.Body>
           <Table bordered responsive>
             <tbody>

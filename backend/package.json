@@ -4,7 +4,7 @@
   "description": "Hotel-Management-System-SER076-backend",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "start": "node server",
     "dev": "nodemon server",
     "seed": "node seeds.js"
