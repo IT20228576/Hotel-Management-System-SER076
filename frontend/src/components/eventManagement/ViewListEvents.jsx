@@ -70,7 +70,7 @@ const ViewListEvents = () => {
 
   return (
     <>
-      <div style={{ marginLeft: "100px", height: '500px' }}>
+      <div style={{ marginLeft: "100px"}} className="container">
         <div className="mt-5">
           <div>
             <div>
@@ -112,7 +112,7 @@ const ViewListEvents = () => {
                         marginLeft: "100px",
                         marginRight: "10px",
                       }}
-                      placeholder="Search By Event Name / Event Type / Event Date / Event Status"
+                      placeholder="Search By Event Name / Type / Date / Status"
                       type="search"
                       name="searchQuery"
                       onChange={(event) => {
@@ -212,7 +212,7 @@ const ViewListEvents = () => {
           </div>
         </div>
 
-      </div>
+      
       <PaginationComponent
         pageNo={pageNo}
         setPageNo={setPageNo}
@@ -221,6 +221,7 @@ const ViewListEvents = () => {
         totalCount={totalCount}
         pageCount={pageCount}
       />
+      </div>
     </>
   );
 };

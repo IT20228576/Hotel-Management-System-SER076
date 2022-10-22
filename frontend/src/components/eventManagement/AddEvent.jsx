@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { adddata } from './context/ContextProvider';
 import {
   Col,
   Row,
@@ -8,10 +7,9 @@ import {
   Form,
   Container,
 } from "react-bootstrap";
+import axios from "axios";
 
 const AddEvent = () => {
-
-  const { setUdata } = useContext(adddata);
 
   const navigate = useNavigate();
 
@@ -29,48 +27,42 @@ const AddEvent = () => {
     EventImage: ""
   })
 
-  const setdata = (e) => {
-    
-    const { name, value } = e.target;
-    setINP((preval) => {
-      return {
-        ...preval,
-        [name]: value,
-      }
-    })
-  }
-
   const addinpdata = async (e) => {
     e.preventDefault();
+    const data =new FormData();
+    data.append('EventName',inpval.EventName);
+    data.append('EventType',inpval.EventType);
+    data.append('EventStartTime',inpval.EventStartTime);
+    data.append('EventEndTime',inpval.EventEndTime);
+    data.append('ClientName',inpval.ClientName);
+    data.append('NoOfParticipants',inpval.NoOfParticipants);
+    data.append('EventDate',inpval.EventDate);
+    data.append('EventStatus',inpval.EventStatus);
+    data.append('EventLocation',inpval.EventLocation);
+    data.append('EventDescription',inpval.EventDescription);
+    data.append('EventImage',inpval.EventImage);
 
-    const { EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage } = inpval;
+    axios.post("http://localhost:8000/event/new", data).then(()=>{
 
-    const res = await fetch("http://localhost:8000/event/new", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        EventName, EventType, EventStartTime, EventEndTime, ClientName, NoOfParticipants, EventDate, EventStatus, EventLocation, EventDescription, EventImage
-      })
-    });
-
-    const data = await res.json();
-    
-
-    if (res.status === 422 || !data) {
-      console.log("Please enter all mandatory inputs")
-      alert("Please enter all mandatory inputs")
-      return 0;
-    } else if (NoOfParticipants > 100) {
-      alert("Maximum no of participants are 100")
-      return 0;
-    } else {
-      alert("Add Event Details Successfully");
+      if(data){
+        alert("Add Event Details Successfully");
       navigate("/view")
-      setUdata(data)
-      console.log("data added");
+      }
+      }).catch((err)=>{
+        if (!inpval.EventName || !inpval.EventType || !inpval.EventDate || !inpval.ClientName || !inpval.EventStartTime || !inpval.EventEndTime || !inpval.NoOfParticipants || !inpval.EventStatus || !inpval.EventLocation) {
+          alert("Please enter all event details")
+          return 0;
+      }else if(inpval.NoOfParticipants>100){
+          alert("Maximum Partipants are 100")
+        }
+      })
     }
+    const setdata = (e) => {
+      setINP({...inpval, [e.target.name]: e.target.value});
+  }
+
+  const handlePhoto = (e) => {
+    setINP({...inpval, EventImage: e.target.files[0]});
   }
 
   return (
@@ -198,7 +190,9 @@ const AddEvent = () => {
                 <Form.Control
                   placeholder="Event Image"
                   type='file'
-                  onChange={setdata} name="EventImage"
+                  accept="image/*"
+                  // value={inpval.EventImage}
+                  onChange={handlePhoto} name="EventImage"
                 />
               </Form.Group>
             </Col>

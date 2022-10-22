@@ -48,7 +48,7 @@ const UpdateEvent = () => {
 
 
     if (res.status === 422 || !data) {
-      console.log("error ")
+      console.log("Please enter all event details")
       return 0;
     } else {
       setINP(data)
@@ -80,7 +80,9 @@ const UpdateEvent = () => {
    
 
     if (res2.status === 422 || !data2) {
-      alert("fill the data");
+      alert("Please enter all event details");
+    }else if(NoOfParticipants>100){
+      alert("Maximum Partipants are 100")
     } else {
       alert("Update Event Details Successfully")
       navigate("/view")
@@ -97,27 +99,27 @@ const UpdateEvent = () => {
           <Row className="justify-content-md-center">
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Event Name</Form.Label>
+                <Form.Label>Event Name *</Form.Label>
                 <Form.Control value={inpval.EventName} onChange={setdata} name="EventName" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Date</Form.Label>
+                <Form.Label>Event Date *</Form.Label>
                 <Form.Control type='date' value={inpval.EventDate} onChange={setdata} name="EventDate" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Start Time</Form.Label>
+                <Form.Label>Event Start Time *</Form.Label>
                 <Form.Control type='time' value={inpval.EventStartTime} onChange={setdata} name="EventStartTime" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>No Of Participants</Form.Label>
+                <Form.Label>No Of Participants *</Form.Label>
                 <Form.Control value={inpval.NoOfParticipants} onChange={setdata} name="NoOfParticipants" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Location</Form.Label>
+                <Form.Label>Event Location *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventLocation} onChange={setdata} name="EventLocation">
                   <option>Event Location</option>
                   <option>Hall 01</option>
@@ -135,7 +137,7 @@ const UpdateEvent = () => {
 
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Event Type</Form.Label>
+                <Form.Label>Event Type *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventType} onChange={setdata} name="EventType">
                   <option>Event Type</option>
                   <option>Wedding</option>
@@ -147,17 +149,17 @@ const UpdateEvent = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Client/ Company/ Organization Name</Form.Label>
+                <Form.Label>Client/ Company/ Organization Name *</Form.Label>
                 <Form.Control value={inpval.ClientName} onChange={setdata} name="ClientName" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event End Time</Form.Label>
+                <Form.Label>Event End Time *</Form.Label>
                 <Form.Control type='time' value={inpval.EventEndTime} onChange={setdata} name="EventEndTime" />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Event Status</Form.Label>
+                <Form.Label>Event Status *</Form.Label>
                 <Form.Select aria-label="Default select example" value={inpval.EventStatus} onChange={setdata} name="EventStatus">
                   <option>Event Status</option>
                   <option>Available</option>
