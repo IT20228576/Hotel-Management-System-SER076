@@ -47,7 +47,7 @@ function AddRoom() {
         return history('/ViewAllAvailableRoom');
       }
     }).catch((err) => {
-      alert(err);
+      alert("Please Fill All the Required Fields");
     })
   }
   const handleChange = (e) => {
@@ -67,41 +67,49 @@ function AddRoom() {
           <Row className="justify-content-md-center">
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Room Name</Form.Label>
+                <Form.Label>Room Name *</Form.Label>
                 <Form.Control
+                  type="text"
                   name="roomName"
                   placeholder="Room Name"
                   value={room.roomName} onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Room Number</Form.Label>
+                <Form.Label>Room Number *</Form.Label>
                 <Form.Control
                   name="roomNumber"
                   placeholder="Room Number"
+                  type="number"
+                  maxLength="10"
                   value={room.roomNumber} onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>Image *</Form.Label>
                 <Form.Control
                   type="file"
                   accept="image/*"
                   name="image"
                   placeholder="Image"
                   onChange={handlePhoto}
+                  required
+                  
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Room Price</Form.Label>
+                <Form.Label>Room Price *</Form.Label>
                 <Form.Control
                   name="roomPrice"
                   placeholder="Room Price"
                   type="number"
                   value={room.roomPrice} onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Button variant="secondary" size="lg" style={{ width: "70%", float: "right" }}>
@@ -111,27 +119,30 @@ function AddRoom() {
 
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Room Type</Form.Label>
+                <Form.Label>Room Type *</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   value={room.roomType} onChange={handleChange}
                   name="roomType"
+                  required
                 >
-                  <option>Room Type</option>
+                  <option></option>
                   <option value="King room">King room</option>
                   <option value="Twin room">Twin room</option>
+                 
 
                 </Form.Select>
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Description *</Form.Label>
                 <Form.Control
                   name="description"
                   placeholder="Description"
                   as="textarea"
                   rows={8}
                   value={room.description} onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Button
