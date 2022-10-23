@@ -89,43 +89,50 @@ function UpdateRoom(_props) {
           <Row className="justify-content-md-center">
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Room Name</Form.Label>
+                <Form.Label>Room Name *</Form.Label>
                 <Form.Control
                   name="roomName"
                   placeholder="Room Name"
+                  type="text"
                   defaultValue={roomToUpdate.roomName}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Room Number</Form.Label>
+                <Form.Label>Room Number *</Form.Label>
                 <Form.Control
                   name="roomNumber"
                   placeholder="Room Number"
+                  type="number"
+                  maxLength="10"
                   defaultValue={roomToUpdate.roomNumber}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>Image *</Form.Label>
                 <Form.Control
                   type="file"
                   accept="image/*"
                   name="image"
                   placeholder="Image"
                   onChange={(e) => setImage(e.target.files[0])}
+                  required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Room Price</Form.Label>
+                <Form.Label>Room Price *</Form.Label>
                 <Form.Control
                   name="roomPrice"
                   placeholder="Room Price"
                   defaultValue={roomToUpdate.roomPrice}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Button variant="secondary" size="lg" style={{ width: "70%", float: "right" }}>
@@ -135,14 +142,15 @@ function UpdateRoom(_props) {
 
             <Col>
               <Form.Group className="mb-3">
-                <Form.Label>Room Type</Form.Label>
+                <Form.Label>Room Type *</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   defaultValue={roomToUpdate.roomType}
                   onChange={handleChange}
                   name="roomType"
+                  required
                 >
-                  <option>Room Type</option>
+                  <option></option>
                   <option value="King room">King room</option>
                   <option value="Twin room">Twin room</option>
 
@@ -150,7 +158,7 @@ function UpdateRoom(_props) {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
+                <Form.Label>Description *</Form.Label>
                 <Form.Control
                   name="description"
                   placeholder="Description"
@@ -158,6 +166,7 @@ function UpdateRoom(_props) {
                   rows={8}
                   onChange={handleChange}
                   defaultValue={roomToUpdate.description}
+                  required
                 />
               </Form.Group>
               <Button
