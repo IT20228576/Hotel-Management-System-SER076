@@ -15,6 +15,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import PrintIcon from "@mui/icons-material/Print";
 import { useReactToPrint } from "react-to-print";
 import axios from "axios";
+import Logo from "../eventManagement/Images/Logo.png";
 
 function ConfirmReserve() {
   const { state } = useLocation();
@@ -115,7 +116,7 @@ function ConfirmReserve() {
 
   return (
     <div className="container">
-      <Container className="d-flex justify-content-center mt-5">
+      <Container className="d-flex justify-content-center mt-4">
         <Row
           style={{
             marginLeft: "auto",
@@ -124,7 +125,7 @@ function ConfirmReserve() {
           }}
         >
           {isConfirmed ? (
-            <Button variant="secondary" onClick={handlePrint}>
+            <Button variant="secondary" size="lg" onClick={handlePrint}>
               <PrintIcon />
             </Button>
           ) : (
@@ -137,10 +138,48 @@ function ConfirmReserve() {
         ref={componentRef}
       >
         <Card style={{ width: "100rem" }}>
-          <Card.Header className="d-flex justify-content-between">
-            <h2>Confirm Reservation</h2>
-          </Card.Header>
           <Card.Body>
+            <Row>
+              <Card.Title style={{ textAlign: "center" }}>
+                <div style={{ float: "left", width: "25%" }}>
+                  <img
+                    src={Logo}
+                    alt="First slide"
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      marginTop: "10px",
+                    }}
+                  ></img>
+                </div>
+
+                <div style={{ float: "left", width: "50%" }}>
+                  <h1
+                    style={{
+                      marginTop: "10px",
+                      textAlign: "center",
+                      color: "#b38600",
+                    }}
+                  >
+                    <b>CISP HOTEL</b>
+                  </h1>
+                  <h4 style={{ color: "#ffdb4d" }}>Reservation Confirmation</h4>
+                </div>
+
+                <div style={{ float: "left", width: "25%" }}>
+                  <img
+                    src={Logo}
+                    alt="First slide"
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      marginTop: "10px",
+                    }}
+                  ></img>
+                </div>
+                <br></br>
+              </Card.Title>
+            </Row>
             <Row>
               <Col>
                 <Row>
@@ -212,17 +251,11 @@ function ConfirmReserve() {
       {isConfirmed ? (
         ""
       ) : (
-        <Row className="text-center mt-5 mb-5">
-          <Col>
-            <Button
-              variant="secondary"
-              size="lg"
-              onClick={() => navigate(-1)}
-            >
+        <Row className="mt-5 mb-5">
+          <Col className="d-inline-flex gap-5 justify-content-center">
+            <Button variant="secondary" size="lg" onClick={() => navigate(-1)}>
               Cancel
             </Button>
-          </Col>
-          <Col>
             <Button variant="primary" size="lg" onClick={handleConfirm}>
               Confirm
             </Button>
