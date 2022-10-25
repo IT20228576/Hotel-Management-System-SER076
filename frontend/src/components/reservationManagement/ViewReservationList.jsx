@@ -72,6 +72,7 @@ function ViewReservationList() {
           .then((res) => {
             if (res.status === 200) {
               setDetails(res.data.data);
+              setTotalCount(res.data.data.length);
             }
           });
       } else {
@@ -151,7 +152,7 @@ function ViewReservationList() {
 
   return (
     <>
-      <div className="container" style={{minHeight:"500px"}}>
+      <div className="container" style={{ minHeight: "500px" }}>
         <div>
           <div>
             <nav className="navbar navbar-expand-lg navbar-light">
