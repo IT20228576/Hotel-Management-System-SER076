@@ -36,47 +36,74 @@ const UserReport = () => {
   });
 
   const exportPDF = async () => {
-    const unit = "pt";
-    const size = "A4"; // Use A1, A2, A3 or A4
-    const orientation = "portrait"; // portrait or landscape
+    try {
+      if (users.length === 0) {
+        alert("No data to export");
+        return;
+      }
+      const unit = "pt";
+      const size = "A4"; // Use A1, A2, A3 or A4
+      const orientation = "portrait"; // portrait or landscape
 
-    const marginLeft = 40;
-    const doc = new jsPDF(orientation, unit, size);
+      const marginLeft = 40;
+      const doc = new jsPDF(orientation, unit, size);
 
-    doc.setFontSize(15);
+      doc.setFontSize(15);
 
-    const title = "User Report";
-    const headers = [
-      [
-        "First Name",
-        "Last Name",
-        "Email",
-        "Mobile",
-        "DOB",
-        "Country",
-        "User Type",
-      ],
-    ];
+      const title = "User Report";
+      const headers = [
+        [
+          "First Name",
+          "Last Name",
+          "Email",
+          "Mobile",
+          "DOB",
+          "Country",
+          "User Type",
+        ],
+      ];
 
-    const data = users?.map((elt) => [
-      elt.firstName,
-      elt.lastName,
-      elt.email,
-      elt.mobile,
-      elt?.dob?.toString()?.substring(0, 10),
-      elt.country,
-      elt.userType,
-    ]);
+      const data = users?.map((elt) => [
+        elt.firstName,
+        elt.lastName,
+        elt.email,
+        elt.mobile,
+        elt?.dob?.toString()?.substring(0, 10),
+        elt.country,
+        elt.userType,
+      ]);
 
-    let content = {
-      startY: 50,
-      head: headers,
-      body: data,
-    };
+      let content = {
+        head: headers,
+        body: data,
+      };
 
-    doc.text(title, marginLeft, 40);
-    doc.autoTable(content);
-    doc.save("report.pdf");
+      const filterHeaders = [
+        ["Joined From", "Joined To", "User Type", "Country"],
+      ];
+
+      const filterData = [
+        [
+          joinedFrom?.toString()?.substring(0, 10),
+          joinedTo?.toString()?.substring(0, 10),
+          userType,
+          country,
+        ],
+      ];
+
+      let filter = {
+        startY: 50,
+        head: filterHeaders,
+        body: filterData,
+      };
+
+      doc.text(title, marginLeft, 40);
+      doc.autoTable(filter);
+      doc.autoTable(content);
+      doc.save("report.pdf");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   /**
@@ -102,7 +129,7 @@ const UserReport = () => {
         "http://localhost:8000/user/report",
         FilterData
       );
-      
+
       /* This is a conditional statement that checks if the status of the response is 200. If it is,
       then it will alert the user that the registration was successful and then it will remove the
       type and status from local storage. It will then navigate to the login page and reload the
@@ -176,7 +203,7 @@ const UserReport = () => {
             <Row className="justify-content-md-center">
               <Col>
                 <Form.Group className="mb-3">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>User Type</Form.Label>
                   <div className="form-radio-space">
                     <span
                       onChange={(e) => setUserType(e.target.value)}

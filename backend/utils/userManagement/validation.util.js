@@ -6,7 +6,7 @@ const userRegisterSchema = Joi.object({
   firstName: Joi.string().min(2).max(30).required().label("First Name"),
   lastName: Joi.string().min(2).max(30).required().label("Last Name"),
   mobile: Joi.string().length(10).required().label("Mobile"),
-  dob: Joi.date().required().label("Date of Birth"),
+  dob: Joi.string().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
   email: Joi.string()
     .min(5)
@@ -27,7 +27,7 @@ const userUpdateSchema = Joi.object({
   firstName: Joi.string().min(2).max(30).required().label("First Name"),
   lastName: Joi.string().min(2).max(30).required().label("Last Name"),
   mobile: Joi.string().length(10).required().label("Mobile"),
-  dob: Joi.date().required().label("Date of Birth"),
+  dob: Joi.string().required().label("Date of Birth"),
   country: Joi.string().required().label("Country"),
 }).unknown(true);
 
